@@ -15,7 +15,7 @@ public class Controller {
 		SPLASH_SCREEN, MAIN_MENU, GAME, OPTIONS;
 	}
 	
-	State state = State.SPLASH_SCREEN;
+	State state = State.GAME;
 	SplashScreen splashScreen;
 	MainMenu mainMenu;
 	OptionsMenu options;
@@ -30,10 +30,14 @@ public class Controller {
 		mainMenu = new MainMenu();
 		options = new OptionsMenu();
 		game = new GameController();
+		//we may want to move this elsewhere so there isnt a massive load time
+		initialize();
 	}
 	
 	public void initialize() {
 		//initialize everything here
+		graphics.initialize();
+		game.initialize(graphics);
 	}
 	
 	
@@ -52,7 +56,7 @@ public class Controller {
 			splashScreen.update();
 			break;
 		case GAME:
-			game.update();
+			game.update(graphics);
 			break;
 		case OPTIONS:
 			options.update();

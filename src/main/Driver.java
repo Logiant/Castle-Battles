@@ -50,6 +50,7 @@ public class Driver {
 		AL.destroy();
 		Display.destroy();
 		Keyboard.destroy();
+		System.exit(0);
 	}
 
 	/**

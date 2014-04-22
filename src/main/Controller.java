@@ -1,3 +1,4 @@
+
 package main;
 import menu.*;
 import game.*;
@@ -30,16 +31,15 @@ public class Controller {
 		mainMenu = new MainMenu();
 		options = new OptionsMenu();
 		game = new GameController();
-		
+		//we may want to move this elsewhere so there isnt a massive load time
 		initialize();
 	}
 	
 	public void initialize() {
+		//initialize everything here
 		graphics.initialize();
-		splashScreen.initialize();
-		mainMenu.initialize();
-		options.initialize();
-		game.initialize();
+		game.initialize(graphics);
+		splashScreen.initialize(graphics);
 	}
 	
 	
@@ -55,11 +55,13 @@ public class Controller {
 			}
 			break;
 		case SPLASH_SCREEN:
-			splashScreen.update();
-			state = State.MAIN_MENU;
+			boolean finished = splashScreen.update(graphics);
+			if(finished) {
+				state = State.GAME;
+			}
 			break;
 		case GAME:
-			game.update();
+			game.update(graphics);
 			break;
 		case OPTIONS:
 			options.update();

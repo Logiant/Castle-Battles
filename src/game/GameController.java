@@ -1,4 +1,8 @@
+
 package game;
+
+import graphics.Graphics;
+
 /**
  * State machine which controls a single game
  * @author beaverl
@@ -17,11 +21,12 @@ public class GameController {
 		game = new Game();
 	}
 	
-	public void initialize() {
+	public void initialize(Graphics g) {
 		//initialize everything here
+		game.initialize(g);
 	}
 	
-	public void update() {
+	public void update(Graphics g) {
 		switch (state) {
 		default:
 		case SETUP:
@@ -31,7 +36,7 @@ public class GameController {
 			//update the character creation until finish or back is hit, returns int[]
 			break;
 		case GAME:
-			game.update();
+			game.update(g);
 			break;
 		}
 	}

@@ -55,8 +55,7 @@ public class Controller {
 			}
 			break;
 		case SPLASH_SCREEN:
-			boolean finished = splashScreen.update(graphics);
-			if(finished) {
+			if(splashScreen.update(graphics)) {
 				state = State.GAME;
 			}
 			break;

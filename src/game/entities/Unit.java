@@ -1,5 +1,5 @@
 package game.entities;
 
-public class Entity {
+public class Unit {
 
 }

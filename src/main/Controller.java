@@ -30,10 +30,16 @@ public class Controller {
 		mainMenu = new MainMenu();
 		options = new OptionsMenu();
 		game = new GameController();
+		
+		initialize();
 	}
 	
 	public void initialize() {
-		//initialize everything here
+		graphics.initialize();
+		splashScreen.initialize();
+		mainMenu.initialize();
+		options.initialize();
+		game.initialize();
 	}
 	
 	
@@ -50,6 +56,7 @@ public class Controller {
 			break;
 		case SPLASH_SCREEN:
 			splashScreen.update();
+			state = State.MAIN_MENU;
 			break;
 		case GAME:
 			game.update();

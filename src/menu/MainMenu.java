@@ -10,8 +10,11 @@ public class MainMenu {
 	
 	//Button[]
 
+	public void initialize() {
+		//initialize components here
+	}
 	public String update() {
-		String cmd = null;
+		String cmd = "GAME";	//Changed from null to GAME so it doesnt throw a null pointer.
 		// TODO Auto-generated method stub
 		return cmd;
 	}

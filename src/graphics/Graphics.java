@@ -27,6 +27,7 @@ public class Graphics {
 		int id = textures.size();
 		try {
 			textures.add(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("resources/" + path + ".png")));
+			System.out.println("Loaded: " + path + ".png");
 		} catch (IOException e) {
 			System.err.println("Could not load file " + path);
 			System.exit(-1);

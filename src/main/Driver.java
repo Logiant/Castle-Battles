@@ -16,8 +16,8 @@ import org.lwjgl.opengl.*;
 public class Driver {
 
 
-	int screenHeight = 600;
-	int screenWidth = 800;
+	public static int screenHeight = 600;	//changed modifier to public so our other packages can access it
+	public static int screenWidth = 800;	//ditto
 	
 	private Controller game;
 

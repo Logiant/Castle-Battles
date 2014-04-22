@@ -1,5 +1,10 @@
 package game;
 
+/**
+ * The options menu ingame - adjusts audio levels and other easy things
+ * @author beaverl
+ *
+ */
 public class GameOptionsMenu {
 
 	public boolean update() {

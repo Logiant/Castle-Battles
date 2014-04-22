@@ -9,6 +9,11 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+/**
+ * A class which handles all draw calls to openGL and texture loading
+ * @author beaverl
+ *
+ */
 public class Graphics {
 
 	private static int idLoaded = -1;

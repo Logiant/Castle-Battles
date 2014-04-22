@@ -3,17 +3,23 @@ import menu.*;
 import game.*;
 import graphics.Graphics;
 
+/**
+ * controls the overall state of the game
+ * splash screen, main menu, ingame, options menu
+ * @author beaverl
+ *
+ */
 public class Controller {
 
-	enum GameState {
+	enum State {
 		SPLASH_SCREEN, MAIN_MENU, GAME, OPTIONS;
 	}
 	
-	GameState state = GameState.SPLASH_SCREEN;
+	State state = State.SPLASH_SCREEN;
 	SplashScreen splashScreen;
 	MainMenu mainMenu;
 	OptionsMenu options;
-	Game game;
+	GameController game;
 	Graphics graphics;
 	InputHandler input;
 	
@@ -23,7 +29,7 @@ public class Controller {
 		splashScreen = new SplashScreen();
 		mainMenu = new MainMenu();
 		options = new OptionsMenu();
-		game = new Game();
+		game = new GameController();
 	}
 	
 	public void initialize() {
@@ -37,9 +43,9 @@ public class Controller {
 		case MAIN_MENU:
 			String nextState = mainMenu.update();
 			if (nextState.equals("GAME")) {
-				state = GameState.GAME;
+				state = State.GAME;
 			} else {
-				state = GameState.OPTIONS;
+				state = State.OPTIONS;
 			}
 			break;
 		case SPLASH_SCREEN:

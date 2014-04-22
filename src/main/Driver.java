@@ -7,7 +7,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.*;
 
-
+/**
+ * this class contains main()
+ * It initializes openGL and contains the game running loop
+ * @author beaverl
+ *
+ */
 public class Driver {
 
 

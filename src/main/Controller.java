@@ -21,9 +21,7 @@ public class Controller {
 	MainMenu mainMenu;
 	OptionsMenu options;
 	GameController game;
-	Graphics graphics;
-	InputHandler input;
-	
+	Graphics graphics;	
 	
 	public Controller() {
 		graphics = new Graphics();
@@ -38,20 +36,25 @@ public class Controller {
 	public void initialize() {
 		//initialize everything here
 		graphics.initialize();
+		InputHandler.initialize();
 		game.initialize(graphics);
 		splashScreen.initialize(graphics);
+		mainMenu.initialize(graphics);
 	}
 	
 	
 	public void update() {
+		InputHandler.update();
 		switch (state) {
 		default:
 		case MAIN_MENU:
-			String nextState = mainMenu.update();
+			String nextState = mainMenu.update(graphics);
 			if (nextState.equals("GAME")) {
 				state = State.GAME;
-			} else {
+			} else if (nextState.equals("OPTIONS")){
 				state = State.OPTIONS;
+			} else {
+				state = State.MAIN_MENU;
 			}
 			break;
 		case SPLASH_SCREEN:

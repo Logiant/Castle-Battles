@@ -21,7 +21,7 @@ public class Camera {
 
 	public void update() {
 		GL11.glLoadIdentity();
-		GL11.glTranslatef(-position.x, -position.y, 0);
+		GL11.glTranslatef(-position.x, -position.y, 0); //these are negative because we are moving the world around the camera
 	}
 	
 	public void move(float x, float y) {

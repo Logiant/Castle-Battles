@@ -8,7 +8,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
 public class MenuButton {
-	//TODO: Create an object that acts as a button for the main menu (buttons include: campaign, skirmish, options)
 
 	private String text;
 	private Vector2f position;

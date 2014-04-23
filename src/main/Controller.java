@@ -13,7 +13,7 @@ import graphics.Graphics;
 public class Controller {
 
 	enum State {
-		SPLASH_SCREEN, MAIN_MENU, GAME, OPTIONS;
+		SPLASH_SCREEN, MAIN_MENU, CAMPAIGN, GAME, OPTIONS;
 	}
 
 	State state = State.SPLASH_SCREEN;
@@ -21,6 +21,7 @@ public class Controller {
 	MainMenu mainMenu;
 	OptionsMenu options;
 	GameController game;
+	Campaign campaign;
 	Graphics graphics;	
 
 	public Controller() {
@@ -29,6 +30,7 @@ public class Controller {
 		mainMenu = new MainMenu();
 		options = new OptionsMenu();
 		game = new GameController();
+		campaign = new Campaign();
 		//we may want to move this elsewhere so there isnt a massive load time
 		initialize();
 	}
@@ -38,6 +40,7 @@ public class Controller {
 		graphics.initialize();
 		InputHandler.initialize();
 		game.initialize(graphics);
+		campaign.initialize(graphics);
 		splashScreen.initialize(graphics);
 		mainMenu.initialize(graphics);
 	}
@@ -50,7 +53,9 @@ public class Controller {
 		case MAIN_MENU:
 			String nextState = mainMenu.update(graphics);
 			if (nextState != null) {
-				if (nextState.equals("GAME")) {
+				if(nextState.equals("CAMPAIGN")) {
+					state = State.CAMPAIGN;
+				} else if (nextState.equals("GAME")) {
 					state = State.GAME;
 				} else if (nextState.equals("OPTIONS")){
 					state = State.OPTIONS;
@@ -62,6 +67,13 @@ public class Controller {
 		case SPLASH_SCREEN:
 			if(splashScreen.update(graphics)) {
 				state = State.MAIN_MENU;
+			}
+			break;
+		case CAMPAIGN: 
+			nextState = campaign.update(graphics);
+			if(nextState != null) {
+				if(nextState.equals("MAIN_MENU"))
+					state = State.MAIN_MENU;
 			}
 			break;
 		case GAME:

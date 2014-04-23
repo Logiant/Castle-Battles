@@ -9,14 +9,13 @@ package menu;
 public class MainMenu {
 	
 	//Button[]
-
+	
 	public void initialize() {
-		//initialize components here
+		
 	}
 	public String update() {
-		String cmd = "GAME";	//Changed from null to GAME so it doesnt throw a null pointer.
-		// TODO Auto-generated method stub
+		String cmd = "";	//Changed from GAME to an empty string to test the Main Menu state
+		
 		return cmd;
 	}
-
 }

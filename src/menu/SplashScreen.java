@@ -37,7 +37,7 @@ public class SplashScreen {
 		GL11.glBegin(GL11.GL_QUADS);
 		draw(g);
 		GL11.glEnd();
-		timer.schedule(new SplashTimer(), 5000);
+		timer.schedule(new SplashTimer(), 2000);
 		return finished;
 	}
 	

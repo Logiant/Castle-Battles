@@ -56,7 +56,7 @@ public class Controller {
 			break;
 		case SPLASH_SCREEN:
 			if(splashScreen.update(graphics)) {
-				state = State.GAME;
+				state = State.MAIN_MENU;
 			}
 			break;
 		case GAME:

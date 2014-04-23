@@ -30,7 +30,7 @@ public class GameController {
 		switch (state) {
 		default:
 		case SETUP:
-			//game setup. Chose map (or map seed) set dificulty (AI resource bonuses)
+			//game setup. Choose map (or map seed) set dificulty (AI resource bonuses)
 			break;
 		case CHARACTER_CREATE:
 			//update the character creation until finish or back is hit, returns int[]

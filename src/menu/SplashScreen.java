@@ -1,7 +1,7 @@
 package menu;
 
-import java.util.Timer;
-import java.util.TimerTask;
+
+import main.Time;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -20,37 +20,25 @@ import graphics.Rect;
  */
 public class SplashScreen {
 
-	boolean finished;
+	float timeRemaining = 3000;		//3 seconds (or 3000 ms)
 	int textureId;
-	Timer timer;
 	Vector2f position = new Vector2f();
 	Vector2f size = new Vector2f(Display.getWidth(), Display.getHeight());
 	
 
 	public void initialize(Graphics g) {
 		textureId = g.loadImage("Splashscreen");
-		finished = false;
-		timer = new Timer();
 	}
 	
 	public boolean update(Graphics g) {
 		GL11.glBegin(GL11.GL_QUADS);
 		draw(g);
 		GL11.glEnd();
-		timer.schedule(new SplashTimer(), 2000);
-		return finished;
-	}
+		timeRemaining -= Time.dt;	//decrement the time remaining by the duration of the last update
+		return timeRemaining <= 0;	//if the time is less than or equal to 0, return true.
+	}								//causing the program to shift to the next state
 	
 	public void draw(Graphics g) {
 		g.draw(textureId, new Rect(position, size));
-	}
-	
-	private class SplashTimer extends TimerTask {
-
-		@Override
-		public void run() {
-			finished = true;			
-		}
-		
 	}
 }

@@ -20,12 +20,16 @@ public class Camera {
 	}
 
 	public void update() {
+		//sets (0, 0) to be the upper left of the screen
 		GL11.glLoadIdentity();
-		GL11.glTranslatef(-position.x, -position.y, 0); //these are negative because we are moving the world around the camera
+		//translates the origin [and thus everything drawn after this call] (-x, -y) to give the illusion of camera movement
+		//so the position (2, 1) translates the world left 2 and up 1 (-2, -1) so the camera appears to move right 2 and down 1
+		GL11.glTranslatef(-position.x, -position.y, 0);
 	}
 	
-	public void move(float x, float y) {
-		position.x += x * moveSpeed * Time.dt;
-		position.y += y * moveSpeed * Time.dt;
+
+	public void move(float dx, float dy) { //takes in an x and y displacement
+		position.x += dx * moveSpeed * Time.dt;
+		position.y += dy * moveSpeed * Time.dt;
 	}
 }

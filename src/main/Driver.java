@@ -7,6 +7,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.*;
 
+import widgets.Text;
+
 /**
  * this class contains main()
  * It initializes openGL and contains the game running loop
@@ -47,16 +49,14 @@ public class Driver {
 			Display.update();
 			Display.sync(60);
 		}//end update loop
-		AL.destroy();
-		Display.destroy();
-		Keyboard.destroy();
-		System.exit(0);
+		close();
 	}
 
 	/**
 	 * initializes the game state controller
 	 */
 	public void logicInitialization() {
+		Text.initialize();
 		game = new Controller();
 	}
 
@@ -85,6 +85,13 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		new Driver();
+	}
+
+	public static void close() {
+		AL.destroy();
+		Display.destroy();
+		Keyboard.destroy();
+		System.exit(0);		
 	}
 
 }

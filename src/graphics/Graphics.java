@@ -18,19 +18,26 @@ public class Graphics {
 
 	private static int idLoaded = -1;
 	private static List<Texture> textures;
-	
+	private static List<String> paths;
+
 	public void initialize() {
 		textures = new ArrayList<Texture>();
+		paths = new ArrayList<String>();
 	}
-	
+
 	public int loadImage(String path) {
 		int id = textures.size();
-		try {
-			textures.add(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("resources/" + path + ".png")));
-			System.out.println("Loaded: " + path + ".png");
-		} catch (IOException e) {
-			System.err.println("Could not load file " + path);
-			System.exit(-1);
+		if (paths.contains(path)) { //if we already loaded this texture
+			id = paths.indexOf(path); //just get the id and return it
+		} else {
+			paths.add(path); //add to the list of loaded textures
+			try {
+				textures.add(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("resources/" + path + ".png")));
+				System.out.println("Loaded: " + path + ".png");
+			} catch (IOException e) {
+				System.err.println("Could not load file " + path);
+				System.exit(-1);
+			}
 		}
 		return id;
 	}

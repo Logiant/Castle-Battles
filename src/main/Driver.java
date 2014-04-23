@@ -79,7 +79,8 @@ public class Driver {
 	 * resets the FOV and updates the game state controller
 	 */
 	public void updateLogic() {
-		GL11.glLoadIdentity();
+		System.out.println("dt: " + Time.dt);
+		Time.update();
 		game.update();
 	}
 	

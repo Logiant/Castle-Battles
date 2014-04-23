@@ -38,10 +38,11 @@ public class Controller {
 	public void initialize() {
 		//initialize everything here
 		graphics.initialize();
+		splashScreen.initialize(graphics); //moved this to first, since we want it ready ASAP
 		InputHandler.initialize();
 		game.initialize(graphics);
 		campaign.initialize(graphics);
-		splashScreen.initialize(graphics);
+		options.initialize(graphics);
 		mainMenu.initialize(graphics);
 	}
 
@@ -80,7 +81,10 @@ public class Controller {
 			game.update(graphics);
 			break;
 		case OPTIONS:
-			options.update();
+			String command = options.update(graphics);
+			if (command != null && command.equals("BACK")) {
+				state = State.MAIN_MENU;
+			}
 			break;
 
 

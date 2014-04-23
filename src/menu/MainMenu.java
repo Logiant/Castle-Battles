@@ -29,7 +29,7 @@ public class MainMenu {
 		//button constructor		Text		Position				Size					Command
 		buttons[0] = new MenuButton("Campaign",	new Vector2f(520,100),	new Vector2f(256,64),	"CAMPAIGN"); //not implemented
 		buttons[1] = new MenuButton("Skirmish",	new Vector2f(520,200),	new Vector2f(256,64),	"GAME");
-		buttons[2] = new MenuButton("Options", 	new Vector2f(520,300),	new Vector2f(256,64),	"OPTIONs"); //not implemented
+		buttons[2] = new MenuButton("Options", 	new Vector2f(520,300),	new Vector2f(256,64),	"OPTIONS"); //not implemented
 		buttons[3] = new MenuButton("Quit", 	new Vector2f(520,400),	new Vector2f(256,64),	"QUIT");
 		
 		for (MenuButton b : buttons)	//Changed to enhanced loop so you dont need to change loop parameters

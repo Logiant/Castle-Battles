@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
 import game.buildings.CityManager;
-import game.buildings.Farm;
 import game.world.Map;
 import graphics.Graphics;
 
@@ -45,7 +44,7 @@ public class Game {
 		map.initialize(g);
 		cam.initialize(0, 0);
 		gameOptionsMenu.initialize(g);
-		city.initialize(g);
+		city.initialize(g, map);
 	}
 	public String update(Graphics g) {
 

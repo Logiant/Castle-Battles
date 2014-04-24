@@ -14,23 +14,28 @@ import game.world.Map;
 import graphics.Graphics;
 import graphics.Rect;
 
+/**
+ * a class that managies the city - buildings and stuff
+ * @author Logs
+ *
+ */
 public class CityManager {
 
 	List<Farm> farms;
 
 	int farmId;
-
 	int buildKey = Keyboard.getKeyIndex("B");
 
 	boolean placingBuilding;
 	int placingBuildingId;
 	Vector2f placingPosition;
+	Map world;
 	
-	public void initialize(Graphics g) {
+	public void initialize(Graphics g, Map map) {
 		farmId = g.loadImage("farm");
 		farms = new ArrayList<Farm>();
-		farms.add(new Farm(farmId, new Vector2f(3*Map.TILE_SIZE, 1*Map.TILE_SIZE)));
 
+		world = map;
 		placingPosition = new Vector2f();
 	}
 
@@ -41,8 +46,10 @@ public class CityManager {
 			placingBuildingId = farmId; //this will eventually be returned from a BuildingButton
 		}
 		
-		if (placingBuilding && active && InputHandler.leftClicked()) { //click to place a building
+		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.width, Farm.height) 
+				&& active && InputHandler.leftClicked()) { //click to place a building
 			farms.add(new Farm(farmId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
 		}
 		
 		collectResources();
@@ -71,6 +78,7 @@ public class CityManager {
 			}
 			//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
 			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(Farm.getSize().x, Farm.getSize().y)));
+			//we want some sort of notification that a spot can't be built on - maybe tinting the building red?
 		}
 	}
 }

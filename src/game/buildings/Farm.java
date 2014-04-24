@@ -19,8 +19,8 @@ public class Farm extends Building{
 		super(textureId, position);
 	}
 
-	private static float width = 2*Map.TILE_SIZE;
-	private static float height = 2*Map.TILE_SIZE;
+	static final float width = 2*Map.TILE_SIZE;
+	static final float height = 2*Map.TILE_SIZE;
 	
 	public void update() {
 		//TODO figure out how much food is produced, handle click events, etc

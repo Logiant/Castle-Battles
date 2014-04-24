@@ -1,7 +1,6 @@
 package game.entities;
 
 import graphics.Graphics;
-import graphics.Rect;
 
 import org.newdawn.slick.geom.Vector2f;
 

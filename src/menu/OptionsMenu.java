@@ -41,15 +41,18 @@ MenuButton[] buttons = new MenuButton[1]; //Back
 				break;	//a button was pressed!
 		}
 		
+		GL11.glPushMatrix();
+		GL11.glLoadIdentity();
 		GL11.glBegin(GL11.GL_QUADS);
 		draw(g);
 		GL11.glEnd();
+		draw2(g);//drawing fonts needs to be done outside of the glBegin and glEnd calls because they use their own textures
+				 //this is a bit of a hack, we may want to do something about it later - maybe unbinding the textures then calling it? idk
+		GL11.glPopMatrix();
 		
 		
-		//drawing fonts needs to be done outside of the glBegin and glEnd calls because they use their own textures
-		//this is a bit of a hack, we may want to do something about it later - maybe unbinding the textures then calling it? idk
-		for (MenuButton b : buttons)	//Changed to enhanced loop
-			b.drawText();
+		
+		
 		
 		return cmd;
 	}
@@ -58,5 +61,9 @@ MenuButton[] buttons = new MenuButton[1]; //Back
 		g.draw(textureId, new Rect(position, size));
 		for (MenuButton b : buttons)	//Changed to enhanced loop
 			b.draw(g);
+	}
+	public void draw2(Graphics g) {
+		for (MenuButton b : buttons)	//Changed to enhanced loop
+			b.drawText();
 	}
 }

@@ -48,12 +48,13 @@ public class Campaign {
 				break;	//a button was pressed!
 		}
 
+		GL11.glPushMatrix();
+		GL11.glLoadIdentity();
 		GL11.glBegin(GL11.GL_QUADS);
 		draw(g);
 		GL11.glEnd();
-
-		for (MenuButton b : buttons)
-			b.drawText();
+		draw2(g);
+		GL11.glPopMatrix();
 
 		return cmd;
 	}
@@ -62,5 +63,10 @@ public class Campaign {
 		g.draw(textureId, new Rect(position, size));
 		for (MenuButton b : buttons)
 			b.draw(g);
+	}
+	
+	public void draw2(Graphics g) {
+		for (MenuButton b : buttons)	//Changed to enhanced loop
+			b.drawText();
 	}
 }

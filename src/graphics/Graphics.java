@@ -60,4 +60,23 @@ public class Graphics {
 		GL11.glTexCoord2f(1, 0);
 		GL11.glVertex2f(rectangle.x + rectangle.width, rectangle.y);
 	}
+
+	//draws parts of textures
+	public void drawMapped(int id, Rect rectangle, TextureRect texPos) {
+		//if drawing a new texture
+		if (idLoaded != id) {
+			GL11.glEnd();
+			idLoaded = id;
+			textures.get(id).bind();
+			GL11.glBegin(GL11.GL_QUADS);
+		}
+		GL11.glTexCoord2f(texPos.x, texPos.y);
+		GL11.glVertex2f(rectangle.x, rectangle.y);
+		GL11.glTexCoord2f(texPos.x, texPos.y + texPos.sizeY);
+		GL11.glVertex2f(rectangle.x, rectangle.y + rectangle.height);
+		GL11.glTexCoord2f(texPos.x + texPos.sizeX, texPos.y + texPos.sizeY);
+		GL11.glVertex2f(rectangle.x + rectangle.width, rectangle.y + rectangle.height);
+		GL11.glTexCoord2f(texPos.x + texPos.sizeX, texPos.sizeY);
+		GL11.glVertex2f(rectangle.x + rectangle.width, rectangle.y);
+	}
 }

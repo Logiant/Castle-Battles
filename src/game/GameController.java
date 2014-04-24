@@ -26,7 +26,8 @@ public class GameController {
 		game.initialize(g);
 	}
 	
-	public void update(Graphics g) {
+	public String update(Graphics g) {
+		String cmd = "";
 		switch (state) {
 		default:
 		case SETUP:
@@ -36,8 +37,12 @@ public class GameController {
 			//update the character creation until finish or back is hit, returns int[]
 			break;
 		case GAME:
-			game.update(g);
+			String nextState = game.update(g);
+			if (nextState.equals("QUIT")) {
+				cmd = nextState;
+			}
 			break;
 		}
+		return cmd;
 	}
 }

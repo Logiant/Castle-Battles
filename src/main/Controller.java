@@ -72,17 +72,17 @@ public class Controller {
 			break;
 		case CAMPAIGN: 
 			nextState = campaign.update(graphics);
-			if(nextState != null) {
-				if(nextState.equals("MAIN_MENU"))
-					state = State.MAIN_MENU;
-			}
+			if(nextState.equals("MAIN_MENU"))
+				state = State.MAIN_MENU;
 			break;
 		case GAME:
-			game.update(graphics);
+			nextState = game.update(graphics);
+			if (nextState.equals("QUIT"))
+				state = State.MAIN_MENU;
 			break;
 		case OPTIONS:
 			String command = options.update(graphics);
-			if (command != null && command.equals("BACK")) {
+			if (command.equals("BACK")) {
 				state = State.MAIN_MENU;
 			}
 			break;

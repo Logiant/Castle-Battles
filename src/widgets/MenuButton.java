@@ -30,7 +30,7 @@ public class MenuButton {
 	}
 
 	public String update() {	
-		String cmd = null;
+		String cmd = "";
 		//check for mouseover
 		if (Mouse.getX() > position.x && Mouse.getX() < position.x + size.x &&
 			Driver.screenHeight - Mouse.getY() > position.y && Driver.screenHeight - Mouse.getY() < position.y + size.y) {

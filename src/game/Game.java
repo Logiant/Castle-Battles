@@ -45,7 +45,7 @@ public class Game {
 		cameraMovement();		
 		String nextState = gameOptionsMenu.update(g);
 
-		if(InputHandler.wasKeyPressed(escape) || (nextState != null && nextState.equals("BACK"))) {
+		if(InputHandler.wasKeyPressed(escape) || nextState.equals("BACK")) {
 			gameOptionsMenu.toggle();
 		}
 
@@ -54,8 +54,13 @@ public class Game {
 		background.draw(g);
 		GL11.glEnd();
 
-
-		//draw the UI
+		drawUI(g);	
+		
+		//TODO finish this
+		return nextState;
+	}
+	
+	public void drawUI(Graphics g) {
 		if (gameOptionsMenu.isActive()) {
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
@@ -66,8 +71,6 @@ public class Game {
 			GL11.glPopMatrix();
 
 		}
-		//TODO finish this
-		return nextState;
 	}
 
 	public void cameraMovement() {

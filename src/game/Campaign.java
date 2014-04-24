@@ -20,12 +20,12 @@ import graphics.Rect;
 public class Campaign {
 
 	MenuButton[] buttons = new MenuButton[6]; //Level 1 through x
-	
+
 	int textureId;
 	Vector2f position = new Vector2f();
 	Vector2f size = new Vector2f(Display.getWidth(), Display.getHeight());
-	
-	
+
+
 	public void initialize(Graphics g) {
 		textureId = g.loadImage("Campaign");
 		//button constructor		Text		Position				Size					Command
@@ -35,30 +35,29 @@ public class Campaign {
 		buttons[3] = new MenuButton("Level 4", 	new Vector2f(100,300),	new Vector2f(150,64),	"4"); //Not implemented
 		buttons[4] = new MenuButton("Level 5", 	new Vector2f(100,375),	new Vector2f(150,64),	"5"); //Not implemented
 		buttons[5] = new MenuButton("<< Back", 	new Vector2f(100,450),	new Vector2f(150,64),	"MAIN_MENU");
-		
+
 		for (MenuButton b : buttons)
-			if(b != null)
-				b.initialzie(g);
+			b.initialzie(g);
 	}
-	
+
 	public String update(Graphics g) {
 		String cmd = "";
 		for (MenuButton b : buttons) {
 			cmd = b.update();
-			if (cmd != null)
+			if (!cmd.equals(""))
 				break;	//a button was pressed!
 		}
-		
+
 		GL11.glBegin(GL11.GL_QUADS);
 		draw(g);
 		GL11.glEnd();
 
 		for (MenuButton b : buttons)
 			b.drawText();
-		
+
 		return cmd;
 	}
-	
+
 	public void draw(Graphics g) {
 		g.draw(textureId, new Rect(position, size));
 		for (MenuButton b : buttons)

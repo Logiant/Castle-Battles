@@ -1,10 +1,8 @@
 package game.world;
 
 import game.entities.Tile;
-import game.world.tiles.WallTile;
 import graphics.Graphics;
 import graphics.Rect;
-import graphics.TextureRect;
 
 /**
  * a map class that holds/renders the games tiles

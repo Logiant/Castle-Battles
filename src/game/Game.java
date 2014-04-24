@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
 import game.world.Map;
-import game.world.SimpleBackground;
 import graphics.Graphics;
 
 /**
@@ -77,14 +76,16 @@ public class Game {
 	public void cameraMovement() {
 		float dx = 0;
 		float dy = 0;
-		if (InputHandler.isKeyDown(upKey)) {
-			dy--;
-		}if (InputHandler.isKeyDown(downKey)) {
-			dy++;
-		}if (InputHandler.isKeyDown(leftKey)) {
-			dx--;
-		}if (InputHandler.isKeyDown(rightKey)) {
-			dx++;
+		if(!gameOptionsMenu.isActive()) {	//fixed scrolling bug (scrolling while menu is up).
+			if (InputHandler.isKeyDown(upKey)) {
+				dy--;
+			}if (InputHandler.isKeyDown(downKey)) {
+				dy++;
+			}if (InputHandler.isKeyDown(leftKey)) {
+				dx--;
+			}if (InputHandler.isKeyDown(rightKey)) {
+				dx++;
+			}
 		}
 		cam.move(dx, dy);
 		cam.update();

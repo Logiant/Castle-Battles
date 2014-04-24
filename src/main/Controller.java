@@ -40,7 +40,6 @@ public class Controller {
 		graphics.initialize();
 		splashScreen.initialize(graphics); //moved this to first, since we want it ready ASAP
 		InputHandler.initialize();
-		game.initialize(graphics);
 		campaign.initialize(graphics);
 		options.initialize(graphics);
 		mainMenu.initialize(graphics);
@@ -58,6 +57,8 @@ public class Controller {
 					state = State.CAMPAIGN;
 				} else if (nextState.equals("GAME")) {
 					state = State.GAME;
+					game = new GameController();	//moved instantiation here so that when the user hits "quit"
+					game.initialize(graphics);		//the game will not save. (unless we want it to save automatically).
 				} else if (nextState.equals("OPTIONS")){
 					state = State.OPTIONS;
 				} else if (nextState.equals("QUIT")){

@@ -7,6 +7,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
+import game.buildings.CityManager;
+import game.buildings.Farm;
 import game.world.Map;
 import graphics.Graphics;
 
@@ -28,17 +30,22 @@ public class Game {
 	int rightKey = Keyboard.getKeyIndex("D");
 	int escape = Keyboard.KEY_ESCAPE;
 
+	//for testing purposes
+	CityManager city;
 
 	public Game() {
 		cam = new Camera();
 		map = new Map();
 		gameOptionsMenu = new GameOptionsMenu();
+		
+		city = new CityManager();
 	}
 
 	public void initialize(Graphics g) {
 		map.initialize(g);
 		cam.initialize(0, 0);
 		gameOptionsMenu.initialize(g);
+		city.initialize(g);
 	}
 	public String update(Graphics g) {
 
@@ -49,12 +56,17 @@ public class Game {
 			gameOptionsMenu.toggle();
 		}
 
+		city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+		
+		
 		//rendering - we could make this a nested class called Render if needed
 		GL11.glBegin(GL11.GL_QUADS);
 		map.draw(g);
+		city.draw(g);
+		city.drawPlaced(g, cam.getTranslation(), !gameOptionsMenu.isActive());
 		GL11.glEnd();
 
-		drawUI(g);	
+		drawUI(g);
 		
 		//TODO finish this
 		return nextState;

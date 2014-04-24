@@ -32,4 +32,8 @@ public class Camera {
 		position.x += dx * moveSpeed * Time.dt;
 		position.y += dy * moveSpeed * Time.dt;
 	}
+
+	public Vector2f getTranslation() {
+		return position;
+	}
 }

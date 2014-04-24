@@ -81,6 +81,5 @@ public class Graphics {
 		
 		GL11.glTexCoord2f(texPos.x + texPos.sizeX, 		texPos.y);
 		GL11.glVertex2f(rectangle.x + rectangle.width, 	rectangle.y);
-		System.out.println(texPos.sizeX);
 	}
 }

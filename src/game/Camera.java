@@ -24,7 +24,7 @@ public class Camera {
 		GL11.glLoadIdentity();
 		//translates the origin [and thus everything drawn after this call] (-x, -y) to give the illusion of camera movement
 		//so the position (2, 1) translates the world left 2 and up 1 (-2, -1) so the camera appears to move right 2 and down 1
-		GL11.glTranslatef(-position.x, -position.y, 0);
+		GL11.glTranslatef(-(int)position.x, -(int)position.y, 0);
 	}
 	
 

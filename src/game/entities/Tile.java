@@ -9,7 +9,17 @@ import graphics.TextureRect;
  *
  */
 public abstract class Tile {
+	
+	private boolean buildable; //can a tile have a building placed on it?
 
 	public abstract TextureRect getTextureRect();
+	
+	public boolean isBuildable() {
+		return buildable;
+	}
+	
+	public void setBuildable(boolean buildable) {
+		this.buildable = buildable;
+	}
 
 }

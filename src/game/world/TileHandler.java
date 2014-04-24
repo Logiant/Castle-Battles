@@ -6,7 +6,7 @@ import game.world.tiles.*;
 public class TileHandler {
 
 	enum TileType {
-		GROUND, WALL, WATER;
+		BUILDABLE, GROUND, WALL, WATER;
 	}
 
 
@@ -20,9 +20,12 @@ public class TileHandler {
 		case WALL:
 			nextTile = new WallTile(x, y);
 			break;
-
 		case WATER:
 			nextTile = new WaterTile(x, y);
+			break;
+		case BUILDABLE:
+			nextTile = new GroundTile(x, y);
+			nextTile.setBuildable(true);
 			break;
 		}
 		return nextTile;
@@ -39,6 +42,9 @@ public class TileHandler {
 			break;
 		case 'A':
 			type = TileType.WATER;
+			break;
+		case 'B':
+			type = TileType.BUILDABLE;
 			break;
 		}
 		return type;

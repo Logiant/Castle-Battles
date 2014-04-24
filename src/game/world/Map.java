@@ -13,13 +13,13 @@ public class Map {
 
 	public static final float TILE_SIZE = 64;
 
-	char[][] map = {{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+	char[][] map = {{'W', 'G', 'G', 'A', 'A', 'A', 'G', 'G', 'G', 'W'},
 					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
 					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
 					{'G', 'G', 'G', 'G', 'W', 'G', 'G', 'G', 'G', 'G'},
 					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
 					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'}};
+					{'G', 'G', 'G', 'B', 'B', 'B', 'G', 'G', 'G', 'W'}};
 
 	Tile[][] world;
 	int tileMapID;

@@ -1,6 +1,7 @@
 package main;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 /**
  * handles the user's inputs
@@ -15,6 +16,10 @@ public class InputHandler {
 	static boolean[] keyDown;
 	static boolean[] keyUp;
 	static boolean[] keyHeld;
+	
+	static boolean leftClick;
+	static boolean rightClick;
+	static boolean middleClick;
 	
 	public static void initialize() {
 		keyHeld = new boolean[numKeys];
@@ -38,6 +43,21 @@ public class InputHandler {
 				keyHeld[Keyboard.getEventKey()] = false;
 			}
 		}
+		//clear the mouse
+		leftClick = false;
+		rightClick = false;
+		middleClick = false;
+		while (Mouse.next()) {
+			if (Mouse.getEventButton() == 0 && Mouse.isButtonDown(0)) { //left click
+				leftClick = true;
+			}
+			if (Mouse.getEventButton() == 1 && Mouse.isButtonDown(1)) { //right click
+				rightClick = true;
+			}
+			if (Mouse.getEventButton() == 2 && Mouse.isButtonDown(2)) { //middle click
+				middleClick = true;
+			}
+		}
 	}
 	
 	public static boolean wasKeyPressed(int key) {
@@ -48,5 +68,14 @@ public class InputHandler {
 	}
 	public static boolean isKeyDown(int key) {
 		return keyHeld[key];
+	}
+	public static boolean leftClicked() {
+		return leftClick;
+	}
+	public static boolean rightClicked() {
+		return rightClick;
+	}
+	public static boolean middleClicked() {
+		return middleClick;
 	}
 }

@@ -41,7 +41,7 @@ public class CityManager {
 			placingBuildingId = farmId; //this will eventually be returned from a BuildingButton
 		}
 		
-		if (placingBuilding && active && Mouse.isButtonDown(0)) { //click to place a building
+		if (placingBuilding && active && InputHandler.leftClicked()) { //click to place a building
 			farms.add(new Farm(farmId, placingPosition));
 		}
 		

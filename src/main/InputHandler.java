@@ -34,7 +34,7 @@ public class InputHandler {
 				keyDown[Keyboard.getEventKey()] = true;
 				keyHeld[Keyboard.getEventKey()] = true;
 			} else { //it was a release
-				keyDown[Keyboard.getEventKey()] = true;
+				keyUp[Keyboard.getEventKey()] = true;
 				keyHeld[Keyboard.getEventKey()] = false;
 			}
 		}

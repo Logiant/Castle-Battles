@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
+import game.world.Map;
 import game.world.SimpleBackground;
 import graphics.Graphics;
 
@@ -18,7 +19,7 @@ import graphics.Graphics;
 public class Game {
 
 	Camera cam;
-	SimpleBackground background;
+	Map map;
 	GameOptionsMenu gameOptionsMenu;
 
 	//we can load this into a keybind class or something
@@ -31,12 +32,12 @@ public class Game {
 
 	public Game() {
 		cam = new Camera();
-		background = new SimpleBackground();
+		map = new Map();
 		gameOptionsMenu = new GameOptionsMenu();
 	}
 
 	public void initialize(Graphics g) {
-		background.initialize(g);
+		map.initialize(g);
 		cam.initialize(0, 0);
 		gameOptionsMenu.initialize(g);
 	}
@@ -51,7 +52,7 @@ public class Game {
 
 		//rendering - we could make this a nested class called Render if needed
 		GL11.glBegin(GL11.GL_QUADS);
-		background.draw(g);
+		map.draw(g);
 		GL11.glEnd();
 
 		drawUI(g);	

@@ -1,4 +1,7 @@
 package game.entities;
+
+import graphics.TextureRect;
+
 /**
  * highest level entity for all tiles
  * contains position data as well as helper methods
@@ -6,5 +9,7 @@ package game.entities;
  *
  */
 public abstract class Tile {
+
+	public abstract TextureRect getTextureRect();
 
 }

@@ -1,6 +1,7 @@
 package game.world;
 
 import game.entities.Tile;
+import game.world.tiles.WallTile;
 import graphics.Graphics;
 import graphics.Rect;
 import graphics.TextureRect;
@@ -12,32 +13,46 @@ import graphics.TextureRect;
  */
 public class Map {
 
-	public static final int TILE_SIZE = 32;
-	
+	public static final float TILE_SIZE = 64;
+
+	char[][] map = {{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+					{'G', 'G', 'G', 'G', 'W', 'G', 'G', 'G', 'G', 'G'},
+					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'}};
+
 	Tile[][] world;
 	int tileMapID;
-	
+
 	int worldWidth;
 	int worldHeight;
 
-	public Map(int width, int height) { //eventually replace with a levelLoader or something
-		worldWidth = width;
-		worldHeight = height;
-		world = new Tile[width][height];
+	public Map() { //eventually replace with a levelLoader or something
+		worldWidth = map.length;
+		worldHeight = map[0].length;
+		world = new Tile[worldWidth][worldHeight];
 	}
-	
+
 	public void initialize(Graphics g) {
 		tileMapID = g.loadImage("TileMap");
+		loadTiles();
 	}
 
 	public void loadTiles() {
-
+		for (int i = 0; i < world.length; i++) {
+			for (int j = 0; j < world[0].length; j++) {
+				world[i][j] = TileHandler.getTile(map[i][j], i, j);
+			}
+		}
 	}
 
 	public void draw(Graphics g) {
 		for (int i = 0; i < world.length; i++) {
 			for (int j = 0; j < world[0].length; j++) {
-				g.drawMapped(tileMapID, new Rect(i, j, TILE_SIZE, TILE_SIZE), new TextureRect(0, 0.25f, 0.25f, 0.25f));
+				Tile t = world[i][j];
+				g.drawMapped(tileMapID, new Rect(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE), t.getTextureRect());
 			}
 		}
 	}

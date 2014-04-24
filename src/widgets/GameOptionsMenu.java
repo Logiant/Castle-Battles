@@ -34,9 +34,6 @@ public class GameOptionsMenu {
 					break;
 				}
 			}
-
-			for (MenuButton b : buttons)
-				b.drawText();
 		}
 
 		return cmd;

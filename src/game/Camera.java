@@ -28,6 +28,7 @@ public class Camera {
 	}
 	
 
+	//we may eventually want to bounds on the camera's position when we have a real map
 	public void move(float dx, float dy) { //takes in an x and y displacement
 		position.x += dx * moveSpeed * Time.dt;
 		position.y += dy * moveSpeed * Time.dt;

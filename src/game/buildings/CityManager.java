@@ -6,7 +6,6 @@ import java.util.List;
 import main.Driver;
 import main.InputHandler;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -23,18 +22,21 @@ import graphics.Rect;
 public class CityManager {
 
 	List<Farm> farms;
+	List<Mine> mines;
 
 	int farmId;
-	int buildKey = Keyboard.getKeyIndex("B");
+	int mineId;
 
 	boolean placingBuilding;
 	int placingBuildingId;
 	Vector2f placingPosition;
 	Map world;
-	
+
 	public void initialize(Graphics g, Map map) {
-		farmId = g.loadImage("farm");
+		farmId = g.loadImage("Farm");
+		mineId = g.loadImage("Mine");
 		farms = new ArrayList<Farm>();
+		mines = new ArrayList<Mine>();
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -43,23 +45,28 @@ public class CityManager {
 	public void update(Vector2f translation, boolean active) {
 		if (InputHandler.rightClicked())
 			placingBuilding = false;
-		
-		
+
+
 		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.width, Farm.height) 
 				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
-			farms.add(new Farm(farmId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
+			//place the currently selected building
+			buildBuilding();
 		}
-		
+
 		collectResources();
 
 	}
-	
+
 	public void buildCommand (String command) {
 		switch (command) {
 		case "FARM":
 			placingBuildingId = farmId;
 			placingBuilding = true;
+			break;
+		case "MINE":
+			placingBuildingId = mineId;
+			placingBuilding = true;
+			break;
 		}
 	}
 
@@ -75,13 +82,24 @@ public class CityManager {
 
 	}
 
+	public void buildBuilding() {
+		if (placingBuildingId == farmId) {
+			farms.add(new Farm(farmId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
+		}
+		if (placingBuildingId == mineId) {
+			farms.add(new Farm(mineId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Mine.width, Mine.height);
+		}
+	}
+
 	public void drawPlaced(Graphics g, Vector2f translate, boolean active) {
 		//draw the building being placed if there is one
 		if (placingBuilding) {
 			//snaps the current position to the nearest tile
 			if (active) {
-			placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
-					(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - Farm.getSize().y + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
+				placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
+						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - Farm.getSize().y + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
 			}
 			//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
 			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(Farm.getSize().x, Farm.getSize().y)));

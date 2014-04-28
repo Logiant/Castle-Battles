@@ -17,11 +17,12 @@ import graphics.Rect;
 public class UI {
 
 	//eventually there should be a TAB helper class that handles each tab (buildings, spells, upgrades, etc)
-	GameButton[] buttons = new GameButton[1];;
+	GameButton[] buttons = new GameButton[2];;
 	
 	CityManager city;
 	
-	int buttonTextureId;
+	int farmId;
+	int mineId;
 	int uiTextureId;
 	
 	public static int height = 90;
@@ -31,10 +32,12 @@ public class UI {
 	}
 	
 	public void initialize(Graphics g) {
-		buttonTextureId = g.loadImage("FarmButton");
+		farmId = g.loadImage("FarmButton");
+		mineId = g.loadImage("MineButton");
 		uiTextureId = g.loadImage("UIColor");
 		
-		buttons[0] = new GameButton(buttonTextureId, new Vector2f(20, Driver.screenHeight - height + 5), new Vector2f(60, 60), "FARM");
+		buttons[0] = new GameButton(farmId, new Vector2f(20, Driver.screenHeight - height + 5), new Vector2f(60, 60), "FARM");
+		buttons[1] = new GameButton(mineId, new Vector2f(100, Driver.screenHeight - height + 5), new Vector2f(60, 60), "MINE");
 	}
 	
 	public String update(Graphics g) {

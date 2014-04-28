@@ -50,6 +50,7 @@ public class Map {
 		for (int i = 0; i < world.length; i++) {
 			for (int j = 0; j < world[0].length; j++) {
 				Tile t = world[i][j];
+				//we will eventually want to check if the tile is on the screen at all before drawing to optimize
 				g.drawMapped(tileMapID, new Rect(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE), t.getTextureRect());
 			}
 		}

@@ -43,7 +43,7 @@ public class Driver {
 		
 		while (!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
+			GL11.glLoadIdentity();
 			updateLogic();
 			
 			Display.update();
@@ -68,6 +68,8 @@ public class Driver {
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Black Background
 		GL11.glEnable(GL11.GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_CULL_FACE);// Enables face culling (working)
+		glCullFace(GL_BACK); // Doesn't draw back faces
 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();

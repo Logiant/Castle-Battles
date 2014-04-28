@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
 import game.buildings.CityManager;
+import game.ui.UI;
 import game.world.Map;
 import graphics.Graphics;
 
@@ -21,6 +22,7 @@ public class Game {
 	Camera cam;
 	Map map;
 	GameOptionsMenu gameOptionsMenu;
+	UI ui;
 
 	//we can load this into a keybind class or something
 	int upKey = Keyboard.getKeyIndex("W");
@@ -36,8 +38,8 @@ public class Game {
 		cam = new Camera();
 		map = new Map();
 		gameOptionsMenu = new GameOptionsMenu();
-		
 		city = new CityManager();
+		ui = new UI(city);
 	}
 
 	public void initialize(Graphics g) {
@@ -45,6 +47,7 @@ public class Game {
 		cam.initialize(0, 0);
 		gameOptionsMenu.initialize(g);
 		city.initialize(g, map);
+		ui.initialize(g);
 	}
 	public String update(Graphics g) {
 
@@ -72,16 +75,18 @@ public class Game {
 	}
 	
 	public void drawUI(Graphics g) {
+		GL11.glPushMatrix();
+		GL11.glLoadIdentity();
+		GL11.glBegin(GL11.GL_QUADS);
+		ui.update(g);
+		GL11.glEnd();
 		if (gameOptionsMenu.isActive()) {
-			GL11.glPushMatrix();
-			GL11.glLoadIdentity();
 			GL11.glBegin(GL11.GL_QUADS);
 			gameOptionsMenu.draw(g);
 			GL11.glEnd();
 			gameOptionsMenu.draw2(g);
-			GL11.glPopMatrix();
-
 		}
+		GL11.glPopMatrix();
 	}
 
 	public void cameraMovement() {

@@ -13,13 +13,13 @@ public class Map {
 
 	public static final float TILE_SIZE = 64;
 
-	char[][] map = {{'W', 'G', 'G', 'A', 'A', 'A', 'G', 'G', 'G', 'W'},
-					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-					{'G', 'G', 'G', 'G', 'W', 'G', 'G', 'G', 'G', 'G'},
-					{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-					{'G', 'G', 'G', 'B', 'B', 'B', 'B', 'B', 'B', 'G'},
-					{'G', 'G', 'G', 'B', 'B', 'B', 'B', 'B', 'B', 'W'}};
+	char[][] map = {{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
+					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
+					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
+					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
+					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'}};
 
 	Tile[][] world;
 	int tileMapID;

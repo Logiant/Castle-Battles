@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
+import game.ui.UI;
 import game.world.Map;
 import graphics.Graphics;
 import graphics.Rect;
@@ -40,20 +41,26 @@ public class CityManager {
 	}
 
 	public void update(Vector2f translation, boolean active) {
-		//check to see if the player is placing a building --- this will eventually be handled by UI
-		if (InputHandler.wasKeyPressed(buildKey)) {
-			placingBuilding = !placingBuilding;
-			placingBuildingId = farmId; //this will eventually be returned from a BuildingButton
-		}
+		if (InputHandler.rightClicked())
+			placingBuilding = false;
+		
 		
 		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.width, Farm.height) 
-				&& active && InputHandler.leftClicked()) { //click to place a building
+				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
 			farms.add(new Farm(farmId, placingPosition));
 			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
 		}
 		
 		collectResources();
 
+	}
+	
+	public void buildCommand (String command) {
+		switch (command) {
+		case "FARM":
+			placingBuildingId = farmId;
+			placingBuilding = true;
+		}
 	}
 
 	private void collectResources() { //this will eventually get resources from buildings

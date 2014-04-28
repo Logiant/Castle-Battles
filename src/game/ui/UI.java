@@ -17,12 +17,15 @@ import graphics.Rect;
 public class UI {
 
 	//eventually there should be a TAB helper class that handles each tab (buildings, spells, upgrades, etc)
-	GameButton[] buttons = new GameButton[2];;
+	GameButton[] buttons = new GameButton[5];;
 	
 	CityManager city;
 	
 	int farmId;
 	int mineId;
+	int lumberId;
+	int stableId;
+	int quarryId;
 	int uiTextureId;
 	
 	public static int height = 90;
@@ -34,10 +37,17 @@ public class UI {
 	public void initialize(Graphics g) {
 		farmId = g.loadImage("FarmButton");
 		mineId = g.loadImage("MineButton");
+		lumberId = g.loadImage("LumberButton");
+		stableId = g.loadImage("StableButton");
+		quarryId = g.loadImage("QuarryButton");
 		uiTextureId = g.loadImage("UIColor");
 		
 		buttons[0] = new GameButton(farmId, new Vector2f(20, Driver.screenHeight - height + 5), new Vector2f(60, 60), "FARM");
 		buttons[1] = new GameButton(mineId, new Vector2f(100, Driver.screenHeight - height + 5), new Vector2f(60, 60), "MINE");
+		buttons[2] = new GameButton(lumberId, new Vector2f(180, Driver.screenHeight - height + 5), new Vector2f(60, 60), "WOOD");
+		buttons[3] = new GameButton(stableId, new Vector2f(260, Driver.screenHeight - height + 5), new Vector2f(60, 60), "HORSE");
+		buttons[4] = new GameButton(quarryId, new Vector2f(340, Driver.screenHeight - height + 5), new Vector2f(60, 60), "STONE");
+
 	}
 	
 	public String update(Graphics g) {

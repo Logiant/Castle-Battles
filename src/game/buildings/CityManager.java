@@ -23,9 +23,15 @@ public class CityManager {
 
 	List<Farm> farms;
 	List<Mine> mines;
+	List<Mill> mills;
+	List<Stable> stables;
+	List<Quarry> quarries;
 
 	int farmId;
 	int mineId;
+	int millId;
+	int stableId;
+	int quarryId;
 
 	boolean placingBuilding;
 	int placingBuildingId;
@@ -35,8 +41,14 @@ public class CityManager {
 	public void initialize(Graphics g, Map map) {
 		farmId = g.loadImage("Farm");
 		mineId = g.loadImage("Mine");
+		millId = g.loadImage("Lumber");
+		stableId = g.loadImage("Stable");
+		quarryId = g.loadImage("Quarry");
 		farms = new ArrayList<Farm>();
 		mines = new ArrayList<Mine>();
+		mills = new ArrayList<Mill>();
+		stables = new ArrayList<Stable>();
+		quarries = new ArrayList<Quarry>();
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -67,6 +79,18 @@ public class CityManager {
 			placingBuildingId = mineId;
 			placingBuilding = true;
 			break;
+		case "WOOD":
+			placingBuildingId = millId;
+			placingBuilding = true;
+			break;
+		case "HORSE":
+			placingBuildingId = stableId;
+			placingBuilding = true;
+			break;
+		case "STONE":
+			placingBuildingId = quarryId;
+			placingBuilding = true;
+			break;
 		}
 	}
 
@@ -79,6 +103,14 @@ public class CityManager {
 		//draw all buildings
 		for (Farm f: farms)
 			f.draw(g);
+		for (Mine f: mines)
+			f.draw(g);
+		for (Mill f: mills)
+			f.draw(g);
+		for (Stable f: stables)
+			f.draw(g);
+		for (Quarry f: quarries)
+			f.draw(g);
 
 	}
 
@@ -88,8 +120,20 @@ public class CityManager {
 			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
 		}
 		if (placingBuildingId == mineId) {
-			farms.add(new Farm(mineId, placingPosition));
+			mines.add(new Mine(mineId, placingPosition));
 			world.placeBuilding(placingPosition.x, placingPosition.y, Mine.width, Mine.height);
+		}
+		if (placingBuildingId == millId) {
+			mills.add(new Mill(millId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Mill.width, Mill.height);
+		}
+		if (placingBuildingId == stableId) {
+			stables.add(new Stable(stableId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Stable.width, Stable.height);
+		}
+		if (placingBuildingId == quarryId) {
+			quarries.add(new Quarry(quarryId, placingPosition));
+			world.placeBuilding(placingPosition.x, placingPosition.y, Quarry.width, Quarry.height);
 		}
 	}
 

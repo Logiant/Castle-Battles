@@ -100,6 +100,7 @@ public class Game {
 			GL11.glEnd();
 			gameOptionsMenu.draw2(g);
 		}
+		ui.drawText();
 		GL11.glPopMatrix();
 	}
 

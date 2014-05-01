@@ -29,7 +29,7 @@ public class Game {
 	UI ui;
 	SimpleBackground background;
 	//region for scrolling the camera via mouse
-	float scrollRegion = 20;
+	float scrollRegion = 15;
 
 	//we can load this into a keybind class or something
 	int upKey = Keyboard.getKeyIndex("W");
@@ -101,6 +101,7 @@ public class Game {
 			gameOptionsMenu.draw2(g);
 		}
 		ui.drawText();
+		city.drawText();
 		GL11.glPopMatrix();
 	}
 

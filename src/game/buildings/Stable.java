@@ -1,5 +1,7 @@
 package game.buildings;
 
+import main.Time;
+
 import org.newdawn.slick.geom.Vector2f;
 
 import game.entities.ResourceBuilding;
@@ -17,10 +19,15 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	public Stable(int textureId, Vector2f position, CityManager city) {
 		super(textureId, position, size, city);
+		resourceAmount = 5;
+		time = cooldownTime;
 	}
 	
 	public void update() {
-		//TODO figure out how much horse is produced, handle click events, etc
-		//city.addHorse(5);
+		time -= Time.dt;
+		if (time <= 0) {
+			city.addResource("HORSE", resourceAmount);
+			time = cooldownTime;
+		}
 	}
 }

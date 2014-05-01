@@ -10,17 +10,17 @@ import graphics.Graphics;
 public class ResourceTab extends UITab {
 
 	public ResourceTab(UI ui) {
-		super(ui, new Vector2f(20, Driver.screenHeight- UI.height));
+		super(ui, new Vector2f(20, Driver.screenHeight- UI.height), "RESOURCE");
 		idNumbers = new int[5];
 		buttons = new GameButton[5];
 	}
 	@Override
 	public void initialize(Graphics g) {
-		idNumbers[0] = g.loadImage("FarmButton");
-		idNumbers[1] = g.loadImage("MineButton");
-		idNumbers[2] = g.loadImage("LumberButton");
-		idNumbers[3] = g.loadImage("StableButton");
-		idNumbers[4] = g.loadImage("QuarryButton");
+		idNumbers[0] = g.loadImage("Icons/FarmButton");
+		idNumbers[1] = g.loadImage("Icons/MineButton");
+		idNumbers[2] = g.loadImage("Icons/LumberButton");
+		idNumbers[3] = g.loadImage("Icons/StableButton");
+		idNumbers[4] = g.loadImage("Icons/QuarryButton");
 
 		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "FARM");
 		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "MINE");

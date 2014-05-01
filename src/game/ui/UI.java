@@ -46,6 +46,7 @@ public class UI {
 		for (UITab t: tabs) {
 			cmd = t.update(g);
 			if (!cmd.equals("")) {
+				switchTabs(cmd);
 				city.buildCommand(cmd);
 			}
 		}
@@ -63,6 +64,7 @@ public class UI {
 		int tabId = 0;
 		switch (nextTab) {
 		default:
+			return;
 		case "RESOURCE":
 			break;
 		case "MILITARY":

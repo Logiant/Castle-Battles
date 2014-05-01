@@ -1,7 +1,12 @@
 package game.ui;
 
+import main.Driver;
+import main.InputHandler;
+
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
+import widgets.Text;
 import graphics.Graphics;
 
 /**
@@ -14,11 +19,13 @@ public abstract class UITab {
 	protected GameButton[] buttons;
 	protected boolean active;
 	protected UI ui;
+	protected String name;
 	protected Vector2f tabPosition;
 	
-	public UITab(UI ui, Vector2f tabPosition) {
+	public UITab(UI ui, Vector2f tabPosition, String name) {
 		this.ui = ui;
 		this.tabPosition = tabPosition;
+		this.name = name;
 	}
 
 	public abstract void initialize(Graphics g);
@@ -34,6 +41,11 @@ public abstract class UITab {
 			}
 			for (GameButton b:buttons)
 				b.draw(g);
+		}
+		if (Mouse.getX() > tabPosition.x && Mouse.getX() < tabPosition.x + name.length() * Text.fontSize/2f 
+				&& Driver.screenHeight - Mouse.getY() > tabPosition.y && Driver.screenHeight - Mouse.getY() < tabPosition.y + 15
+				&& InputHandler.leftClicked()) {
+			cmd = name;
 		}
 		return cmd;
 	}

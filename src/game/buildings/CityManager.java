@@ -40,6 +40,11 @@ public class CityManager {
 	int millId;
 	int stableId;
 	int quarryId;
+	//military
+	int barracksId;
+	int cavalryId;
+	int rangeId;
+	int arcanumId;
 
 	boolean placingBuilding;
 	int placingBuildingId;
@@ -47,12 +52,17 @@ public class CityManager {
 	Map world;
 
 	public void initialize(Graphics g, Map map) {
-		farmId = g.loadImage("Farm");
-		mineId = g.loadImage("Mine");
-		millId = g.loadImage("Lumber");
-		stableId = g.loadImage("Stable");
-		quarryId = g.loadImage("Quarry");
+		farmId = g.loadImage("Buildings/Farm");
+		mineId = g.loadImage("Buildings/Mine");
+		millId = g.loadImage("Buildings/Lumber");
+		stableId = g.loadImage("Buildings/Stable");
+		quarryId = g.loadImage("Buildings/Quarry");
 		resourceBuildings = new ArrayList<ResourceBuilding>();
+		//military
+		barracksId = g.loadImage("Buildings/barracks");
+		cavalryId = g.loadImage("Buildings/cavalry");
+		rangeId = g.loadImage("Buildings/range");
+		arcanumId = g.loadImage("Buildings/arcanum");
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -92,6 +102,22 @@ public class CityManager {
 			break;
 		case "STONE":
 			placingBuildingId = quarryId;
+			placingBuilding = true;
+			break;
+		case "BARRACKS":
+			placingBuildingId = barracksId;
+			placingBuilding = true;
+			break;
+		case "RANGE":
+			placingBuildingId = rangeId;
+			placingBuilding = true;
+			break;
+		case "STABLE":
+			placingBuildingId = cavalryId;
+			placingBuilding = true;
+			break;
+		case "ARCANUM":
+			placingBuildingId = arcanumId;
 			placingBuilding = true;
 			break;
 		}
@@ -175,7 +201,7 @@ public class CityManager {
 		else if (placingBuildingId == stableId) {
 			building = new Stable(stableId, placingPosition, this);
 		}
-		else if (placingBuildingId == quarryId) {
+		else {// if (placingBuildingId == quarryId) { //A hack to not crash the game when a military building is placed!
 			building = new Quarry(quarryId, placingPosition, this);
 		}
 		return building;

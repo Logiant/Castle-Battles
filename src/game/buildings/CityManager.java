@@ -9,6 +9,7 @@ import main.InputHandler;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
+import widgets.Text;
 import game.entities.ResourceBuilding;
 import game.ui.UI;
 import game.world.Map;
@@ -21,15 +22,29 @@ import graphics.Rect;
  *
  */
 public class CityManager {
+	
+	//do we want to put these in an int[] to save space?
+	int lumber;
+	int stone;
+	int food;
+	int metal;
+	int horse;
+	int magic;
 
 
 	List<ResourceBuilding> resourceBuildings;
 
+	//do we want to put these in an int[] to save space?
 	int farmId;
 	int mineId;
 	int millId;
 	int stableId;
 	int quarryId;
+	//military
+	int barracksId;
+	int cavalryId;
+	int rangeId;
+	int arcanumId;
 
 	boolean placingBuilding;
 	int placingBuildingId;
@@ -37,12 +52,17 @@ public class CityManager {
 	Map world;
 
 	public void initialize(Graphics g, Map map) {
-		farmId = g.loadImage("Farm");
-		mineId = g.loadImage("Mine");
-		millId = g.loadImage("Lumber");
-		stableId = g.loadImage("Stable");
-		quarryId = g.loadImage("Quarry");
+		farmId = g.loadImage("Buildings/Farm");
+		mineId = g.loadImage("Buildings/Mine");
+		millId = g.loadImage("Buildings/Lumber");
+		stableId = g.loadImage("Buildings/Stable");
+		quarryId = g.loadImage("Buildings/Quarry");
 		resourceBuildings = new ArrayList<ResourceBuilding>();
+		//military
+		barracksId = g.loadImage("Buildings/barracks");
+		cavalryId = g.loadImage("Buildings/cavalry");
+		rangeId = g.loadImage("Buildings/range");
+		arcanumId = g.loadImage("Buildings/arcanum");
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -55,7 +75,6 @@ public class CityManager {
 
 		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.size.x, Farm.size.y) 
 				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
-			//place the currently selected building
 			buildBuilding();
 		}
 
@@ -85,12 +104,27 @@ public class CityManager {
 			placingBuildingId = quarryId;
 			placingBuilding = true;
 			break;
+		case "BARRACKS":
+			placingBuildingId = barracksId;
+			placingBuilding = true;
+			break;
+		case "RANGE":
+			placingBuildingId = rangeId;
+			placingBuilding = true;
+			break;
+		case "STABLE":
+			placingBuildingId = cavalryId;
+			placingBuilding = true;
+			break;
+		case "ARCANUM":
+			placingBuildingId = arcanumId;
+			placingBuilding = true;
+			break;
 		}
 	}
 
 	private void collectResources() { //this will eventually get resources from buildings
 		for (ResourceBuilding b: resourceBuildings)
-			//TODO figure out how to return resources
 			b.update();
 	}
 
@@ -99,6 +133,15 @@ public class CityManager {
 		for (ResourceBuilding b: resourceBuildings)
 			b.draw(g);
 
+	}
+	
+	public void drawText() {
+		Text.write("Food: " + food, new Vector2f(5, 5));
+		Text.write("Lumber: " + lumber, new Vector2f(5, 25));
+		Text.write("Metal: " + metal, new Vector2f(5, 45));
+		Text.write("Stone: " + stone, new Vector2f(5, 65));
+		Text.write("Horses: " + horse, new Vector2f(5, 85));
+		Text.write("Magic: " + magic, new Vector2f(5, 105));
 	}
 
 	public void buildBuilding() {
@@ -121,6 +164,28 @@ public class CityManager {
 		}
 	}
 
+	
+	public void addResource(String type, int qty) {
+		switch (type) {
+		case "FOOD":
+			food += qty;
+			break;
+		case "LUMBER":
+			lumber += qty;
+			break;
+		case "METAL":
+			metal += qty;
+			break;
+		case "STONE":
+			stone += qty;
+			break;
+		case "HORSE":
+			horse += qty;
+			break;
+		}
+	}
+	
+	
 
 	private ResourceBuilding getResourceBuilding(int placingBuildingId) {
 		ResourceBuilding building = null;
@@ -136,7 +201,7 @@ public class CityManager {
 		else if (placingBuildingId == stableId) {
 			building = new Stable(stableId, placingPosition, this);
 		}
-		else if (placingBuildingId == quarryId) {
+		else {// if (placingBuildingId == quarryId) { //A hack to not crash the game when a military building is placed!
 			building = new Quarry(quarryId, placingPosition, this);
 		}
 		return building;

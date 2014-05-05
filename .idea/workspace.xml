@@ -76,7 +76,7 @@
       <file leaf-file-name="CityManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/buildings/CityManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="23" selection-start="1459" selection-end="1459" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2550">
+            <state line="66" column="23" selection-start="1461" selection-end="1461" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="3655">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name="Farm.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/buildings/Farm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="13" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="561">
+            <state line="16" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="680">
               <folding />
             </state>
           </provider>
@@ -159,8 +159,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -233,19 +233,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -271,6 +258,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -373,8 +373,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2599119" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -398,6 +398,27 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/Driver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="0" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.0" vertical-offset="767" max-vertical-offset="1649">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/buildings/CityManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="23" selection-start="1461" selection-end="1461" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="3655">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/buildings/Farm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="680">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="88" column="0" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="1649">
@@ -606,26 +627,16 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/Mine.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/MineButton.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/buildings/Farm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="527">
+        <state line="16" column="13" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="680">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/buildings/CityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="23" selection-start="1459" selection-end="1459" vertical-scroll-proportion="0.0" vertical-offset="911" max-vertical-offset="2550">
+        <state line="66" column="23" selection-start="1461" selection-end="1461" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="3655">
           <folding />
         </state>
       </provider>

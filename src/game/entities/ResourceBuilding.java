@@ -20,6 +20,9 @@ public abstract class ResourceBuilding {
 		protected int textureId;
 		private Vector2f size;
 		protected CityManager city;
+		protected int resourceAmount;
+		protected int cooldownTime = 10000;//seconds
+		protected int time;
 		
 		public ResourceBuilding(int textureId, Vector2f position, Vector2f size, CityManager city) {
 			this.textureId = textureId;

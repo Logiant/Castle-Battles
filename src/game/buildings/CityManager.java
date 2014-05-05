@@ -9,6 +9,8 @@ import main.InputHandler;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
+import widgets.Text;
+import game.entities.ResourceBuilding;
 import game.ui.UI;
 import game.world.Map;
 import graphics.Graphics;
@@ -20,18 +22,29 @@ import graphics.Rect;
  *
  */
 public class CityManager {
+	
+	//do we want to put these in an int[] to save space?
+	int lumber;
+	int stone;
+	int food;
+	int metal;
+	int horse;
+	int magic;
 
-	List<Farm> farms;
-	List<Mine> mines;
-	List<Mill> mills;
-	List<Stable> stables;
-	List<Quarry> quarries;
 
+	List<ResourceBuilding> resourceBuildings;
+
+	//do we want to put these in an int[] to save space?
 	int farmId;
 	int mineId;
 	int millId;
 	int stableId;
 	int quarryId;
+	//military
+	int barracksId;
+	int cavalryId;
+	int rangeId;
+	int arcanumId;
 
 	boolean placingBuilding;
 	int placingBuildingId;
@@ -39,16 +52,17 @@ public class CityManager {
 	Map world;
 
 	public void initialize(Graphics g, Map map) {
-		farmId = g.loadImage("Farm");
-		mineId = g.loadImage("Mine");
-		millId = g.loadImage("Lumber");
-		stableId = g.loadImage("Stable");
-		quarryId = g.loadImage("Quarry");
-		farms = new ArrayList<Farm>();
-		mines = new ArrayList<Mine>();
-		mills = new ArrayList<Mill>();
-		stables = new ArrayList<Stable>();
-		quarries = new ArrayList<Quarry>();
+		farmId = g.loadImage("Buildings/Farm");
+		mineId = g.loadImage("Buildings/Mine");
+		millId = g.loadImage("Buildings/Lumber");
+		stableId = g.loadImage("Buildings/Stable");
+		quarryId = g.loadImage("Buildings/Quarry");
+		resourceBuildings = new ArrayList<ResourceBuilding>();
+		//military
+		barracksId = g.loadImage("Buildings/barracks");
+		cavalryId = g.loadImage("Buildings/cavalry");
+		rangeId = g.loadImage("Buildings/range");
+		arcanumId = g.loadImage("Buildings/arcanum");
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -59,9 +73,8 @@ public class CityManager {
 			placingBuilding = false;
 
 
-		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.width, Farm.height) 
+		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.size.x, Farm.size.y) 
 				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
-			//place the currently selected building
 			buildBuilding();
 		}
 
@@ -91,50 +104,50 @@ public class CityManager {
 			placingBuildingId = quarryId;
 			placingBuilding = true;
 			break;
+		case "BARRACKS":
+			placingBuildingId = barracksId;
+			placingBuilding = true;
+			break;
+		case "RANGE":
+			placingBuildingId = rangeId;
+			placingBuilding = true;
+			break;
+		case "STABLE":
+			placingBuildingId = cavalryId;
+			placingBuilding = true;
+			break;
+		case "ARCANUM":
+			placingBuildingId = arcanumId;
+			placingBuilding = true;
+			break;
 		}
 	}
 
 	private void collectResources() { //this will eventually get resources from buildings
-		for (Farm f: farms)
-			f.update();
+		for (ResourceBuilding b: resourceBuildings)
+			b.update();
 	}
 
 	public void draw(Graphics g) {
 		//draw all buildings
-		for (Farm f: farms)
-			f.draw(g);
-		for (Mine f: mines)
-			f.draw(g);
-		for (Mill f: mills)
-			f.draw(g);
-		for (Stable f: stables)
-			f.draw(g);
-		for (Quarry f: quarries)
-			f.draw(g);
+		for (ResourceBuilding b: resourceBuildings)
+			b.draw(g);
 
+	}
+	
+	public void drawText() {
+		Text.write("Food: " + food, new Vector2f(5, 5));
+		Text.write("Lumber: " + lumber, new Vector2f(5, 25));
+		Text.write("Metal: " + metal, new Vector2f(5, 45));
+		Text.write("Stone: " + stone, new Vector2f(5, 65));
+		Text.write("Horses: " + horse, new Vector2f(5, 85));
+		Text.write("Magic: " + magic, new Vector2f(5, 105));
 	}
 
 	public void buildBuilding() {
-		if (placingBuildingId == farmId) {
-			farms.add(new Farm(farmId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Farm.width, Farm.height);
-		}
-		if (placingBuildingId == mineId) {
-			mines.add(new Mine(mineId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Mine.width, Mine.height);
-		}
-		if (placingBuildingId == millId) {
-			mills.add(new Mill(millId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Mill.width, Mill.height);
-		}
-		if (placingBuildingId == stableId) {
-			stables.add(new Stable(stableId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Stable.width, Stable.height);
-		}
-		if (placingBuildingId == quarryId) {
-			quarries.add(new Quarry(quarryId, placingPosition));
-			world.placeBuilding(placingPosition.x, placingPosition.y, Quarry.width, Quarry.height);
-		}
+		ResourceBuilding building = getResourceBuilding(placingBuildingId);
+		resourceBuildings.add(building);
+		world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
 	}
 
 	public void drawPlaced(Graphics g, Vector2f translate, boolean active) {
@@ -143,11 +156,54 @@ public class CityManager {
 			//snaps the current position to the nearest tile
 			if (active) {
 				placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
-						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - Farm.getSize().y + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
+						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - 2*Map.TILE_SIZE + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
 			}
 			//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
-			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(Farm.getSize().x, Farm.getSize().y)));
+			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE)));
 			//we want some sort of notification that a spot can't be built on - maybe tinting the building red?
 		}
+	}
+
+	
+	public void addResource(String type, int qty) {
+		switch (type) {
+		case "FOOD":
+			food += qty;
+			break;
+		case "LUMBER":
+			lumber += qty;
+			break;
+		case "METAL":
+			metal += qty;
+			break;
+		case "STONE":
+			stone += qty;
+			break;
+		case "HORSE":
+			horse += qty;
+			break;
+		}
+	}
+	
+	
+
+	private ResourceBuilding getResourceBuilding(int placingBuildingId) {
+		ResourceBuilding building = null;
+		if (placingBuildingId == farmId) {
+			building = new Farm(farmId, placingPosition, this);
+		}
+		else if (placingBuildingId == mineId) {
+			building = new Mine(mineId, placingPosition, this);
+		}
+		else if (placingBuildingId == millId) {
+			building = new Mill(millId, placingPosition, this);
+		}
+		else if (placingBuildingId == stableId) {
+			building = new Stable(stableId, placingPosition, this);
+		}
+		else {// if (placingBuildingId == quarryId) { //A hack to not crash the game when a military building is placed!
+			building = new Quarry(quarryId, placingPosition, this);
+		}
+		return building;
 	}
 }

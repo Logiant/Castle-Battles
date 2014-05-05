@@ -35,4 +35,8 @@ public class Text {
 	public static void write(String text, Vector2f position) {
 		font.drawString(position.x, position.y, text);
 	}
+
+	public static void write(String name, float x, float y) {
+		write(name, new Vector2f(x, y));
+	}
 }

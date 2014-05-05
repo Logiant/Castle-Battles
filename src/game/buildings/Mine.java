@@ -1,37 +1,34 @@
 package game.buildings;
 
+import main.Time;
+
 import org.newdawn.slick.geom.Vector2f;
 
-import game.entities.Building;
+import game.entities.ResourceBuilding;
 import game.world.Map;
-import graphics.Graphics;
-import graphics.Rect;
 
 /**
- * this is the farm building
- * it produces the food resource
+ * this is the mine building
+ * it produces the iron resource
  * @author Logs
  *
  */
-public class Mine extends Building{
+public class Mine extends ResourceBuilding{
 	
-	public Mine(int textureId, Vector2f position) {
-		super(textureId, position);
-	}
+public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
 
-	static final float width = 2*Map.TILE_SIZE;
-	static final float height = 2*Map.TILE_SIZE;
+
+	public Mine(int textureId, Vector2f position, CityManager city) {
+		super(textureId, position, size, city);
+		resourceAmount = 5;
+		time = cooldownTime;
+	}
 	
 	public void update() {
-		//TODO figure out how much food is produced, handle click events, etc
-	}
-	
-	@Override
-	public void draw(Graphics g) {
-		g.draw(textureId, new Rect(position, new Vector2f(width, height)));
-	}
-	
-	public static Vector2f getSize() {
-		return new Vector2f(width, height);
+		time -= Time.dt;
+		if (time <= 0) {
+			city.addResource("METAL", resourceAmount);
+			time = cooldownTime;
+		}
 	}
 }

@@ -1,11 +1,12 @@
 package game.buildings;
 
+import main.Time;
+
 import org.newdawn.slick.geom.Vector2f;
 
-import game.entities.Building;
+import game.entities.ResourceBuilding;
 import game.world.Map;
-import graphics.Graphics;
-import graphics.Rect;
+
 
 /**
  * this is the farm building
@@ -13,25 +14,21 @@ import graphics.Rect;
  * @author Logs
  *
  */
-public class Farm extends Building{
+public class Farm extends ResourceBuilding{
 	
-	public Farm(int textureId, Vector2f position) {
-		super(textureId, position);
+	public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
+	
+	public Farm(int textureId, Vector2f position, CityManager city) {
+		super(textureId, position, size, city);
+		resourceAmount = 5;
+		time = cooldownTime;
 	}
-
-	static final float width = 2*Map.TILE_SIZE;
-	static final float height = 2*Map.TILE_SIZE;
 	
 	public void update() {
-		//TODO figure out how much food is produced, handle click events, etc
-	}
-	
-	@Override
-	public void draw(Graphics g) {
-		g.draw(textureId, new Rect(position, new Vector2f(width, height)));
-	}
-	
-	public static Vector2f getSize() {
-		return new Vector2f(width, height);
+		time -= Time.dt;
+		if (time <= 0) {
+			city.addResource("FOOD", resourceAmount);
+			time = cooldownTime;
+		}
 	}
 }

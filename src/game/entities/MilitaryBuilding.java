@@ -6,14 +6,14 @@ import game.buildings.CityManager;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
- * Highest level entity for all resource buildings
+ * Highest level entity for all military buildings
  * @author beaverl
  *
  */
 
-public abstract class ResourceBuilding extends Building {
+public abstract class MilitaryBuilding extends Building {
 
-	public ResourceBuilding(int textureId, Vector2f position, Vector2f size, CityManager city) {
+	public MilitaryBuilding(int textureId, Vector2f position, Vector2f size, CityManager city) {
 		super(textureId, position, size, city);
 	}
 

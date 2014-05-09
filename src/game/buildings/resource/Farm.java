@@ -1,9 +1,10 @@
-package game.buildings;
+package game.buildings.resource;
 
 import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.CityManager;
 import game.entities.ResourceBuilding;
 import game.world.Map;
 

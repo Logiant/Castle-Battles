@@ -10,6 +10,10 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
+import game.buildings.military.*;
+import game.buildings.resource.*;
+import game.buildings.resource.Stable;
+import game.entities.MilitaryBuilding;
 import game.entities.ResourceBuilding;
 import game.ui.UI;
 import game.world.Map;
@@ -33,6 +37,7 @@ public class CityManager {
 
 
 	List<ResourceBuilding> resourceBuildings;
+	List<MilitaryBuilding> militaryBuildings;
 
 	//do we want to put these in an int[] to save space?
 	int farmId;
@@ -40,6 +45,7 @@ public class CityManager {
 	int millId;
 	int stableId;
 	int quarryId;
+	int magicId;
 	//military
 	int barracksId;
 	int cavalryId;
@@ -57,12 +63,14 @@ public class CityManager {
 		millId = g.loadImage("Buildings/Lumber");
 		stableId = g.loadImage("Buildings/Stable");
 		quarryId = g.loadImage("Buildings/Quarry");
+		magicId = g.loadImage("Buildings/MagicPump");
 		resourceBuildings = new ArrayList<ResourceBuilding>();
 		//military
 		barracksId = g.loadImage("Buildings/barracks");
 		cavalryId = g.loadImage("Buildings/cavalry");
 		rangeId = g.loadImage("Buildings/range");
 		arcanumId = g.loadImage("Buildings/arcanum");
+		militaryBuildings = new ArrayList<MilitaryBuilding>();
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -73,7 +81,7 @@ public class CityManager {
 			placingBuilding = false;
 
 
-		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, Farm.size.x, Farm.size.y) 
+		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y) 
 				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
 			buildBuilding();
 		}
@@ -104,6 +112,10 @@ public class CityManager {
 			placingBuildingId = quarryId;
 			placingBuilding = true;
 			break;
+		case "MAGIC":
+			placingBuildingId = magicId;
+			placingBuilding = true;
+			break;
 		case "BARRACKS":
 			placingBuildingId = barracksId;
 			placingBuilding = true;
@@ -123,16 +135,20 @@ public class CityManager {
 		}
 	}
 
-	private void collectResources() { //this will eventually get resources from buildings
+	private void collectResources() {
 		for (ResourceBuilding b: resourceBuildings)
 			b.update();
+		for (MilitaryBuilding m: militaryBuildings)
+			m.update();
 	}
 
 	public void draw(Graphics g) {
 		//draw all buildings
 		for (ResourceBuilding b: resourceBuildings)
 			b.draw(g);
-
+		for (MilitaryBuilding m: militaryBuildings)
+			m.draw(g);
+		//draw all units
 	}
 	
 	public void drawText() {
@@ -145,8 +161,12 @@ public class CityManager {
 	}
 
 	public void buildBuilding() {
-		ResourceBuilding building = getResourceBuilding(placingBuildingId);
-		resourceBuildings.add(building);
+		Building building = getBuilding(placingBuildingId);
+		if (building instanceof ResourceBuilding)
+			resourceBuildings.add((ResourceBuilding)building);
+		if (building instanceof MilitaryBuilding)
+			militaryBuildings.add((MilitaryBuilding)building);
+
 		world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
 	}
 
@@ -156,10 +176,10 @@ public class CityManager {
 			//snaps the current position to the nearest tile
 			if (active) {
 				placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
-						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - 2*Map.TILE_SIZE + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
+						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - getBuilding(placingBuildingId).getSize().y + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
 			}
 			//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
-			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE)));
+			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y)));
 			//we want some sort of notification that a spot can't be built on - maybe tinting the building red?
 		}
 	}
@@ -182,10 +202,39 @@ public class CityManager {
 		case "HORSE":
 			horse += qty;
 			break;
+		case "MAGIC":
+			magic += qty;
+			break;
 		}
+		
 	}
 	
+	private Building getBuilding(int id) {
+		Building building = null;
+		if (id == farmId || id == mineId || id == millId || id == stableId || id == quarryId || id == magicId) {
+			building = getResourceBuilding(id);
+		} else if (id == barracksId || id == cavalryId || id == rangeId || id == arcanumId) {
+			building = getMilitaryBuilding(id);
+		}
+		return building;
+	}
 	
+	private MilitaryBuilding getMilitaryBuilding(int placingBuildingId) {
+		MilitaryBuilding building = null;
+		if (placingBuildingId == barracksId) {
+			building = new Barracks(barracksId, placingPosition, this);
+		}
+		else if (placingBuildingId == cavalryId) {
+			building = new Cavalry(cavalryId, placingPosition, this);
+		}
+		else if (placingBuildingId == rangeId) {
+			building = new Range(rangeId, placingPosition, this);
+		}
+		else if (placingBuildingId == arcanumId) {
+			building = new Arcanum(arcanumId, placingPosition, this);
+		}
+		return building;
+	}
 
 	private ResourceBuilding getResourceBuilding(int placingBuildingId) {
 		ResourceBuilding building = null;
@@ -201,8 +250,11 @@ public class CityManager {
 		else if (placingBuildingId == stableId) {
 			building = new Stable(stableId, placingPosition, this);
 		}
-		else {// if (placingBuildingId == quarryId) { //A hack to not crash the game when a military building is placed!
+		else if (placingBuildingId == quarryId) { //A hack to not crash the game when a military building is placed!
 			building = new Quarry(quarryId, placingPosition, this);
+		}
+		else if (placingBuildingId == magicId) {
+			building = new MagicPump(magicId, placingPosition, this);
 		}
 		return building;
 	}

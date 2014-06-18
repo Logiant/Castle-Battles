@@ -20,7 +20,6 @@ public abstract class Building {
 		protected int textureId;
 		private Vector2f size;
 		protected CityManager city;
-		protected int resourceAmount;
 		protected int cooldownTime = 10000;//seconds
 		protected int time;
 		

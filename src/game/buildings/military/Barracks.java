@@ -1,7 +1,5 @@
 package game.buildings.military;
 
-import main.Time;
-
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.CityManager;
@@ -21,14 +19,7 @@ public class Barracks extends MilitaryBuilding {
 	
 	public Barracks(int textureId, Vector2f position, CityManager city) {
 		super(textureId, position, size, city);
-		resourceAmount = 5;
 		time = cooldownTime;
 	}
 	
-	public void update() {
-		time -= Time.dt;
-		if (time <= 0) {
-			time = cooldownTime;
-		}
-	}
 }

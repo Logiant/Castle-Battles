@@ -1,7 +1,5 @@
 package game.buildings.military;
 
-import main.Time;
-
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.CityManager;
@@ -18,17 +16,12 @@ import game.world.Map;
 public class Cavalry extends MilitaryBuilding{
 	
 public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
+
 	
 	public Cavalry(int textureId, Vector2f position, CityManager city) {
 		super(textureId, position, size, city);
-		resourceAmount = 5;
 		time = cooldownTime;
+		unitSize = new Vector2f(64, 32);
 	}
 	
-	public void update() {
-		time -= Time.dt;
-		if (time <= 0) {
-			time = cooldownTime;
-		}
-	}
 }

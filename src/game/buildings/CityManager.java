@@ -12,10 +12,11 @@ import org.newdawn.slick.geom.Vector2f;
 import widgets.Text;
 import game.buildings.military.*;
 import game.buildings.resource.*;
-import game.buildings.resource.Stable;
 import game.entities.MilitaryBuilding;
 import game.entities.ResourceBuilding;
+import game.entities.Unit;
 import game.ui.UI;
+import game.units.*;
 import game.world.Map;
 import graphics.Graphics;
 import graphics.Rect;
@@ -26,7 +27,7 @@ import graphics.Rect;
  *
  */
 public class CityManager {
-	
+
 	//do we want to put these in an int[] to save space?
 	int lumber;
 	int stone;
@@ -38,6 +39,7 @@ public class CityManager {
 
 	List<ResourceBuilding> resourceBuildings;
 	List<MilitaryBuilding> militaryBuildings;
+	List<Unit> soldiers;
 
 	//do we want to put these in an int[] to save space?
 	int farmId;
@@ -51,7 +53,12 @@ public class CityManager {
 	int cavalryId;
 	int rangeId;
 	int arcanumId;
-
+	//units
+	int infantryId;
+	int horseId;;
+	int archerId;
+	int mageId;
+			
 	boolean placingBuilding;
 	int placingBuildingId;
 	Vector2f placingPosition;
@@ -66,11 +73,17 @@ public class CityManager {
 		magicId = g.loadImage("Buildings/MagicPump");
 		resourceBuildings = new ArrayList<ResourceBuilding>();
 		//military
-		barracksId = g.loadImage("Buildings/barracks");
-		cavalryId = g.loadImage("Buildings/cavalry");
-		rangeId = g.loadImage("Buildings/range");
-		arcanumId = g.loadImage("Buildings/arcanum");
+		barracksId = g.loadImage("Buildings/Barracks");
+		cavalryId = g.loadImage("Buildings/Cavalry");
+		rangeId = g.loadImage("Buildings/Range");
+		arcanumId = g.loadImage("Buildings/Arcanum");
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
+		//units
+		infantryId = g.loadImage("Units/Infantry");;
+		horseId = g.loadImage("Units/Cavalry");;
+		archerId = g.loadImage("Units/Archer");;
+		mageId = g.loadImage("Units/Mage");;
+		soldiers = new ArrayList<Unit>();
 
 		world = map;
 		placingPosition = new Vector2f();
@@ -87,6 +100,9 @@ public class CityManager {
 		}
 
 		collectResources();
+		
+		for (Unit u:soldiers)
+			u.update();
 
 	}
 
@@ -149,8 +165,10 @@ public class CityManager {
 		for (MilitaryBuilding m: militaryBuildings)
 			m.draw(g);
 		//draw all units
+		for (Unit u: soldiers)
+			u.draw(g);
 	}
-	
+
 	public void drawText() {
 		Text.write("Food: " + food, new Vector2f(5, 5));
 		Text.write("Lumber: " + lumber, new Vector2f(5, 25));
@@ -184,7 +202,7 @@ public class CityManager {
 		}
 	}
 
-	
+
 	public void addResource(String type, int qty) {
 		switch (type) {
 		case "FOOD":
@@ -206,9 +224,9 @@ public class CityManager {
 			magic += qty;
 			break;
 		}
-		
+
 	}
-	
+
 	private Building getBuilding(int id) {
 		Building building = null;
 		if (id == farmId || id == mineId || id == millId || id == stableId || id == quarryId || id == magicId) {
@@ -218,7 +236,7 @@ public class CityManager {
 		}
 		return building;
 	}
-	
+
 	private MilitaryBuilding getMilitaryBuilding(int placingBuildingId) {
 		MilitaryBuilding building = null;
 		if (placingBuildingId == barracksId) {
@@ -257,5 +275,24 @@ public class CityManager {
 			building = new MagicPump(magicId, placingPosition, this);
 		}
 		return building;
+	}
+
+	public void produceUnit(MilitaryBuilding building, Vector2f position, Vector2f size) {
+		Unit unit = null;
+		if (building instanceof Barracks) {
+			unit = new Infantry(infantryId, position, size,this);
+		}
+		else if (building instanceof Cavalry) {
+			unit = new Horse(horseId, position, size,this);
+		}
+		else if (building instanceof Range) {
+			unit = new Archer(archerId, position, size,this);
+		}
+		else if (building instanceof Arcanum) {
+			unit = new Mage(mageId, position, size,this);
+		}
+		if (unit != null) {
+			soldiers.add(unit);
+		}
 	}
 }

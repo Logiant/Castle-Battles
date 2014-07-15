@@ -12,10 +12,4 @@ public class Infantry extends Unit {
 		super(textureId, position, size, city);
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

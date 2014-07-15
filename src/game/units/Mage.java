@@ -13,10 +13,5 @@ public class Mage extends Unit {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

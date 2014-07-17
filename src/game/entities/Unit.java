@@ -43,17 +43,11 @@ public abstract class Unit {
 	}
 	
 	public void update() {
-		System.out.println(target);
-		System.out.println(position);
-		System.out.println(speed);
-		System.out.println((target.x - position.x) - (target.y + position.y));
 		if (Math.abs((target.x - position.x)) + Math.abs((target.y - position.y)) <= 2*speed) {
 			position = new Vector2f(target);
 			setTarget(new Vector2f(position.x + (rGen.nextFloat() - 0.5f)*10, position.y + (rGen.nextFloat() - 0.5f)*10));
-			System.out.println("target");
 		} else {
 			position = new Vector2f(position.x + (target.x - position.x) * speed, position.y + (target.y - position.y) * speed);
-			System.out.println("incoming!");
 		}
 	}
 	

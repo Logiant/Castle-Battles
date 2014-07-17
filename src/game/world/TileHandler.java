@@ -6,7 +6,7 @@ import game.world.tiles.*;
 public class TileHandler {
 
 	enum TileType {
-		BUILDABLE, GROUND, WALL, WATER;
+		BUILDABLE, GROUND, WALL, WATER, ENEMY;
 	}
 
 
@@ -23,8 +23,11 @@ public class TileHandler {
 		case WATER:
 			nextTile = new WaterTile(x, y);
 			break;
+		case ENEMY:
+			nextTile = new EnemyTile(x, y);
+			break;
 		case BUILDABLE:
-			nextTile = new GroundTile(x, y);
+			nextTile = new BuildableTile(x, y);
 			nextTile.setBuildable(true);
 			break;
 		}
@@ -36,6 +39,7 @@ public class TileHandler {
 		switch (c) {
 		default:
 		case 'G':
+			type = TileType.GROUND;
 			break;
 		case 'W':
 			type = TileType.WALL;
@@ -45,6 +49,9 @@ public class TileHandler {
 			break;
 		case 'B':
 			type = TileType.BUILDABLE;
+			break;
+		case 'E':
+			type = TileType.ENEMY;
 			break;
 		}
 		return type;

@@ -13,13 +13,35 @@ public class Map {
 
 	public static final float TILE_SIZE = 64;
 
-	char[][] map = {{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
-					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
-					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
-					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
-					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
-					{'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A'},
-					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'}};
+	char[][] map = {{'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
+					{'W', 'W', 'W', 'W', 'G', 'G', 'G', 'G', 'G', 'G', 'W', 'W', 'W', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+					{'W', 'W', 'W', 'W', 'G', 'G', 'G', 'G', 'G', 'G', 'W', 'W', 'W', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'}};
 
 	Tile[][] world;
 	int tileMapID;
@@ -28,9 +50,10 @@ public class Map {
 	int worldHeight;
 
 	public Map() { //eventually replace with a levelLoader or something
-		worldWidth = map.length;
-		worldHeight = map[0].length;
-		world = new Tile[worldWidth][worldHeight];
+		worldHeight = map.length;
+		worldWidth = map[0].length;
+		world = new Tile[worldHeight][worldWidth];
+		System.out.println(worldWidth + ", " + worldHeight);
 	}
 
 	public void initialize(Graphics g) {
@@ -39,16 +62,20 @@ public class Map {
 	}
 
 	public void loadTiles() {
-		for (int i = 0; i < world.length; i++) {
-			for (int j = 0; j < world[0].length; j++) {
+		for (int i = 0; i < worldHeight; i++) {
+			for (int j = 0; j < worldWidth; j++) {
 				world[i][j] = TileHandler.getTile(map[i][j], i, j);
 			}
 		}
 	}
+	
+	public float getHeight() {
+		return worldHeight * TILE_SIZE;
+	}
 
 	public void draw(Graphics g) {
-		for (int i = 0; i < world.length; i++) {
-			for (int j = 0; j < world[0].length; j++) {
+		for (int i = 0; i < worldHeight; i++) {
+			for (int j = 0; j < worldWidth; j++) {
 				Tile t = world[i][j];
 				//we will eventually want to check if the tile is on the screen at all before drawing to optimize
 				g.drawMapped(tileMapID, new Rect(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE), t.getTextureRect());
@@ -64,7 +91,7 @@ public class Map {
 		int width = (int)(widthF/TILE_SIZE);
 		int height = (int)(heightF/TILE_SIZE);
 
-		if (x < 0 || y< 0 || x+width > map[0].length || y+height > map.length) {
+		if (x < 0 || y< 0 || x+width > worldWidth || y+height > worldHeight) {
 			return false;
 		}
 		for (int i = y; i < y+height; i++) {

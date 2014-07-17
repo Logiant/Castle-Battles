@@ -51,7 +51,7 @@ public class Game {
 	public void initialize(Graphics g) {
 		background.initialize(g);
 		map.initialize(g);
-		cam.initialize(0, 0);
+		cam.initialize(0, map.getHeight() - Driver.screenHeight);
 		gameOptionsMenu.initialize(g);
 		city.initialize(g, map);
 		ui.initialize(g);

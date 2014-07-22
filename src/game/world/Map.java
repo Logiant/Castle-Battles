@@ -1,5 +1,7 @@
 package game.world;
 
+import org.newdawn.slick.geom.Vector2f;
+
 import game.entities.Tile;
 import graphics.Graphics;
 import graphics.Rect;
@@ -39,7 +41,7 @@ public class Map {
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
-					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
+					{'W', 'B', 'B', 'B', 'B', 'B', 'Q', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
 					{'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'}};
 
@@ -48,11 +50,14 @@ public class Map {
 
 	int worldWidth;
 	int worldHeight;
+	
+	Vector2f headquartersPos;
 
 	public Map() { //eventually replace with a levelLoader or something
 		worldHeight = map.length;
 		worldWidth = map[0].length;
 		world = new Tile[worldHeight][worldWidth];
+		headquartersPos = new Vector2f();
 		System.out.println(worldWidth + ", " + worldHeight);
 	}
 
@@ -65,6 +70,9 @@ public class Map {
 		for (int i = 0; i < worldHeight; i++) {
 			for (int j = 0; j < worldWidth; j++) {
 				world[i][j] = TileHandler.getTile(map[i][j], i, j);
+				if (map[i][j] == 'Q') {
+					headquartersPos = new Vector2f(j, i);
+				}
 			}
 		}
 	}
@@ -129,5 +137,9 @@ public class Map {
 				world[i][j].setBuildable(false);				
 			}
 		}
+	}
+
+	public Vector2f headquartersPos() {
+		return headquartersPos;
 	}
 }

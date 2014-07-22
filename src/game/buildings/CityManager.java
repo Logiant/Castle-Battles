@@ -11,6 +11,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
 import game.buildings.military.*;
+import game.buildings.other.Headquarters;
 import game.buildings.resource.*;
 import game.entities.MilitaryBuilding;
 import game.entities.ResourceBuilding;
@@ -40,7 +41,9 @@ public class CityManager {
 	List<ResourceBuilding> resourceBuildings;
 	List<MilitaryBuilding> militaryBuildings;
 	List<Unit> soldiers;
-
+	Headquarters HQ;
+	
+	
 	//do we want to put these in an int[] to save space?
 	int farmId;
 	int mineId;
@@ -55,9 +58,11 @@ public class CityManager {
 	int arcanumId;
 	//units
 	int infantryId;
-	int horseId;;
+	int horseId;
 	int archerId;
 	int mageId;
+	//other buildings
+	int headquartersId;
 			
 	boolean placingBuilding;
 	int placingBuildingId;
@@ -65,6 +70,7 @@ public class CityManager {
 	Map world;
 
 	public void initialize(Graphics g, Map map) {
+		//resource buildings
 		farmId = g.loadImage("Buildings/Farm");
 		mineId = g.loadImage("Buildings/Mine");
 		millId = g.loadImage("Buildings/Lumber");
@@ -72,21 +78,30 @@ public class CityManager {
 		quarryId = g.loadImage("Buildings/Quarry");
 		magicId = g.loadImage("Buildings/MagicPump");
 		resourceBuildings = new ArrayList<ResourceBuilding>();
-		//military
+		//military buildings
 		barracksId = g.loadImage("Buildings/Barracks");
 		cavalryId = g.loadImage("Buildings/Cavalry");
 		rangeId = g.loadImage("Buildings/Range");
 		arcanumId = g.loadImage("Buildings/Arcanum");
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
 		//units
-		infantryId = g.loadImage("Units/Infantry");;
-		horseId = g.loadImage("Units/Cavalry");;
-		archerId = g.loadImage("Units/Archer");;
-		mageId = g.loadImage("Units/Mage");;
+		infantryId = g.loadImage("Units/Infantry");
+		horseId = g.loadImage("Units/Cavalry");
+		archerId = g.loadImage("Units/Archer");
+		mageId = g.loadImage("Units/Mage");
 		soldiers = new ArrayList<Unit>();
+		//other buildings
+		headquartersId = g.loadImage("Buildings/Headquarters");
 
 		world = map;
+		placeHQ(map.headquartersPos());
 		placingPosition = new Vector2f();
+	}
+	
+	public void placeHQ(Vector2f pos) {
+		HQ = new Headquarters(headquartersId, new Vector2f(pos.x*Map.TILE_SIZE, pos.y*Map.TILE_SIZE), this);
+		world.placeBuilding(pos.x, pos.y, 1, 1);
+
 	}
 
 	public void update(Vector2f translation, boolean active) {
@@ -156,6 +171,8 @@ public class CityManager {
 			b.update();
 		for (MilitaryBuilding m: militaryBuildings)
 			m.update();
+		
+		HQ.update();
 	}
 
 	public void draw(Graphics g) {
@@ -167,6 +184,8 @@ public class CityManager {
 		//draw all units
 		for (Unit u: soldiers)
 			u.draw(g);
+		
+		HQ.draw(g);
 	}
 
 	public void drawText() {
@@ -221,6 +240,14 @@ public class CityManager {
 			horse += qty;
 			break;
 		case "MAGIC":
+			magic += qty;
+			break;
+		case "ALL":
+			food += qty;
+			lumber += qty;
+			metal += qty;
+			stone += qty;
+			horse += qty;
 			magic += qty;
 			break;
 		}

@@ -3,6 +3,7 @@ package game.buildings.military;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.CityManager;
+import game.buildings.ResourceHandler;
 import game.entities.MilitaryBuilding;
 import game.world.Map;
 
@@ -22,4 +23,12 @@ public class Barracks extends MilitaryBuilding {
 		time = cooldownTime;
 	}
 	
+	@Override
+	public ResourceHandler getCost() {
+		ResourceHandler rh = new ResourceHandler();
+		rh.food = 10;
+		rh.metal = 15;
+		rh.stone = 5;
+		return rh;
+	}
 }

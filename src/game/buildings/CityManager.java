@@ -42,8 +42,8 @@ public class CityManager {
 	List<MilitaryBuilding> militaryBuildings;
 	List<Unit> soldiers;
 	Headquarters HQ;
-	
-	
+
+
 	//do we want to put these in an int[] to save space?
 	int farmId;
 	int mineId;
@@ -63,7 +63,7 @@ public class CityManager {
 	int mageId;
 	//other buildings
 	int headquartersId;
-			
+
 	boolean placingBuilding;
 	int placingBuildingId;
 	Vector2f placingPosition;
@@ -97,7 +97,7 @@ public class CityManager {
 		placeHQ(map.headquartersPos());
 		placingPosition = new Vector2f();
 	}
-	
+
 	public void placeHQ(Vector2f pos) {
 		HQ = new Headquarters(headquartersId, new Vector2f(pos.x*Map.TILE_SIZE, pos.y*Map.TILE_SIZE), this);
 		world.placeBuilding(pos.x, pos.y, 1, 1);
@@ -115,7 +115,7 @@ public class CityManager {
 		}
 
 		collectResources();
-		
+
 		for (Unit u:soldiers)
 			u.update();
 
@@ -171,7 +171,7 @@ public class CityManager {
 			b.update();
 		for (MilitaryBuilding m: militaryBuildings)
 			m.update();
-		
+
 		HQ.update();
 	}
 
@@ -184,7 +184,7 @@ public class CityManager {
 		//draw all units
 		for (Unit u: soldiers)
 			u.draw(g);
-		
+
 		HQ.draw(g);
 	}
 
@@ -199,12 +199,30 @@ public class CityManager {
 
 	public void buildBuilding() {
 		Building building = getBuilding(placingBuildingId);
-		if (building instanceof ResourceBuilding)
-			resourceBuildings.add((ResourceBuilding)building);
-		if (building instanceof MilitaryBuilding)
-			militaryBuildings.add((MilitaryBuilding)building);
+		if (canAfford(building.getCost())) {
+			if (building instanceof ResourceBuilding)
+				resourceBuildings.add((ResourceBuilding)building);
+			if (building instanceof MilitaryBuilding)
+				militaryBuildings.add((MilitaryBuilding)building);
 
-		world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
+			world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
+		} else {
+			System.out.println("Too poor, " + building.getCost());
+		}
+	}
+
+	private boolean canAfford(ResourceHandler cost) {
+		boolean afford = false;
+		if (cost.food <= food && cost.lumber <= lumber && cost.metal <= metal && cost.stone <= stone && cost.horse <= horse && cost.magic <= magic) {
+			afford = true;
+			food -= cost.food;
+			lumber -= cost.lumber;
+			metal -= cost.metal;
+			stone -= cost.stone;
+			horse -= cost.horse;
+			magic -= cost.magic;
+		}
+		return afford;
 	}
 
 	public void drawPlaced(Graphics g, Vector2f translate, boolean active) {

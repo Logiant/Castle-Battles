@@ -6,12 +6,13 @@ import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.Building;
 import game.buildings.CityManager;
+import game.buildings.ResourceHandler;
 import game.world.Map;
 
 
 /**
- * this is the farm building
- * it produces the food resource
+ * this is the Headquarters building
+ * it produces all resources
  * @author Logs
  *
  */
@@ -31,5 +32,11 @@ public class Headquarters extends Building{
 			city.addResource("ALL", resourceAmount);
 			time = cooldownTime;
 		}
+	}
+	
+	@Override
+	public ResourceHandler getCost() {
+		ResourceHandler rh = new ResourceHandler();
+		return rh;
 	}
 }

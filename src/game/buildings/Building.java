@@ -39,4 +39,6 @@ public abstract class Building {
 		}
 		
 		public abstract void update();
+		
+		public abstract ResourceHandler getCost();
 }

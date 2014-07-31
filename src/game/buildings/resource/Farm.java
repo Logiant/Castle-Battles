@@ -5,6 +5,7 @@ import main.Time;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.CityManager;
+import game.buildings.ResourceHandler;
 import game.entities.ResourceBuilding;
 import game.world.Map;
 
@@ -31,5 +32,13 @@ public class Farm extends ResourceBuilding{
 			city.addResource("FOOD", resourceAmount);
 			time = cooldownTime;
 		}
+	}
+	
+	@Override
+	public ResourceHandler getCost() {
+		ResourceHandler rh = new ResourceHandler();
+		rh.lumber = 15;
+		rh.stone = 5;
+		return rh;
 	}
 }

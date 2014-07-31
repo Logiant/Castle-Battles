@@ -10,9 +10,11 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
+import game.buildings.defense.*;
 import game.buildings.military.*;
 import game.buildings.other.Headquarters;
 import game.buildings.resource.*;
+import game.entities.DefenseBuilding;
 import game.entities.MilitaryBuilding;
 import game.entities.ResourceBuilding;
 import game.entities.Unit;
@@ -41,6 +43,7 @@ public class CityManager {
 	List<ResourceBuilding> resourceBuildings;
 	List<MilitaryBuilding> militaryBuildings;
 	List<Unit> soldiers;
+	List<DefenseBuilding> defenseBuildings;
 	Headquarters HQ;
 
 
@@ -61,6 +64,9 @@ public class CityManager {
 	int horseId;
 	int archerId;
 	int mageId;
+	//defensive
+	int wallId;
+	int pitfallId;
 	//other buildings
 	int headquartersId;
 
@@ -90,6 +96,10 @@ public class CityManager {
 		archerId = g.loadImage("Units/Archer");
 		mageId = g.loadImage("Units/Mage");
 		soldiers = new ArrayList<Unit>();
+		//defensive
+		wallId = g.loadImage("Buildings/Wall");
+		pitfallId = g.loadImage("Buildings/Pitfall");
+		defenseBuildings = new ArrayList<DefenseBuilding>();
 		//other buildings
 		headquartersId = g.loadImage("Buildings/Headquarters");
 
@@ -118,6 +128,10 @@ public class CityManager {
 
 		for (Unit u:soldiers)
 			u.update();
+		
+		for (DefenseBuilding d: defenseBuildings) {
+			d.update();
+		}
 
 	}
 
@@ -163,6 +177,14 @@ public class CityManager {
 			placingBuildingId = arcanumId;
 			placingBuilding = true;
 			break;
+		case "WALL":
+			placingBuildingId = wallId;
+			placingBuilding = true;
+			break;
+		case "PITFALL":
+			placingBuildingId = pitfallId;
+			placingBuilding = true;
+			break;
 		}
 	}
 
@@ -184,7 +206,10 @@ public class CityManager {
 		//draw all units
 		for (Unit u: soldiers)
 			u.draw(g);
-
+		//draw all defensive buildings
+		for (DefenseBuilding d: defenseBuildings)
+			d.draw(g);
+		//draw the HQ
 		HQ.draw(g);
 	}
 
@@ -204,6 +229,8 @@ public class CityManager {
 				resourceBuildings.add((ResourceBuilding)building);
 			if (building instanceof MilitaryBuilding)
 				militaryBuildings.add((MilitaryBuilding)building);
+			if (building instanceof DefenseBuilding)
+				defenseBuildings.add((DefenseBuilding)building);
 
 			world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
 		} else {
@@ -278,10 +305,23 @@ public class CityManager {
 			building = getResourceBuilding(id);
 		} else if (id == barracksId || id == cavalryId || id == rangeId || id == arcanumId) {
 			building = getMilitaryBuilding(id);
+		} else if (id == wallId || id == pitfallId) {
+			building = getDefenseBuilding(id);
 		}
 		return building;
 	}
 
+	private DefenseBuilding getDefenseBuilding(int placingBuildingId) {
+		DefenseBuilding building = null;
+		if (placingBuildingId == wallId) {
+			building = new Wall(wallId, placingPosition, this);
+		}
+		else if (placingBuildingId == pitfallId) {
+			building = new Pitfall(pitfallId, placingPosition, this);
+		}
+		return building;
+	}
+	
 	private MilitaryBuilding getMilitaryBuilding(int placingBuildingId) {
 		MilitaryBuilding building = null;
 		if (placingBuildingId == barracksId) {

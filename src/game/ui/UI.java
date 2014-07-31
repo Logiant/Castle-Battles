@@ -22,9 +22,10 @@ public class UI {
 
 	public UI(CityManager city) {
 		this.city = city;
-		tabs = new UITab[2];
+		tabs = new UITab[3];
 		tabs[0] = new ResourceTab(this);
 		tabs[1] = new MilitaryTab(this);
+		tabs[2] = new DefenseTab(this);
 		
 		tabs[0].setActive(true);
 	}
@@ -69,6 +70,9 @@ public class UI {
 			break;
 		case "MILITARY":
 			tabId = 1;
+			break;
+		case "DEFENSE":
+			tabId = 2;
 			break;
 		}
 		for (UITab t: tabs)

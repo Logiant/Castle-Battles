@@ -1,5 +1,8 @@
 package game.world;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.newdawn.slick.geom.Vector2f;
 
 import game.entities.Tile;
@@ -52,12 +55,14 @@ public class Map {
 	int worldHeight;
 	
 	Vector2f headquartersPos;
+	List<Vector2f> walls;
 
 	public Map() { //eventually replace with a levelLoader or something
 		worldHeight = map.length;
 		worldWidth = map[0].length;
 		world = new Tile[worldHeight][worldWidth];
 		headquartersPos = new Vector2f();
+		walls = new LinkedList<Vector2f>();
 		System.out.println(worldWidth + ", " + worldHeight);
 	}
 
@@ -72,6 +77,9 @@ public class Map {
 				world[i][j] = TileHandler.getTile(map[i][j], i, j);
 				if (map[i][j] == 'Q') {
 					headquartersPos = new Vector2f(j, i);
+				}
+				if (map[i][j] == 'W') {
+					walls.add(new Vector2f(j, i));
 				}
 			}
 		}
@@ -141,5 +149,9 @@ public class Map {
 
 	public Vector2f headquartersPos() {
 		return headquartersPos;
+	}
+	
+	public List<Vector2f> getWalls() {
+		return walls;
 	}
 }

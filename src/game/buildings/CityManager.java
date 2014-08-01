@@ -105,7 +105,16 @@ public class CityManager {
 
 		world = map;
 		placeHQ(map.headquartersPos());
+		buildWalls(map.getWalls());
 		placingPosition = new Vector2f();
+	}
+
+	private void buildWalls(List<Vector2f> walls) {
+		for (Vector2f w:walls) {
+			DefenseBuilding building = new Wall(wallId, new Vector2f(w.x*Map.TILE_SIZE, w.y*Map.TILE_SIZE), this);
+			world.placeBuilding(w.x, w.y, building.getSize().x, building.getSize().y);
+			defenseBuildings.add(building);
+		}
 	}
 
 	public void placeHQ(Vector2f pos) {

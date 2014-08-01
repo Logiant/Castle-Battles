@@ -2,6 +2,7 @@ package game.buildings.defense;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.City;
 import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.DefenseBuilding;
@@ -18,7 +19,7 @@ public class Pitfall extends DefenseBuilding{
 	
 public static final Vector2f size = new Vector2f(1*Map.TILE_SIZE, 1*Map.TILE_SIZE);
 	
-	public Pitfall(int textureId, Vector2f position, CityManager city) {
+	public Pitfall(int textureId, Vector2f position, City city) {
 		super(textureId, position, size, city);
 		time = cooldownTime;
 		damage = 1;

@@ -4,6 +4,7 @@ import main.Driver;
 
 import org.lwjgl.input.Mouse;
 
+import game.buildings.City;
 import game.buildings.CityManager;
 import graphics.Graphics;
 import graphics.Rect;
@@ -15,18 +16,18 @@ import graphics.Rect;
  */
 public class UI {
 
-	CityManager city;
+	City city;
 	UITab[] tabs;
 	private int uiTextureId;
 	public static int height = 90;
 
-	public UI(CityManager city) {
+	public UI(City city) {
 		this.city = city;
 		tabs = new UITab[3];
 		tabs[0] = new ResourceTab(this);
 		tabs[1] = new MilitaryTab(this);
 		tabs[2] = new DefenseTab(this);
-		
+
 		tabs[0].setActive(true);
 	}
 
@@ -35,20 +36,22 @@ public class UI {
 		for (UITab t: tabs)
 			t.initialize(g);
 	}
-	
+
 	public void drawText() {
 		for (UITab t: tabs)
 			t.drawText();
 	}
 
-	public void update(Graphics g) {
+	public void update(Graphics g, boolean active) {
 		String cmd = "";
 		g.draw(uiTextureId, new Rect(0, Driver.screenHeight - height, Driver.screenWidth, height));
 		for (UITab t: tabs) {
 			cmd = t.update(g);
-			if (!cmd.equals("")) {
-				switchTabs(cmd);
-				city.buildCommand(cmd);
+			if (active) {
+				if (!cmd.equals("")) {
+					switchTabs(cmd);
+					city.buildCommand(cmd);
+				}
 			}
 		}
 	}
@@ -60,7 +63,7 @@ public class UI {
 		}
 		return moused;
 	}
-	
+
 	public void switchTabs(String nextTab) {
 		int tabId = 0;
 		switch (nextTab) {

@@ -33,7 +33,7 @@ public class Graphics {
 			paths.add(path); //add to the list of loaded textures
 			try {
 				textures.add(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("resources/" + path + ".png")));
-				System.out.println("Loaded: " + path + ".png");
+			//	System.out.println("Loaded: " + path + ".png");
 			} catch (IOException e) {
 				System.err.println("Could not load file " + path);
 				System.exit(-1);

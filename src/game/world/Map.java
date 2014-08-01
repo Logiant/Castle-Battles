@@ -18,24 +18,24 @@ public class Map {
 
 	public static final float TILE_SIZE = 64;
 
-	char[][] map = {{'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-					{'W', 'W', 'W', 'W', 'G', 'G', 'G', 'G', 'G', 'G', 'W', 'W', 'W', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
-					{'W', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'W'},
+	char[][] map = {{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'Z', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'X'},
+					{'X', 'X', 'X', 'X', 'G', 'G', 'G', 'G', 'G', 'G', 'X', 'X', 'X', 'X'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
+					{'N', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'N'},
 					{'W', 'W', 'W', 'W', 'G', 'G', 'G', 'G', 'G', 'G', 'W', 'W', 'W', 'W'},
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
 					{'W', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'W'},
@@ -55,15 +55,20 @@ public class Map {
 	int worldHeight;
 	
 	Vector2f headquartersPos;
+	Vector2f enemyHeadquartersPos;
 	List<Vector2f> walls;
+	List<Vector2f> enemyWalls;
+	List<Vector2f> neutralWalls;
 
 	public Map() { //eventually replace with a levelLoader or something
 		worldHeight = map.length;
 		worldWidth = map[0].length;
 		world = new Tile[worldHeight][worldWidth];
 		headquartersPos = new Vector2f();
+		enemyHeadquartersPos = new Vector2f();
 		walls = new LinkedList<Vector2f>();
-		System.out.println(worldWidth + ", " + worldHeight);
+		enemyWalls = new LinkedList<Vector2f>();
+		neutralWalls = new LinkedList<Vector2f>();
 	}
 
 	public void initialize(Graphics g) {
@@ -80,6 +85,15 @@ public class Map {
 				}
 				if (map[i][j] == 'W') {
 					walls.add(new Vector2f(j, i));
+				}
+				if (map[i][j] == 'Z') {
+					enemyHeadquartersPos = new Vector2f(j, i);
+				}
+				if (map[i][j] == 'X') {
+					enemyWalls.add(new Vector2f(j, i));
+				}
+				if (map[i][j] == 'N') {
+					neutralWalls.add(new Vector2f(j, i));
 				}
 			}
 		}
@@ -153,5 +167,17 @@ public class Map {
 	
 	public List<Vector2f> getWalls() {
 		return walls;
+	}
+
+	public Vector2f enemyHeadquartersPos() {
+		return enemyHeadquartersPos;
+	}
+
+	public List<Vector2f> getEnemyWalls() {
+		return enemyWalls;
+	}
+
+	public List<Vector2f> getNeutralWalls() {
+		return neutralWalls;
 	}
 }

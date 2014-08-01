@@ -19,11 +19,11 @@ public abstract class Building {
 		protected Vector2f position;
 		protected int textureId;
 		private Vector2f size;
-		protected CityManager city;
+		protected City city;
 		protected int cooldownTime = 10000;//seconds
 		protected int time;
 		
-		public Building(int textureId, Vector2f position, Vector2f size, CityManager city) {
+		public Building(int textureId, Vector2f position, Vector2f size, City city) {
 			this.textureId = textureId;
 			this.position = position;
 			this.size = size;

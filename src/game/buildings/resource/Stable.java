@@ -4,6 +4,7 @@ import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.City;
 import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.ResourceBuilding;
@@ -19,7 +20,7 @@ public class Stable extends ResourceBuilding{
 	
 public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
 	
-	public Stable(int textureId, Vector2f position, CityManager city) {
+	public Stable(int textureId, Vector2f position, City city) {
 		super(textureId, position, size, city);
 		resourceAmount = 5;
 		time = cooldownTime;

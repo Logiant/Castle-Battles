@@ -41,6 +41,8 @@ public class TileHandler {
 		case 'G':
 			type = TileType.GROUND;
 			break;
+		case 'N':
+		case 'X':
 		case 'W':
 			type = TileType.WALL;
 			break;

@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.buildings.Building;
+import game.buildings.City;
 import game.buildings.CityManager;
 import main.Time;
 
@@ -18,7 +19,7 @@ public abstract class DefenseBuilding extends Building {
 	protected float range;
 	protected float damage;
 	
-	public DefenseBuilding(int textureId, Vector2f position, Vector2f size, CityManager city) {
+	public DefenseBuilding(int textureId, Vector2f position, Vector2f size, City city) {
 		super(textureId, position, size, city);
 		time = cooldownTime;
 	}

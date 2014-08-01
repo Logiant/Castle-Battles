@@ -2,6 +2,7 @@ package game.entities;
 
 import java.util.Random;
 
+import game.buildings.City;
 import game.buildings.CityManager;
 import graphics.Graphics;
 import graphics.Rect;
@@ -21,11 +22,11 @@ public abstract class Unit {
 	protected float speed;
 	protected Vector2f size;
 	protected Vector2f target;
-	protected CityManager city;
+	protected City city;
 	
 	private Random rGen = new Random();
 
-	public Unit(int textureId, Vector2f position, Vector2f size, CityManager city) {
+	public Unit(int textureId, Vector2f position, Vector2f size, City city) {
 		this.textureId = textureId;
 		this.position = position;
 		this.size = size;

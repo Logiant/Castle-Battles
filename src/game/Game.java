@@ -9,7 +9,10 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import widgets.GameOptionsMenu;
+import game.buildings.City;
 import game.buildings.CityManager;
+import game.buildings.EnemyCityManager;
+import game.buildings.NeutralCityManager;
 import game.ui.UI;
 import game.world.Map;
 import game.world.SimpleBackground;
@@ -25,7 +28,9 @@ public class Game {
 	Camera cam;
 	Map map;
 	GameOptionsMenu gameOptionsMenu;
-	CityManager city;
+	City city;
+	City enemyCity;
+	City neutralCity;
 	UI ui;
 	SimpleBackground background;
 	//region for scrolling the camera via mouse
@@ -44,16 +49,24 @@ public class Game {
 		cam = new Camera();
 		map = new Map();
 		gameOptionsMenu = new GameOptionsMenu();
-		city = new CityManager();
-		ui = new UI(city);
+		
 	}
 
 	public void initialize(Graphics g) {
+		//create new objects
+		city = new CityManager();
+		enemyCity = new EnemyCityManager();
+		neutralCity = new NeutralCityManager();
+		ui = new UI(city);
+		//initialize all objects
+		City.initialize(g, map);
 		background.initialize(g);
 		map.initialize(g);
 		cam.initialize(0, map.getHeight() - Driver.screenHeight);
 		gameOptionsMenu.initialize(g);
-		city.initialize(g, map);
+		city.setup();
+		enemyCity.setup();
+		neutralCity.setup();
 		ui.initialize(g);
 	}
 	public String update(Graphics g) {
@@ -65,12 +78,17 @@ public class Game {
 			gameOptionsMenu.toggle();
 		}
 
-		city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
-		
+		if (!gameOptionsMenu.isActive()) {
+			city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+			enemyCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+			neutralCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+		}
 		
 		//rendering - we could make this a nested class called Render if needed
 		GL11.glBegin(GL11.GL_QUADS);
 		map.draw(g);
+		neutralCity.draw(g);
+		enemyCity.draw(g);
 		city.draw(g);
 		city.drawPlaced(g, cam.getTranslation(), !gameOptionsMenu.isActive());
 		GL11.glEnd();
@@ -92,7 +110,7 @@ public class Game {
 		GL11.glPushMatrix();
 		GL11.glLoadIdentity();
 		GL11.glBegin(GL11.GL_QUADS);
-		ui.update(g);
+		ui.update(g, !gameOptionsMenu.isActive());
 		GL11.glEnd();
 		if (gameOptionsMenu.isActive()) {
 			GL11.glBegin(GL11.GL_QUADS);

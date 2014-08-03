@@ -11,7 +11,7 @@ import graphics.Graphics;
 public class GameController {
 
 	enum GameState {
-		SETUP, CHARACTER_CREATE, GAME
+		SETUP, CHARACTER_CREATE, GAME, WIN_SCREEN, LOSE_SCREEN
 	}
 	
 	Game game;
@@ -41,6 +41,11 @@ public class GameController {
 			if (nextState.equals("QUIT")) {
 				cmd = nextState;
 			}
+			break;
+		case WIN_SCREEN:
+			
+			break;
+		case LOSE_SCREEN:
 			break;
 		}
 		return cmd;

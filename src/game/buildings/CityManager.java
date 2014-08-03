@@ -22,8 +22,8 @@ public class CityManager extends City {
 	}
 
 	@Override
-	public void update(Vector2f translation, boolean active) {
-		super.update(translation, active);
+	public boolean update(Vector2f translation, boolean active) {
+		return super.update(translation, active);
 
 	}
 

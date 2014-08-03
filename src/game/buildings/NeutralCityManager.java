@@ -22,9 +22,10 @@ public class NeutralCityManager extends City{
 	}
 
 	@Override
-	public void update(Vector2f translation, boolean active) {	
+	public boolean update(Vector2f translation, boolean active) {	
 		for (DefenseBuilding d: defenseBuildings)
 			d.update();
+		return false;
 	}
 
 	@Override

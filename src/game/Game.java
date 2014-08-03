@@ -35,6 +35,10 @@ public class Game {
 	SimpleBackground background;
 	//region for scrolling the camera via mouse
 	float scrollRegion = 15;
+	
+	//endgame flags
+	private boolean win;
+	private boolean lose;
 
 	//we can load this into a keybind class or something
 	int upKey = Keyboard.getKeyIndex("W");
@@ -67,6 +71,8 @@ public class Game {
 		city.setup();
 		enemyCity.setup();
 		neutralCity.setup();
+		city.setTarget(enemyCity.getHQ().getPosition());
+		enemyCity.setTarget(city.getHQ().getPosition());
 		ui.initialize(g);
 	}
 	public String update(Graphics g) {
@@ -77,10 +83,10 @@ public class Game {
 		if(InputHandler.wasKeyPressed(escape) || nextState.equals("BACK")) {
 			gameOptionsMenu.toggle();
 		}
-
+		
 		if (!gameOptionsMenu.isActive()) {
-			city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
-			enemyCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+			lose = city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
+			win = enemyCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
 			neutralCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
 		}
 		
@@ -94,6 +100,11 @@ public class Game {
 		GL11.glEnd();
 
 		drawUI(g);
+		
+		if (win || lose) {
+			System.out.println("Win? " + win);
+			nextState = "QUIT";//GAMEOVER;
+		}
 		
 		//TODO finish this
 		return nextState;
@@ -139,5 +150,10 @@ public class Game {
 		}
 		cam.move(dx, dy);
 		cam.update();
+	}
+	
+	public void endGame(boolean win) {
+		this.win = win;
+		lose = !win;
 	}
 }

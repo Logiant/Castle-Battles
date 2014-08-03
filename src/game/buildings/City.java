@@ -56,6 +56,7 @@ public abstract class City {
 	protected boolean placingBuilding;
 	protected int placingBuildingId;
 	
+	protected Vector2f enemyTarget;
 
 	//do we want to put these in an int[] to save space?
 	public static int farmId;
@@ -88,7 +89,13 @@ public abstract class City {
 		soldiers = new ArrayList<Unit>();
 		defenseBuildings = new ArrayList<DefenseBuilding>();
 		placingPosition = new Vector2f();;
+		enemyTarget = new Vector2f();
 	}
+	
+	public void setTarget(Vector2f target) {
+		enemyTarget = target;
+	}
+	
 	public abstract void drawText();
 	
 	public static void initialize(Graphics g, Map map) {
@@ -118,6 +125,10 @@ public abstract class City {
 		world = map;
 	}
 	
+	
+	public Headquarters getHQ() {
+		return HQ;
+	}
 
 	protected void buildWalls(List<Vector2f> walls) {
 		for (Vector2f w:walls) {
@@ -133,7 +144,7 @@ public abstract class City {
 
 	}
 
-	public void update(Vector2f translation, boolean active) {
+	public boolean update(Vector2f translation, boolean active) {
 		if (InputHandler.rightClicked())
 			placingBuilding = false;
 
@@ -151,6 +162,8 @@ public abstract class City {
 		for (DefenseBuilding d: defenseBuildings) {
 			d.update();
 		}
+		
+		return !HQ.isAlive();
 
 	}
 
@@ -389,6 +402,7 @@ public abstract class City {
 		}
 		if (unit != null) {
 			soldiers.add(unit);
+			unit.setTarget(enemyTarget);
 		}
 	}
 	

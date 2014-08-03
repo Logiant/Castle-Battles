@@ -8,6 +8,7 @@ import game.buildings.Building;
 import game.buildings.City;
 import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
+import game.entities.Living;
 import game.world.Map;
 
 
@@ -25,6 +26,11 @@ public class Headquarters extends Building{
 	public Headquarters(int textureId, Vector2f position, City city) {
 		super(textureId, position, size, city);
 		time = cooldownTime;
+		health = 10;
+	}
+	
+	public boolean isAlive() {
+		return health > 0;
 	}
 	
 	public void update() {

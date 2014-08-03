@@ -21,7 +21,7 @@ public class EnemyCityManager extends City{
 	}
 
 	@Override
-	public void update(Vector2f translation, boolean active) {
+	public boolean update(Vector2f translation, boolean active) {
 		collectResources();
 
 		for (Unit u:soldiers)
@@ -30,6 +30,8 @@ public class EnemyCityManager extends City{
 		for (DefenseBuilding d: defenseBuildings) {
 			d.update();
 		}
+		
+		return !HQ.isAlive();
 
 	}
 

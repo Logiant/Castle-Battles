@@ -24,7 +24,8 @@ public abstract class Unit {
 	protected Vector2f target;
 	protected City city;
 	
-	private Random rGen = new Random();
+	protected boolean moving;
+	
 
 	public Unit(int textureId, Vector2f position, Vector2f size, City city) {
 		this.textureId = textureId;
@@ -44,12 +45,20 @@ public abstract class Unit {
 	}
 	
 	public void update() {
-		if (Math.abs((target.x - position.x)) + Math.abs((target.y - position.y)) <= 2*speed) {
+		Vector2f distance = new Vector2f(target.x - position.x, target.y - position.y);
+		if (distance.lengthSquared() <= speed*speed) {
 			position = new Vector2f(target);
-			setTarget(new Vector2f(position.x + (rGen.nextFloat() - 0.5f)*10, position.y + (rGen.nextFloat() - 0.5f)*10));
+			moving = false;
 		} else {
-			position = new Vector2f(position.x + (target.x - position.x) * speed, position.y + (target.y - position.y) * speed);
+			distance.normalise();
+			distance.scale(speed);
+			position = new Vector2f(position.x + distance.x, position.y + distance.y);
+			moving = true;
 		}
+	}
+	
+	public boolean isMoving() {
+		return moving;
 	}
 	
 	public void setTarget(Vector2f target) {

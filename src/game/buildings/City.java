@@ -159,7 +159,7 @@ public abstract class City {
 		world.placeBuilding(pos.x, pos.y, 1, 1);
 
 	}
-	
+
 	public void removeDead() {
 		for (int i = soldiers.size(); i >= 0; i--) {
 			if (!soldiers.get(i).isAlive())
@@ -179,9 +179,11 @@ public abstract class City {
 
 		collectResources();
 
-		for (Unit u:soldiers) {
-			if (u.isAlive())
-				u.update();
+		for (int i = soldiers.size()-1; i >=0;  i--) {
+			if (soldiers.get(i).isAlive())
+				soldiers.get(i).update();
+			else
+				soldiers.remove(i);
 		}
 
 		for (DefenseBuilding d: defenseBuildings) {
@@ -257,18 +259,28 @@ public abstract class City {
 
 	public void draw(Graphics g) {
 		//draw all buildings
-		for (ResourceBuilding b: resourceBuildings)
-			b.draw(g);
-		for (MilitaryBuilding m: militaryBuildings)
-			m.draw(g);
+		for (ResourceBuilding b: resourceBuildings) {
+			if (b.isAlive())
+				b.draw(g);
+		}
+		for (MilitaryBuilding m: militaryBuildings) {
+			if (m.isAlive())
+				m.draw(g);
+		}
 		//draw all units
-		for (Unit u: soldiers)
-			u.draw(g);
+		for (Unit u: soldiers) {
+			if (u.isAlive())
+				u.draw(g);
+		}
 		//draw all defensive buildings
-		for (DefenseBuilding d: defenseBuildings)
-			d.draw(g);
+		for (DefenseBuilding d: defenseBuildings) {
+			if (d.isAlive())
+				d.draw(g);
+		}
 		//draw the HQ
-		HQ.draw(g);
+		if (HQ.isAlive()) {
+			HQ.draw(g);
+		}
 	}
 
 

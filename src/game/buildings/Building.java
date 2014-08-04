@@ -31,6 +31,8 @@ public abstract class Building implements Combat {
 			this.position = new Vector2f(position);
 			this.size = new Vector2f(size);
 			this.city = city;
+			
+			health = 5;
 		}
 		
 		public int getHP() {

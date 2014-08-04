@@ -1,5 +1,7 @@
 package game.buildings;
 
+import game.entities.Unit;
+import game.units.Archer;
 import graphics.Graphics;
 
 import org.newdawn.slick.geom.Vector2f;
@@ -25,6 +27,9 @@ public class CityManager extends City {
 		horse = 20;
 		stone = 20;
 		metal = 20;
+				Unit u = new Archer(archerId, HQ.getPosition(), new Vector2f(32, 32), this);
+				u.setTarget(enemyTarget);
+				soldiers.add(u);
 	}
 
 	@Override

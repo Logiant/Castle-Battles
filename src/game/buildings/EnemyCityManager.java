@@ -39,9 +39,12 @@ public class EnemyCityManager extends City{
 			soldiers.add(u);
 		}
 
-		for (Unit u:soldiers)
-			if (u.isAlive())
-				u.update();
+		for (int i = soldiers.size()-1; i >=0;  i--) {
+			if (soldiers.get(i).isAlive())
+				soldiers.get(i).update();
+			else
+				soldiers.remove(i);
+		}
 
 		for (DefenseBuilding d: defenseBuildings) {
 			if (d.isAlive())

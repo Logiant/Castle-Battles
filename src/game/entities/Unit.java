@@ -4,6 +4,7 @@ package game.entities;
 import java.util.List;
 
 import game.buildings.City;
+import game.units.Archer;
 import graphics.Graphics;
 import graphics.Rect;
 import main.Time;
@@ -56,23 +57,21 @@ public abstract class Unit implements Combat {
 	}
 
 	public void update() {
-		if (health > 0) {
-			float dt = (float) (Time.dt / 1000.0);
-			Vector2f distance = new Vector2f(targetPos.x - position.x, targetPos.y - position.y);
-			if (targetEnemy != null) { //move forward for the emeperor if theres a target enemy
-				distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
-			}
-			if (distance.lengthSquared() <= speed*speed * dt * dt) {
-				position = new Vector2f(targetPos);
-				moving = false;
-			} else {
-				distance.normalise();
-				distance.scale(speed * dt);
-				position.add(distance);
-				moving = true;
-			}
-			attack();
+		float dt = (float) (Time.dt / 1000.0);
+		Vector2f distance = new Vector2f(targetPos.x - position.x, targetPos.y - position.y);
+		if (targetEnemy != null) { //move forward for the emeperor if theres a target enemy
+			distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
 		}
+		if (distance.lengthSquared() <= speed*speed * dt * dt) {
+			position.add(distance);
+			moving = false;
+		} else {
+			distance.normalise();
+			distance.scale(speed * dt);
+			position.add(distance);
+			moving = true;
+		}
+		attack();
 	}
 
 	public boolean isMoving() {
@@ -105,11 +104,6 @@ public abstract class Unit implements Combat {
 			Vector2f distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
 			if (distance.lengthSquared() <= range*range) {
 				targetEnemy.damage(damage);
-				System.out.println("////****\\\\");
-				System.out.println(distance);
-				System.out.println(targetEnemy);
-				System.out.println(targetEnemy.getPosition());
-				System.out.println(position);
 			}
 		}
 	}

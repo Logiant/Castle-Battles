@@ -28,8 +28,8 @@ public abstract class Building implements Combat {
 		
 		public Building(int textureId, Vector2f position, Vector2f size, City city) {
 			this.textureId = textureId;
-			this.position = position;
-			this.size = size;
+			this.position = new Vector2f(position);
+			this.size = new Vector2f(size);
 			this.city = city;
 		}
 		

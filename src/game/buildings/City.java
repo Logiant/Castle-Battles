@@ -56,7 +56,7 @@ public abstract class City {
 	protected Vector2f placingPosition;
 	protected boolean placingBuilding;
 	protected int placingBuildingId;
-	
+
 	protected Vector2f enemyTarget;
 
 	//do we want to put these in an int[] to save space?
@@ -92,11 +92,11 @@ public abstract class City {
 		placingPosition = new Vector2f();;
 		enemyTarget = new Vector2f();
 	}
-	
+
 	public void setTarget(Vector2f target) {
 		enemyTarget = target;
 	}
-	
+
 	public void findTargets(City other) {
 		List<Combat> targets = other.getCombatants();
 		for (Unit u: soldiers)
@@ -104,19 +104,16 @@ public abstract class City {
 		for (DefenseBuilding d: defenseBuildings)
 			d.findTarget(targets);
 	}
-	
+
 	public List<Combat> getCombatants() {
 		List<Combat> targets = new ArrayList<Combat>();
 		targets.add(HQ);
 		targets.addAll(soldiers);
-		targets.addAll(defenseBuildings);
-		targets.addAll(militaryBuildings);
-		targets.addAll(resourceBuildings);
 		return targets;
 	}
-	
+
 	public abstract void drawText();
-	
+
 	public static void initialize(Graphics g, Map map) {
 		//resource buildings
 		farmId = g.loadImage("Buildings/Farm");
@@ -143,8 +140,8 @@ public abstract class City {
 
 		world = map;
 	}
-	
-	
+
+
 	public Headquarters getHQ() {
 		return HQ;
 	}
@@ -162,6 +159,13 @@ public abstract class City {
 		world.placeBuilding(pos.x, pos.y, 1, 1);
 
 	}
+	
+	public void removeDead() {
+		for (int i = soldiers.size(); i >= 0; i--) {
+			if (!soldiers.get(i).isAlive())
+				soldiers.remove(i);
+		}
+	}
 
 	public boolean update(Vector2f translation, boolean active) {
 		if (InputHandler.rightClicked())
@@ -175,13 +179,16 @@ public abstract class City {
 
 		collectResources();
 
-		for (Unit u:soldiers)
-			u.update();
-		
-		for (DefenseBuilding d: defenseBuildings) {
-			d.update();
+		for (Unit u:soldiers) {
+			if (u.isAlive())
+				u.update();
 		}
-		
+
+		for (DefenseBuilding d: defenseBuildings) {
+			if (d.isAlive())
+				d.update();
+		}
+
 		return !HQ.isAlive();
 
 	}
@@ -264,7 +271,7 @@ public abstract class City {
 		HQ.draw(g);
 	}
 
-	
+
 	protected void buildBuilding() {
 		Building building = getBuilding(placingBuildingId);
 		if (canAfford(building.getCost())) {
@@ -364,7 +371,7 @@ public abstract class City {
 		}
 		return building;
 	}
-	
+
 	protected MilitaryBuilding getMilitaryBuilding(int placingBuildingId) {
 		MilitaryBuilding building = null;
 		if (placingBuildingId == barracksId) {
@@ -424,5 +431,5 @@ public abstract class City {
 			unit.setTarget(enemyTarget);
 		}
 	}
-	
+
 }

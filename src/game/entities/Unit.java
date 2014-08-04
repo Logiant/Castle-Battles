@@ -6,6 +6,7 @@ import java.util.List;
 import game.buildings.City;
 import graphics.Graphics;
 import graphics.Rect;
+import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -30,17 +31,20 @@ public abstract class Unit implements Combat {
 	protected int health;
 
 	protected boolean moving;
+	protected float aggroRange;
 
 
 	public Unit(int textureId, Vector2f position, Vector2f size, City city) {
 		this.textureId = textureId;
-		this.position = position;
-		this.size = size;
+		this.position = new Vector2f(position);
+		this.size = new Vector2f(size);
 		this.city = city;
-		speed = 0.25f;
+		speed = 32; // px/s
 		damage = 1;
 		range = 5;
-		targetPos= position;
+		health = 5;
+		aggroRange = 128;
+		targetPos = new Vector2f();
 	}
 
 	public void draw(Graphics g) {
@@ -52,21 +56,23 @@ public abstract class Unit implements Combat {
 	}
 
 	public void update() {
-		Vector2f distance = new Vector2f(targetPos.x - position.x, targetPos.y - position.y);
-		if (targetEnemy != null) { //move forward for the emeperor if theres a target enemy
-			distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
+		if (health > 0) {
+			float dt = (float) (Time.dt / 1000.0);
+			Vector2f distance = new Vector2f(targetPos.x - position.x, targetPos.y - position.y);
+			if (targetEnemy != null) { //move forward for the emeperor if theres a target enemy
+				distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
+			}
+			if (distance.lengthSquared() <= speed*speed * dt * dt) {
+				position = new Vector2f(targetPos);
+				moving = false;
+			} else {
+				distance.normalise();
+				distance.scale(speed * dt);
+				position.add(distance);
+				moving = true;
+			}
+			attack();
 		}
-		if (distance.lengthSquared() <= speed*speed) {
-			position = new Vector2f(targetPos);
-			moving = false;
-		} else {
-			distance.normalise();
-			distance.scale(speed);
-			position = new Vector2f(position.x + distance.x, position.y + distance.y);
-			moving = true;
-		}
-		attack();
-
 	}
 
 	public boolean isMoving() {
@@ -74,14 +80,23 @@ public abstract class Unit implements Combat {
 	}
 
 	public void setTarget(Vector2f target) {
-		this.targetPos= target;
+		this.targetPos= new Vector2f(target);
 	}
 
 	@Override
 	public void findTarget(List<Combat> other) {
-		if (other.size() > 0) {
-			targetEnemy = other.get(0);
+		int combatIndex = -1;
+		float nearest = 9001;
+		for (int i = 0; i < other.size(); i++) {
+			Vector2f distance = new Vector2f(other.get(i).getPosition().x - position.x, other.get(i).getPosition().y - position.y);
+			float dist = distance.length();
+			if (dist < nearest) {
+				combatIndex = i;
+				nearest = dist;
+			}
 		}
+		if (combatIndex >=0)
+			targetEnemy = other.get(combatIndex);
 	}
 
 	@Override
@@ -90,6 +105,11 @@ public abstract class Unit implements Combat {
 			Vector2f distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
 			if (distance.lengthSquared() <= range*range) {
 				targetEnemy.damage(damage);
+				System.out.println("////****\\\\");
+				System.out.println(distance);
+				System.out.println(targetEnemy);
+				System.out.println(targetEnemy.getPosition());
+				System.out.println(position);
 			}
 		}
 	}

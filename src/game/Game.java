@@ -105,7 +105,7 @@ public class Game {
 		
 		if (win || lose) {
 			System.out.println("Win? " + win);
-			nextState = "QUIT";//GAMEOVER;
+		//	nextState = "QUIT";//GAMEOVER;
 		}
 		
 		//TODO finish this

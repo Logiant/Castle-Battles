@@ -11,7 +11,7 @@ public class Mage extends Unit {
 	public Mage(int textureId, Vector2f position, Vector2f size,
 			City city) {
 		super(textureId, position, size, city);
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub		
 	}
 
 

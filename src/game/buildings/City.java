@@ -13,6 +13,7 @@ import game.buildings.resource.Mill;
 import game.buildings.resource.Mine;
 import game.buildings.resource.Quarry;
 import game.buildings.resource.Stable;
+import game.entities.Combat;
 import game.entities.DefenseBuilding;
 import game.entities.MilitaryBuilding;
 import game.entities.ResourceBuilding;
@@ -94,6 +95,24 @@ public abstract class City {
 	
 	public void setTarget(Vector2f target) {
 		enemyTarget = target;
+	}
+	
+	public void findTargets(City other) {
+		List<Combat> targets = other.getCombatants();
+		for (Unit u: soldiers)
+			u.findTarget(targets);
+		for (DefenseBuilding d: defenseBuildings)
+			d.findTarget(targets);
+	}
+	
+	public List<Combat> getCombatants() {
+		List<Combat> targets = new ArrayList<Combat>();
+		targets.add(HQ);
+		targets.addAll(soldiers);
+		targets.addAll(defenseBuildings);
+		targets.addAll(militaryBuildings);
+		targets.addAll(resourceBuildings);
+		return targets;
 	}
 	
 	public abstract void drawText();

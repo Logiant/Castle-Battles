@@ -18,4 +18,5 @@ public class ResourceHandler {
 		return "Food: " + food + ", Lumber: " + lumber +  ", Metal: " + metal +  
 				", Stone: " + stone +  ", Horse: " + horse +  ", Magic: " + magic;  
 	}
+
 }

@@ -1,7 +1,6 @@
 package game.buildings;
 
-import game.buildings.CityManager;
-import game.entities.Living;
+import game.entities.Combat;
 import graphics.Graphics;
 import graphics.Rect;
 
@@ -14,7 +13,7 @@ import org.newdawn.slick.geom.Vector2f;
  *
  */
 
-public abstract class Building implements Living {
+public abstract class Building implements Combat {
 
 	//width and height should be tile values so we don't have awkward overlaps
 		protected Vector2f position;
@@ -59,12 +58,12 @@ public abstract class Building implements Living {
 		public abstract ResourceHandler getCost();
 		
 		@Override
-		public boolean damage(int amount) {
-			boolean alive = true;
+		public void damage(int amount) {
 			health -= amount;
-			if (health <= 0) {
-				alive = false;
-			}
-			return alive;
+		}
+		
+		@Override
+		public boolean isAlive() {
+			return health > 0;
 		}
 }

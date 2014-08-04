@@ -1,14 +1,15 @@
 package game.buildings.other;
 
+import java.util.List;
+
 import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.Building;
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
-import game.entities.Living;
+import game.entities.Combat;
 import game.world.Map;
 
 
@@ -45,5 +46,25 @@ public class Headquarters extends Building{
 	public ResourceHandler getCost() {
 		ResourceHandler rh = new ResourceHandler();
 		return rh;
+	}
+	
+	@Override
+	public float getRange() {
+		return 0;
+	}
+	
+	@Override
+	public int getDamage() {
+		return 0;
+	}
+
+	@Override
+	public void findTarget(List<Combat> c) {
+		//can't fight
+	}
+
+	@Override
+	public void attack() {
+		//can't fight
 	}
 }

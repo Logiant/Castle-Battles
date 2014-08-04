@@ -1,8 +1,9 @@
 package game.entities;
 
+import java.util.List;
+
 import game.buildings.Building;
 import game.buildings.City;
-import game.buildings.CityManager;
 import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
@@ -17,7 +18,9 @@ public abstract class DefenseBuilding extends Building {
 
 	protected Vector2f unitSize = new Vector2f(32, 32);
 	protected float range;
-	protected float damage;
+	protected int damage;
+	
+	protected Combat targetEnemy;
 	
 	public DefenseBuilding(int textureId, Vector2f position, Vector2f size, City city) {
 		super(textureId, position, size, city);
@@ -32,4 +35,29 @@ public abstract class DefenseBuilding extends Building {
 		}
 	}
 
+	@Override
+	public void findTarget(List<Combat> other) {
+		//TODO find the nearest other
+	}
+	
+	@Override
+	public void attack() {
+		if (targetEnemy != null) {
+			Vector2f distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
+			if (distance.lengthSquared() <= range*range) {
+				targetEnemy.damage(damage);
+			}
+		}
+	}
+	
+	@Override
+	public float getRange() {
+		return range;
+	}
+	
+	@Override
+	public int getDamage() {
+		return damage;
+	}
+	
 }

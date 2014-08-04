@@ -85,6 +85,8 @@ public class Game {
 		}
 		
 		if (!gameOptionsMenu.isActive()) {
+			city.findTargets(enemyCity);
+			enemyCity.findTargets(city);
 			lose = city.update(cam.getTranslation(), !gameOptionsMenu.isActive());
 			win = enemyCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());
 			neutralCity.update(cam.getTranslation(), !gameOptionsMenu.isActive());

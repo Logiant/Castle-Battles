@@ -1,5 +1,7 @@
 package game.entities;
 
+import java.util.List;
+
 import game.buildings.Building;
 import game.buildings.City;
 import main.Time;
@@ -27,6 +29,25 @@ public abstract class MilitaryBuilding extends Building {
 			city.produceUnit(this, position, unitSize);
 			time = cooldownTime;
 		}
+	}
+	
+	@Override
+	public void findTarget(List<Combat> other) {
+		//do nothing, you can't fight!
+	}
+	
+	@Override
+	public void attack() {
+		//do nothing, you can't attack!
+	}
+	@Override
+	public float getRange() {
+		return 0;
+	}
+	
+	@Override
+	public int getDamage() {
+		return 0;
 	}
 
 }

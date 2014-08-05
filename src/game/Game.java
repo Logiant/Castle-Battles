@@ -95,9 +95,7 @@ public class Game {
 		//rendering - we could make this a nested class called Render if needed
 		GL11.glBegin(GL11.GL_QUADS);
 		map.draw(g);
-		neutralCity.draw(g);
-		enemyCity.draw(g);
-		city.draw(g);
+		drawCities(g);
 		city.drawPlaced(g, cam.getTranslation(), !gameOptionsMenu.isActive());
 		GL11.glEnd();
 
@@ -117,6 +115,14 @@ public class Game {
 		GL11.glBegin(GL11.GL_QUADS);
 		background.draw(g);
 		GL11.glEnd();
+	}
+	
+	private void drawCities(Graphics g) {
+		enemyCity.drawBuildings(g);
+		neutralCity.drawBuildings(g);
+		city.drawBuildings(g);
+		enemyCity.drawUnits(g);
+		city.drawUnits(g);
 	}
 	
 	private void drawUI(Graphics g) {

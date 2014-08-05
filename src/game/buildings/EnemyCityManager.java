@@ -7,7 +7,6 @@ import org.newdawn.slick.geom.Vector2f;
 import game.entities.DefenseBuilding;
 import game.entities.Unit;
 import game.units.Infantry;
-import graphics.Graphics;
 
 /**
  * a class that managies the city - buildings and stuff
@@ -53,11 +52,6 @@ public class EnemyCityManager extends City{
 
 		return !HQ.isAlive();
 
-	}
-
-	@Override
-	public void draw(Graphics g) {
-		super.draw(g);
 	}
 
 	@Override

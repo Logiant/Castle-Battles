@@ -91,6 +91,12 @@ public abstract class City {
 		defenseBuildings = new ArrayList<DefenseBuilding>();
 		placingPosition = new Vector2f();;
 		enemyTarget = new Vector2f();
+		lumber = 50;
+		food = 50;
+		magic = 50;
+		horse = 50;
+		stone = 50;
+		metal = 50;
 	}
 
 	public void setTarget(Vector2f target) {
@@ -160,12 +166,6 @@ public abstract class City {
 
 	}
 
-	public void removeDead() {
-		for (int i = soldiers.size(); i >= 0; i--) {
-			if (!soldiers.get(i).isAlive())
-				soldiers.remove(i);
-		}
-	}
 
 	public boolean update(Vector2f translation, boolean active) {
 		if (InputHandler.rightClicked())
@@ -257,7 +257,7 @@ public abstract class City {
 		HQ.update();
 	}
 
-	public void draw(Graphics g) {
+	public void drawBuildings(Graphics g) {
 		//draw all buildings
 		for (ResourceBuilding b: resourceBuildings) {
 			if (b.isAlive())
@@ -267,11 +267,6 @@ public abstract class City {
 			if (m.isAlive())
 				m.draw(g);
 		}
-		//draw all units
-		for (Unit u: soldiers) {
-			if (u.isAlive())
-				u.draw(g);
-		}
 		//draw all defensive buildings
 		for (DefenseBuilding d: defenseBuildings) {
 			if (d.isAlive())
@@ -280,6 +275,14 @@ public abstract class City {
 		//draw the HQ
 		if (HQ.isAlive()) {
 			HQ.draw(g);
+		}
+	}
+	
+	public void drawUnits(Graphics g) {
+		//draw all units
+		for (Unit u: soldiers) {
+			if (u.isAlive())
+				u.draw(g);
 		}
 	}
 

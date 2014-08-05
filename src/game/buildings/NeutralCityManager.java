@@ -29,7 +29,7 @@ public class NeutralCityManager extends City{
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void drawBuildings(Graphics g) {
 		for (DefenseBuilding d: defenseBuildings)
 			d.draw(g);
 	}

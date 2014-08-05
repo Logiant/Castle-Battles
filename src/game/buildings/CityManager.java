@@ -1,9 +1,5 @@
 package game.buildings;
 
-import game.entities.Unit;
-import game.units.Archer;
-import graphics.Graphics;
-
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
@@ -21,26 +17,12 @@ public class CityManager extends City {
 		super.setup();
 		placeHQ(world.headquartersPos());
 		buildWalls(world.getWalls());
-		lumber = 20;
-		food = 20;
-		magic = 20;
-		horse = 20;
-		stone = 20;
-		metal = 20;
-				Unit u = new Archer(archerId, HQ.getPosition(), new Vector2f(32, 32), this);
-				u.setTarget(enemyTarget);
-				soldiers.add(u);
 	}
 
 	@Override
 	public boolean update(Vector2f translation, boolean active) {
 		return super.update(translation, active);
 
-	}
-
-	@Override
-	public void draw(Graphics g) {
-		super.draw(g);
 	}
 
 	@Override

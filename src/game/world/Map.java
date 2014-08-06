@@ -6,6 +6,8 @@ import java.util.List;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.entities.Tile;
+import game.world.tiles.BuildableTile;
+import game.world.tiles.EnemyTile;
 import graphics.Graphics;
 import graphics.Rect;
 
@@ -126,7 +128,7 @@ public class Map {
 		}
 		for (int i = y; i < y+height; i++) {
 			for (int j = x; j < x+width; j++) {
-				if (!world[i][j].isBuildable()) {
+				if (!world[i][j].isBuildable() || !(world[i][j] instanceof BuildableTile)) {
 					return false;
 				}
 			}
@@ -143,7 +145,7 @@ public class Map {
 
 		for (int i = y; i < y+height; i++) {
 			for (int j = x; j < x+width; j++) {
-				world[i][j].setBuildable(map[i][j] == 'B');				
+				world[i][j].setBuildable(map[i][j] == 'B' || map[i][j] == 'E');				
 			}
 		}
 	}
@@ -179,5 +181,19 @@ public class Map {
 
 	public List<Vector2f> getNeutralWalls() {
 		return neutralWalls;
+	}
+
+	public Vector2f getEnemySpace() {
+		for (int i = 1; i < worldHeight - 1; i++) {
+			for (int j = 1; j < worldWidth - 1; j++) {
+				if (world[i][j].isBuildable() && world[i][j] instanceof EnemyTile
+						 && world[i + 1][j].isBuildable() && world[i][j] instanceof EnemyTile 
+						 && world[i][j + 1].isBuildable() && world[i][j] instanceof EnemyTile
+						  && world[i + 1][j + 1].isBuildable() && world[i][j] instanceof EnemyTile) {
+					return new Vector2f(j*TILE_SIZE, i*TILE_SIZE);
+				}
+			}
+		}
+		return null;
 	}
 }

@@ -25,6 +25,7 @@ public class TileHandler {
 			break;
 		case ENEMY:
 			nextTile = new EnemyTile(x, y);
+			nextTile.setBuildable(true);
 			break;
 		case BUILDABLE:
 			nextTile = new BuildableTile(x, y);

@@ -38,6 +38,27 @@ import org.newdawn.slick.geom.Vector2f;
 
 public abstract class City {
 
+enum BUILDING {
+	FARM, MINE, MILL, STABLE, QUARRY, MAGIC, BARRACKS, CAVALRY, RANGE, ARCANUM, WALL, PITFALL;
+}
+
+
+enum UNIT {
+	INFANTRY,  HORSE, ARCHER, MAGE;
+}
+
+
+
+	//Enum Values
+	public static final BUILDING[] BUILDINGS = BUILDING.values();
+	public static final UNIT[] UNITS = UNIT.values();
+	public static final int RESOURCE_OFFSET = 0;
+	public static final int RESOURCE_SIZE = 6;
+	public static final int MILITARY_OFFSET = 6;
+	public static final int MILITARY_SIZE = 4;
+	public static final int DEFENSE_OFFSET = 10;
+	public static final int DEFENSE_SIZE = 2;
+
 
 	//do we want to put these in an int[] to save space?
 	protected int lumber;
@@ -374,6 +395,49 @@ public abstract class City {
 			building = getDefenseBuilding(id);
 		}
 		return building;
+	}
+	
+	protected Building getBuildingFromEnum(BUILDING make, Vector2f position) {
+		Building b = null;
+		switch (make) {
+		case BARRACKS:
+			b = new Barracks(barracksId, position, this);
+			break;
+		case CAVALRY:
+			b = new Cavalry(cavalryId, position, this);
+			break;
+		case RANGE:
+			b = new Range(rangeId, position, this);
+		break;
+		case ARCANUM:
+			b = new Arcanum(arcanumId, position, this);
+			break;
+		case FARM:
+			b = new Farm(farmId, position, this);
+			break;
+		case MAGIC:
+			b = new MagicPump(magicId, position, this);
+			break;
+		case MILL:
+			b = new Mill(millId, position, this);
+			break;
+		case MINE:
+			b = new Mine(mineId, position, this);
+			break;
+		case PITFALL:
+			b = new Pitfall(pitfallId, position, this);
+			break;
+		case QUARRY:
+			b = new Quarry(quarryId, position, this);
+			break;
+		case STABLE:
+			b = new Stable(stableId, position, this);
+			break;
+		case WALL:
+			b = new Wall(wallId, position, this);
+			break;
+		}		
+		return b;
 	}
 
 	protected DefenseBuilding getDefenseBuilding(int placingBuildingId) {

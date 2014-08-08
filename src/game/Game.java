@@ -7,6 +7,7 @@ import main.InputHandler;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.geom.Vector2f;
 
 import widgets.GameOptionsMenu;
 import game.buildings.City;
@@ -46,6 +47,7 @@ public class Game {
 	int leftKey = Keyboard.getKeyIndex("A");
 	int rightKey = Keyboard.getKeyIndex("D");
 	int escape = Keyboard.KEY_ESCAPE;
+	int delete = Keyboard.KEY_DELETE;
 
 
 	public Game() {
@@ -83,8 +85,16 @@ public class Game {
 		if(InputHandler.wasKeyPressed(escape) || nextState.equals("BACK")) {
 			gameOptionsMenu.toggle();
 		}
-		
+				
 		if (!gameOptionsMenu.isActive()) {
+			
+			if(InputHandler.wasKeyPressed(delete)) {
+				Vector2f deletePos = new Vector2f(Mouse.getX(), Driver.screenHeight - Mouse.getY());
+				deletePos.add(cam.getTranslation());
+				city.deleteBuilding(deletePos);
+			}
+			
+			
 			city.findTargets(enemyCity);
 			enemyCity.findTargets(city);
 			lose = city.update(cam.getTranslation(), !gameOptionsMenu.isActive());

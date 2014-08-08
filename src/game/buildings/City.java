@@ -119,6 +119,47 @@ enum UNIT {
 		stone = 50;
 		metal = 50;
 	}
+	
+	public void deleteBuilding(Vector2f position) {
+		System.out.println("Deleting");
+		System.out.println(position);
+		for (int i = 0; i < resourceBuildings.size(); i++) {
+			Building b = resourceBuildings.get(i);
+			if (containsPoint(b, position)) {
+				world.removeBuilding(b.getPosition().x, b.getPosition().y, b.getSize().x, b.getSize().y);
+				resourceBuildings.remove(b);
+				return;
+			}
+		}
+		System.out.println(position);
+		for (int i = 0; i < militaryBuildings.size(); i++) {
+			Building b = militaryBuildings.get(i);
+			if (containsPoint(b, position)) {
+				world.removeBuilding(b.getPosition().x, b.getPosition().y, b.getSize().x, b.getSize().y);
+				militaryBuildings.remove(b);
+				return;
+			}
+		}
+	}
+	
+	public boolean containsPoint(Building b, Vector2f position) {
+		boolean contains = false;
+		Vector2f buildingPos = b.getPosition();
+		Vector2f buildingSize = b.getSize();
+		
+		System.out.println("Building:");
+		System.out.println(buildingPos);
+		System.out.println(buildingSize);
+		System.out.println(position);
+		
+		if (position.x >= buildingPos.x && position.y >= buildingPos.y
+				&& position.x <= buildingPos.x + buildingSize.x
+				&& position.y <= buildingPos.y + buildingSize.y) {
+			contains = true;
+		}
+		
+		return contains;
+	}
 
 	public void setTarget(Vector2f target) {
 		enemyTarget = target;

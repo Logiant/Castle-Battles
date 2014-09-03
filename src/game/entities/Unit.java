@@ -4,7 +4,6 @@ package game.entities;
 import java.util.List;
 
 import game.buildings.City;
-import game.units.Archer;
 import graphics.Graphics;
 import graphics.Rect;
 import main.Time;
@@ -44,7 +43,7 @@ public abstract class Unit implements Combat {
 		damage = 1;
 		range = 5;
 		health = 5;
-		aggroRange = 128;
+		aggroRange = 128; // about 2 tiles
 		targetPos = new Vector2f();
 	}
 
@@ -85,17 +84,19 @@ public abstract class Unit implements Combat {
 	@Override
 	public void findTarget(List<Combat> other) {
 		int combatIndex = -1;
-		float nearest = 9001;
+		float nearest = aggroRange + 1;
 		for (int i = 0; i < other.size(); i++) {
 			Vector2f distance = new Vector2f(other.get(i).getPosition().x - position.x, other.get(i).getPosition().y - position.y);
 			float dist = distance.length();
-			if (dist < nearest) {
+			if (dist < nearest && other.get(i).isAlive()) { //redundant isAlive check to ensure we dont stand on
 				combatIndex = i;
 				nearest = dist;
 			}
 		}
 		if (combatIndex >=0)
 			targetEnemy = other.get(combatIndex);
+		else
+			targetEnemy = null;
 	}
 
 	@Override

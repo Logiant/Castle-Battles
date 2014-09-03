@@ -121,8 +121,6 @@ enum UNIT {
 	}
 	
 	public void deleteBuilding(Vector2f position) {
-		System.out.println("Deleting");
-		System.out.println(position);
 		for (int i = 0; i < resourceBuildings.size(); i++) {
 			Building b = resourceBuildings.get(i);
 			if (containsPoint(b, position)) {
@@ -131,7 +129,6 @@ enum UNIT {
 				return;
 			}
 		}
-		System.out.println(position);
 		for (int i = 0; i < militaryBuildings.size(); i++) {
 			Building b = militaryBuildings.get(i);
 			if (containsPoint(b, position)) {
@@ -146,11 +143,7 @@ enum UNIT {
 		boolean contains = false;
 		Vector2f buildingPos = b.getPosition();
 		Vector2f buildingSize = b.getSize();
-		
-		System.out.println("Building:");
-		System.out.println(buildingPos);
-		System.out.println(buildingSize);
-		System.out.println(position);
+
 		
 		if (position.x >= buildingPos.x && position.y >= buildingPos.y
 				&& position.x <= buildingPos.x + buildingSize.x
@@ -176,6 +169,9 @@ enum UNIT {
 	public List<Combat> getCombatants() {
 		List<Combat> targets = new ArrayList<Combat>();
 		targets.add(HQ);
+		targets.addAll(militaryBuildings);
+		targets.addAll(resourceBuildings);
+		targets.addAll(defenseBuildings);
 		targets.addAll(soldiers);
 		return targets;
 	}
@@ -248,9 +244,11 @@ enum UNIT {
 				soldiers.remove(i);
 		}
 
-		for (DefenseBuilding d: defenseBuildings) {
-			if (d.isAlive())
-				d.update();
+		for (int i = defenseBuildings.size()-1; i >=0;  i--) {
+			if (defenseBuildings.get(i).isAlive())
+				defenseBuildings.get(i).update();
+			else
+				defenseBuildings.remove(i);
 		}
 
 		return !HQ.isAlive();
@@ -311,11 +309,22 @@ enum UNIT {
 	}
 
 	protected void collectResources() {
-		for (ResourceBuilding b: resourceBuildings)
-			b.update();
-		for (MilitaryBuilding m: militaryBuildings)
-			m.update();
-
+		for (int i = resourceBuildings.size()-1; i >=0;  i--) {
+			if (resourceBuildings.get(i).isAlive())
+				resourceBuildings.get(i).update();
+			else {
+				world.removeBuilding(resourceBuildings.get(i));
+				resourceBuildings.remove(i);
+			}
+		}
+		for (int i = militaryBuildings.size()-1; i >=0;  i--) {
+			if (militaryBuildings.get(i).isAlive())
+				militaryBuildings.get(i).update();
+			else {
+				world.removeBuilding(militaryBuildings.get(i));
+				militaryBuildings.remove(i);
+			}
+		}
 		HQ.update();
 	}
 

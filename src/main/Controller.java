@@ -1,5 +1,7 @@
 
 package main;
+import java.io.IOException;
+
 import menu.*;
 import game.*;
 import graphics.Graphics;
@@ -23,6 +25,7 @@ public class Controller {
 	GameController game;
 	Campaign campaign;
 	Graphics graphics;	
+	AudioHandler audio;
 
 	public Controller() {
 		graphics = new Graphics();
@@ -31,6 +34,7 @@ public class Controller {
 		options = new OptionsMenu();
 		game = new GameController();
 		campaign = new Campaign();
+		audio = new AudioHandler();
 		//we may want to move this elsewhere so there isnt a massive load time
 		initialize();
 	}
@@ -43,6 +47,11 @@ public class Controller {
 		campaign.initialize(graphics);
 		options.initialize(graphics);
 		mainMenu.initialize(graphics);
+		try {
+			audio.loadMainMusic();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -51,6 +60,8 @@ public class Controller {
 		switch (state) {
 		default:
 		case MAIN_MENU:
+			if (!audio.isPlaying())
+				audio.playMain();
 			String nextState = mainMenu.update(graphics);
 			if (nextState != null) {
 				if(nextState.equals("CAMPAIGN")) {

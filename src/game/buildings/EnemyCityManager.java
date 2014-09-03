@@ -6,7 +6,6 @@ import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
-import game.entities.DefenseBuilding;
 import game.entities.MilitaryBuilding;
 import game.entities.Unit;
 import game.units.Infantry;
@@ -41,7 +40,7 @@ public class EnemyCityManager extends City{
 			cooldown = maxCD;
 			doSomething();
 		}
-
+		
 		for (int i = soldiers.size()-1; i >=0;  i--) {
 			if (soldiers.get(i).isAlive())
 				soldiers.get(i).update();
@@ -49,9 +48,11 @@ public class EnemyCityManager extends City{
 				soldiers.remove(i);
 		}
 
-		for (DefenseBuilding d: defenseBuildings) {
-			if (d.isAlive())
-				d.update();
+		for (int i = defenseBuildings.size()-1; i >=0;  i--) {
+			if (defenseBuildings.get(i).isAlive())
+				defenseBuildings.get(i).update();
+			else
+				defenseBuildings.remove(i);
 		}
 
 		return !HQ.isAlive();

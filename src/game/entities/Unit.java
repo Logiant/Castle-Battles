@@ -88,7 +88,7 @@ public abstract class Unit implements Combat {
 		for (int i = 0; i < other.size(); i++) {
 			Vector2f distance = new Vector2f(other.get(i).getPosition().x - position.x, other.get(i).getPosition().y - position.y);
 			float dist = distance.length();
-			if (dist < nearest && other.get(i).isAlive()) { //redundant isAlive check to ensure we dont stand on
+			if (dist < nearest) {
 				combatIndex = i;
 				nearest = dist;
 			}

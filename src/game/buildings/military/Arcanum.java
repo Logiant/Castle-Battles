@@ -32,5 +32,14 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 		return rh;
 	}
 
+	@Override
+	public String toString() {
+		return "Arcanum";
+	}
+	
+	@Override
+	public String getDescription() {
+		return "I've got the magic in me";
+	}
 	
 }

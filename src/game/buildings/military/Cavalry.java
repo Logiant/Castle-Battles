@@ -3,7 +3,6 @@ package game.buildings.military;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.MilitaryBuilding;
 import game.world.Map;
@@ -35,4 +34,13 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 		return rh;
 	}
 	
+	@Override
+	public String toString() {
+		return "Cavalry Stable";
+	}
+	
+	@Override
+	public String getDescription() {
+		return "War Ponies, WE RIDE!";
+	}
 }

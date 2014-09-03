@@ -14,7 +14,8 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Text {
 	
-	private static UnicodeFont font;	
+	private static UnicodeFont font;
+	private static UnicodeFont smallFont;
 	
 	public static int fontSize = 20;
 	
@@ -26,6 +27,10 @@ public class Text {
 			font.getEffects().add(new ColorEffect(Color.WHITE));
 			font.addNeheGlyphs();
 			font.loadGlyphs();
+			smallFont = new UnicodeFont("resources/Roboto.ttf", fontSize/2, false, false);
+			smallFont.getEffects().add(new ColorEffect(Color.WHITE));
+			smallFont.addNeheGlyphs();
+			smallFont.loadGlyphs();
 		} catch (SlickException e) {
 			System.err.println("Could not load font");
 			System.exit(-1);
@@ -34,6 +39,10 @@ public class Text {
 	
 	public static void write(String text, Vector2f position) {
 		font.drawString(position.x, position.y, text);
+	}
+	
+	public static void writeSmall(String text, Vector2f position) {
+		smallFont.drawString(position.x, position.y, text);
 	}
 
 	public static void write(String name, float x, float y) {

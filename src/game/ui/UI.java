@@ -3,9 +3,12 @@ package game.ui;
 import main.Driver;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.geom.Vector2f;
 
+import widgets.BuildingTooltip;
+import game.buildings.Building;
 import game.buildings.City;
-import game.buildings.CityManager;
+import game.buildings.DummyBuilding;
 import graphics.Graphics;
 import graphics.Rect;
 
@@ -18,8 +21,12 @@ public class UI {
 
 	City city;
 	UITab[] tabs;
+	BuildingTooltip tooltip;
+	DummyBuilding dummy;
 	private int uiTextureId;
 	public static int height = 90;
+	
+	boolean showTip;
 
 	public UI(City city) {
 		this.city = city;
@@ -29,20 +36,37 @@ public class UI {
 		tabs[2] = new DefenseTab(this);
 
 		tabs[0].setActive(true);
+		
+
 	}
 
 	public void initialize(Graphics g) {
 		uiTextureId = g.loadImage("UIColor");
 		for (UITab t: tabs)
 			t.initialize(g);
+		
+		tooltip = new BuildingTooltip(uiTextureId);
+		tooltip.setPosition(new Vector2f(650, 400));
+		tooltip.setSize(new Vector2f(140, 100));
+		dummy = new DummyBuilding();
+		tooltip.target = dummy;
 	}
 
 	public void drawText() {
 		for (UITab t: tabs)
 			t.drawText();
+		if (showTip)
+			tooltip.drawText();
+
+	}
+	
+	public void mouseOver(String cmd) {
+		dummy.setBuilding(Building.fromString(cmd));
+		showTip = true;
 	}
 
 	public void update(Graphics g, boolean active) {
+		showTip = false;
 		String cmd = "";
 		g.draw(uiTextureId, new Rect(0, Driver.screenHeight - height, Driver.screenWidth, height));
 		for (UITab t: tabs) {
@@ -54,6 +78,8 @@ public class UI {
 				}
 			}
 		}
+		if (showTip)
+			tooltip.draw(g);
 	}
 
 	public static boolean containsMouse() {

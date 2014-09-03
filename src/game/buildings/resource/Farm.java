@@ -5,7 +5,6 @@ import main.Time;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.ResourceBuilding;
 import game.world.Map;
@@ -41,5 +40,15 @@ public class Farm extends ResourceBuilding{
 		rh.lumber = 15;
 		rh.stone = 5;
 		return rh;
+	}
+	
+	@Override
+	public String toString() {
+		return "Farm";
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Full of beef, pigs, and hoes";
 	}
 }

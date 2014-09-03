@@ -3,7 +3,6 @@ package game.buildings.military;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.MilitaryBuilding;
 import game.world.Map;
@@ -31,5 +30,15 @@ public class Barracks extends MilitaryBuilding {
 		rh.metal = 15;
 		rh.stone = 5;
 		return rh;
+	}
+	
+	@Override
+	public String toString() {
+		return "Barracks";
+	}
+	
+	@Override
+	public String getDescription() {
+		return "FOR THE EMPEROR!";
 	}
 }

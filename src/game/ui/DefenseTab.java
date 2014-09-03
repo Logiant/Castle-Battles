@@ -19,9 +19,9 @@ public class DefenseTab extends UITab {
 	public void initialize(Graphics g) {
 		idNumbers[0] = g.loadImage("Icons/WallButton");
 		idNumbers[1] = g.loadImage("Icons/PitfallButton");
-
-		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "WALL");
-		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "PITFALL");
+		
+		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "WALL", ui);
+		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "PITFALL", ui);
 	}
 
 	@Override

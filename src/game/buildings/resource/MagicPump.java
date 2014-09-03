@@ -5,7 +5,6 @@ import main.Time;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.buildings.ResourceHandler;
 import game.entities.ResourceBuilding;
 import game.world.Map;
@@ -41,5 +40,15 @@ public static final Vector2f size = new Vector2f(1*Map.TILE_SIZE, 2*Map.TILE_SIZ
 		rh.horse = 15;
 		rh.stone = 5;
 		return rh;
+	}
+	
+	@Override
+	public String toString() {
+		return "Magic Pump";
+	}
+	
+	@Override
+	public String getDescription() {
+		return "The next best thing to Magic Fracking";
 	}
 }

@@ -39,6 +39,6 @@ public class Barracks extends MilitaryBuilding {
 	
 	@Override
 	public String getDescription() {
-		return "FOR THE EMPEROR!";
+		return "Spawns Infantry";
 	}
 }

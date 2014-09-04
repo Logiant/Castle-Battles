@@ -60,8 +60,8 @@ public class Controller {
 		switch (state) {
 		default:
 		case MAIN_MENU:
-			if (!audio.isPlaying())
-				audio.playMain();
+			//if (!audio.isPlaying())
+			//	audio.playMain();   --- plays a LOUD FUNKY BEAT!
 			String nextState = mainMenu.update(graphics);
 			if (nextState != null) {
 				if(nextState.equals("CAMPAIGN")) {

@@ -27,12 +27,12 @@ public class CityManager extends City {
 
 	@Override
 	public void drawText() {
-		Text.write("Food: " + food, new Vector2f(5, 5));
-		Text.write("Lumber: " + lumber, new Vector2f(5, 25));
-		Text.write("Metal: " + metal, new Vector2f(5, 45));
-		Text.write("Stone: " + stone, new Vector2f(5, 65));
-		Text.write("Horses: " + horse, new Vector2f(5, 85));
-		Text.write("Magic: " + magic, new Vector2f(5, 105));
+		Text.write("Food: " + food, new Vector2f(15, 5));
+		Text.write("Lumber: " + lumber, new Vector2f(150, 5));
+		Text.write("Metal: " + metal, new Vector2f(15, 25));
+		Text.write("Stone: " + stone, new Vector2f(150, 25));
+		Text.write("Horses: " + horse, new Vector2f(15, 45));
+		Text.write("Magic: " + magic, new Vector2f(150, 45));
 	}
 
 }

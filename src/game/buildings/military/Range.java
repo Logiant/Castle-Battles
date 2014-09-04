@@ -40,6 +40,6 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "This is where baby archers come from";
+		return "Spawns Archers";
 	}
 }

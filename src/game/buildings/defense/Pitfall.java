@@ -40,6 +40,6 @@ public static final Vector2f size = new Vector2f(1*Map.TILE_SIZE, 1*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "As seen on TV";
+		return "A Deadly Trap";
 	}
 }

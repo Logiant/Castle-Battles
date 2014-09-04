@@ -49,6 +49,6 @@ public static final Vector2f size = new Vector2f(1*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "The next best thing to Magic Fracking";
+		return "+" + resourceAmount + " Magic";
 	}
 }

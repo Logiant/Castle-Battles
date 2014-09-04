@@ -40,7 +40,7 @@ public static final Vector2f size = new Vector2f(1*Map.TILE_SIZE, 1*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "I spit in your general direction!";
+		return "A Defensive Block";
 	}
 	
 }

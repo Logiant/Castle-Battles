@@ -18,6 +18,7 @@ public class Text {
 	private static UnicodeFont smallFont;
 	
 	public static int fontSize = 20;
+	public static int smallSize = 12;
 	
 	@SuppressWarnings("unchecked")
 	public static void initialize() {
@@ -27,7 +28,7 @@ public class Text {
 			font.getEffects().add(new ColorEffect(Color.WHITE));
 			font.addNeheGlyphs();
 			font.loadGlyphs();
-			smallFont = new UnicodeFont("resources/Roboto.ttf", fontSize/2, false, false);
+			smallFont = new UnicodeFont("resources/Roboto.ttf", smallSize, false, false);
 			smallFont.getEffects().add(new ColorEffect(Color.WHITE));
 			smallFont.addNeheGlyphs();
 			smallFont.loadGlyphs();

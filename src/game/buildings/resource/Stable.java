@@ -49,6 +49,6 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "HAY is for HORSES";
+		return "+" + resourceAmount + " Horses";
 	}
 }

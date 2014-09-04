@@ -60,6 +60,15 @@ public class EnemyCityManager extends City{
 	}
 
 	public void doSomething() {
+		/*
+		 * find the most important structure to build
+		 * check if there is room
+		 * if not, delete the least important structure
+		 * build the most important structure
+		 * 
+		 */
+		
+		
 		//chose a building to make
 		if (!full) {
 			build();

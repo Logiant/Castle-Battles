@@ -49,6 +49,6 @@ public class Farm extends ResourceBuilding{
 	
 	@Override
 	public String getDescription() {
-		return "Full of beef, pigs, and hoes";
+		return "+" + resourceAmount + " Food";
 	}
 }

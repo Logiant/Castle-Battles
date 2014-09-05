@@ -11,7 +11,7 @@ public class DefenseTab extends UITab {
 
 
 	public DefenseTab(UI ui) {
-		super(ui, new Vector2f(250, Driver.screenHeight- UI.height), "DEFENSE");
+		super(ui, new Vector2f(270, Driver.screenHeight- UI.height), "DEFENSE");
 		idNumbers = new int[2];
 		buttons = new GameButton[2];
 	}

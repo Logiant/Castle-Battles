@@ -1,6 +1,5 @@
 package game.buildings;
 
-import game.buildings.Building.BuildingTypes;
 import game.buildings.defense.*;
 import game.buildings.military.*;
 import game.buildings.resource.*;

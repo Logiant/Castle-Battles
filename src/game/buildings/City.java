@@ -32,22 +32,31 @@ import java.util.List;
 
 import main.Driver;
 import main.InputHandler;
+import main.Time;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.geom.Vector2f;
+
+import widgets.Text;
 
 public abstract class City {
 
-enum BUILDING {
-	FARM, MINE, MILL, STABLE, QUARRY, MAGIC, BARRACKS, CAVALRY, RANGE, ARCANUM, WALL, PITFALL;
-}
+	enum BUILDING {
+		FARM, MINE, MILL, STABLE, QUARRY, MAGIC, BARRACKS, CAVALRY, RANGE, ARCANUM, WALL, PITFALL;
+	}
 
 
-enum UNIT {
-	INFANTRY,  HORSE, ARCHER, MAGE;
-}
+	enum UNIT {
+		INFANTRY,  HORSE, ARCHER, MAGE;
+	}
 
 
+	//Too poor message constants
+	public static final float messageTotal = 2000; //ms
+	private float messageTime = 0;
+	private String message = "";
+	private Vector2f warnPos = new Vector2f(20, Display.getHeight()/2 - 200);
 
 	//Enum Values
 	public static final BUILDING[] BUILDINGS = BUILDING.values();
@@ -119,7 +128,7 @@ enum UNIT {
 		stone = 50;
 		metal = 50;
 	}
-	
+
 	public void deleteBuilding(Vector2f position) {
 		for (int i = 0; i < resourceBuildings.size(); i++) {
 			Building b = resourceBuildings.get(i);
@@ -138,19 +147,19 @@ enum UNIT {
 			}
 		}
 	}
-	
+
 	public boolean containsPoint(Building b, Vector2f position) {
 		boolean contains = false;
 		Vector2f buildingPos = b.getPosition();
 		Vector2f buildingSize = b.getSize();
 
-		
+
 		if (position.x >= buildingPos.x && position.y >= buildingPos.y
 				&& position.x <= buildingPos.x + buildingSize.x
 				&& position.y <= buildingPos.y + buildingSize.y) {
 			contains = true;
 		}
-		
+
 		return contains;
 	}
 
@@ -175,8 +184,6 @@ enum UNIT {
 		targets.addAll(soldiers);
 		return targets;
 	}
-
-	public abstract void drawText();
 
 	public static void initialize(Graphics g, Map map) {
 		//resource buildings
@@ -223,9 +230,17 @@ enum UNIT {
 		world.placeBuilding(pos.x, pos.y, 1, 1);
 
 	}
+	
+	public void drawText() {
+		if (messageTime > 0) {
+			Text.warn(message, new Vector2f(warnPos.x, warnPos.y - (messageTotal - messageTime)/100f));
+		}
+	}
 
 
 	public boolean update(Vector2f translation, boolean active) {
+		messageTime -= Time.dt;
+		messageTime = (float)Math.max(messageTime, 0);
 		if (InputHandler.rightClicked())
 			placingBuilding = false;
 
@@ -348,7 +363,7 @@ enum UNIT {
 			HQ.draw(g);
 		}
 	}
-	
+
 	public void drawUnits(Graphics g) {
 		//draw all units
 		for (Unit u: soldiers) {
@@ -360,7 +375,8 @@ enum UNIT {
 
 	protected void buildBuilding() {
 		Building building = getBuilding(placingBuildingId);
-		if (canAfford(building.getCost())) {
+		ResourceHandler cost = building.getCost();
+		if (canAfford(cost)) {
 			if (building instanceof ResourceBuilding)
 				resourceBuildings.add((ResourceBuilding)building);
 			if (building instanceof MilitaryBuilding)
@@ -370,6 +386,9 @@ enum UNIT {
 
 			world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
 		} else {
+			messageTime = messageTotal;
+			message = "Requires Additional ";
+			message += getMissingResources(cost);
 			System.out.println("Too poor, " + building.getCost());
 		}
 	}
@@ -386,6 +405,36 @@ enum UNIT {
 			magic -= cost.magic;
 		}
 		return afford;
+	}
+
+	protected String getMissingResources(ResourceHandler cost) {
+		String need = "";
+		if (cost.food >= food){
+			need += " food, ";
+		}
+		if(cost.lumber >= lumber) {
+			need += " lumber, ";
+
+		}
+		if(cost.metal >= metal) {
+			need += " metal, ";
+
+		}
+		if(cost.stone >= stone){
+			need += " stone, ";
+
+		}
+		if(cost.horse >= horse) {
+			need += " horses, ";
+
+		}
+		if(cost.magic >= magic) {
+			need += " magic, ";
+		}
+		if (!need.isEmpty()) {
+			need = need.substring(0, need.length() - 2);
+		}
+		return need;
 	}
 
 	public void drawPlaced(Graphics g, Vector2f translate, boolean active) {
@@ -446,7 +495,7 @@ enum UNIT {
 		}
 		return building;
 	}
-	
+
 	protected Building getBuildingFromEnum(BUILDING make, Vector2f position) {
 		Building b = null;
 		switch (make) {
@@ -458,7 +507,7 @@ enum UNIT {
 			break;
 		case RANGE:
 			b = new Range(rangeId, position, this);
-		break;
+			break;
 		case ARCANUM:
 			b = new Arcanum(arcanumId, position, this);
 			break;

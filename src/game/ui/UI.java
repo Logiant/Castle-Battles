@@ -26,6 +26,8 @@ public class UI {
 	private int uiTextureId;
 	public static int height = 90;
 	
+	private int activeTab = 0;
+	
 	boolean showTip;
 
 	public UI(City city) {
@@ -47,7 +49,7 @@ public class UI {
 		
 		tooltip = new BuildingTooltip(uiTextureId);
 		tooltip.setPosition(new Vector2f(650, 400));
-		tooltip.setSize(new Vector2f(140, 100));
+		tooltip.setSize(new Vector2f(140, 105));
 		dummy = new DummyBuilding();
 		tooltip.target = dummy;
 	}
@@ -69,6 +71,13 @@ public class UI {
 		showTip = false;
 		String cmd = "";
 		g.draw(uiTextureId, new Rect(0, Driver.screenHeight - height, Driver.screenWidth, height));
+		for (int  i = 0; i < tabs.length; i++)  {
+			int textId = 1;
+			if (activeTab == i)
+				textId = 2;
+			g.draw(textId, new Rect(10 + 120*i, Driver.screenHeight - height, 110, 20));
+		}
+
 		for (UITab t: tabs) {
 			cmd = t.update(g);
 			if (active) {
@@ -80,6 +89,8 @@ public class UI {
 		}
 		if (showTip)
 			tooltip.draw(g);
+		
+		g.draw(uiTextureId, new Rect(0, 0, 280, 80));
 	}
 
 	public static boolean containsMouse() {
@@ -91,21 +102,21 @@ public class UI {
 	}
 
 	public void switchTabs(String nextTab) {
-		int tabId = 0;
 		switch (nextTab) {
 		default:
 			return;
 		case "RESOURCE":
+			activeTab = 0;
 			break;
 		case "MILITARY":
-			tabId = 1;
+			activeTab = 1;
 			break;
 		case "DEFENSE":
-			tabId = 2;
+			activeTab = 2;
 			break;
 		}
 		for (UITab t: tabs)
 			t.setActive(false);
-		tabs[tabId].setActive(true);
+		tabs[activeTab].setActive(true);
 	}
 }

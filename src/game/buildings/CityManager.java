@@ -27,6 +27,7 @@ public class CityManager extends City {
 
 	@Override
 	public void drawText() {
+		super.drawText();
 		Text.write("Food: " + food, new Vector2f(15, 5));
 		Text.write("Lumber: " + lumber, new Vector2f(150, 5));
 		Text.write("Metal: " + metal, new Vector2f(15, 25));

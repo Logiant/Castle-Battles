@@ -33,7 +33,8 @@ public class BuildingTooltip {
 	
 	public void drawText() {
 		if (target != null) {
-			Text.writeSmall(target.getTooltip(), position);
+			Vector2f drawPos = new Vector2f(position.x + 5, position.y);
+			Text.writeSmall(target.getTooltip(), drawPos);
 		}
 	}
 	

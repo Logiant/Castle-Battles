@@ -12,7 +12,7 @@ public class ResourceHandler {
 	public int stone;
 	public int horse;
 	public int magic;
-	
+		
 	@Override
 	public String toString() {
 		return "Food: " + food + ", Lumber: " + lumber +  ", Metal: " + metal +  

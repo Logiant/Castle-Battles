@@ -15,11 +15,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Building implements Combat {
 	
-	public enum BuildingTypes {
-		Farm, MagicPump, Mill, Mine, Quarry, Stable, Arcanum, Barracks, Cavalry, Range, Pitfall, Wall;
-	}
 	
-	public static BuildingTypes fromString(String bld) {
+/*	public static BuildingTypes fromString(String bld) {
 		BuildingTypes b = null;
 		if (bld.equals("FARM"))
 			b = BuildingTypes.Farm;
@@ -51,7 +48,7 @@ public abstract class Building implements Combat {
 		
 		return b;
 	}
-
+*/
 	//width and height should be tile values so we don't have awkward overlaps
 		protected Vector2f position;
 		protected int textureId;

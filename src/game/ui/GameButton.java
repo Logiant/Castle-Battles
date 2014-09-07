@@ -1,5 +1,6 @@
 package game.ui;
 
+import game.buildings.BuildingType;
 import graphics.Graphics;
 import graphics.Rect;
 import main.Driver;
@@ -12,12 +13,12 @@ public class GameButton {
 	private int textureId;
 	Vector2f position;
 	Vector2f size;
-	String command;
+	BuildingType command;
 	UI ui;
 
 	private boolean active;
 
-	public GameButton(int textureId, Vector2f position, Vector2f size, String command, UI ui) {
+	public GameButton(int textureId, Vector2f position, Vector2f size, BuildingType command, UI ui) {
 		this.textureId = textureId;
 		this.position = position;
 		this.size = size;
@@ -26,8 +27,8 @@ public class GameButton {
 	}
 
 
-	public String update() {
-		String cmd = "";
+	public BuildingType update() {
+		BuildingType cmd = null;
 		//check for mouseover
 		if (Mouse.getX() > position.x && Mouse.getX() < position.x + size.x &&
 				Driver.screenHeight - Mouse.getY() > position.y && Driver.screenHeight - Mouse.getY() < position.y + size.y) {

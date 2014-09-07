@@ -5,6 +5,7 @@ import main.Driver;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
+import game.buildings.BuildingType;
 import graphics.Graphics;
 
 public class ResourceTab extends UITab {
@@ -23,12 +24,12 @@ public class ResourceTab extends UITab {
 		idNumbers[4] = g.loadImage("Icons/QuarryButton");
 		idNumbers[5] = g.loadImage("Icons/MagicButton");
 
-		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "FARM", ui);
-		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "MINE", ui);
-		buttons[2] = new GameButton(idNumbers[2], new Vector2f(180, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "WOOD", ui);
-		buttons[3] = new GameButton(idNumbers[3], new Vector2f(260, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "HORSE", ui);
-		buttons[4] = new GameButton(idNumbers[4], new Vector2f(340, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "STONE", ui);
-		buttons[5] = new GameButton(idNumbers[5], new Vector2f(420, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), "MAGIC", ui);
+		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Farm, ui);
+		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Mine, ui);
+		buttons[2] = new GameButton(idNumbers[2], new Vector2f(180, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Mill, ui);
+		buttons[3] = new GameButton(idNumbers[3], new Vector2f(260, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Stable, ui);
+		buttons[4] = new GameButton(idNumbers[4], new Vector2f(340, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Quarry, ui);
+		buttons[5] = new GameButton(idNumbers[5], new Vector2f(420, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.MagicPump, ui);
 
 	}
 

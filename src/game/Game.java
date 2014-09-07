@@ -26,6 +26,7 @@ import graphics.Graphics;
  */
 public class Game {
 
+	GameController controller;
 	Camera cam;
 	Map map;
 	GameOptionsMenu gameOptionsMenu;
@@ -50,12 +51,12 @@ public class Game {
 	int delete = Keyboard.KEY_DELETE;
 
 
-	public Game() {
+	public Game(GameController controller) {
 		background = new SimpleBackground();
 		cam = new Camera();
 		map = new Map();
 		gameOptionsMenu = new GameOptionsMenu();
-		
+		this.controller = controller;
 	}
 
 	public void initialize(Graphics g) {
@@ -113,7 +114,7 @@ public class Game {
 		
 		if (win || lose) {
 			System.out.println("Win? " + win);
-			nextState = "QUIT";//GAMEOVER;
+			controller.gameOver(win);
 		}
 		
 		//TODO finish this

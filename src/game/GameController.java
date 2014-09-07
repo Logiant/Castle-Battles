@@ -1,6 +1,7 @@
 
 package game;
 
+import menu.GameOver;
 import graphics.Graphics;
 
 /**
@@ -11,19 +12,25 @@ import graphics.Graphics;
 public class GameController {
 
 	enum GameState {
-		SETUP, CHARACTER_CREATE, GAME, WIN_SCREEN, LOSE_SCREEN
+		SETUP, CHARACTER_CREATE, GAME, GAME_OVER
 	}
 	
 	Game game;
-	GameState state= GameState.GAME;
+	GameState state = GameState.GAME;
+	GameOver gameOver;
+	boolean win;
 	
 	public GameController() {
-		game = new Game();
+		game = new Game(this);
+		gameOver = new GameOver();
 	}
 	
 	public void initialize(Graphics g) {
 		//initialize everything here
 		game.initialize(g);
+		gameOver.initialize(g);
+		win = false;
+		state = GameState.SETUP;
 	}
 	
 	public String update(Graphics g) {
@@ -31,9 +38,11 @@ public class GameController {
 		switch (state) {
 		default:
 		case SETUP:
+			state = GameState.CHARACTER_CREATE;
 			//game setup. Choose map (or map seed) set dificulty (AI resource bonuses)
 			break;
 		case CHARACTER_CREATE:
+			state = GameState.GAME;
 			//update the character creation until finish or back is hit, returns int[]
 			break;
 		case GAME:
@@ -42,12 +51,15 @@ public class GameController {
 				cmd = nextState;
 			}
 			break;
-		case WIN_SCREEN:
-			
-			break;
-		case LOSE_SCREEN:
+		case GAME_OVER:
+			cmd = gameOver.update(g, win);
 			break;
 		}
 		return cmd;
+	}
+	
+	public void gameOver(boolean win) {
+		this.win = win;
+		state = GameState.GAME_OVER;
 	}
 }

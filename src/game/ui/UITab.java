@@ -7,6 +7,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.Text;
+import game.buildings.BuildingType;
 import graphics.Graphics;
 
 /**
@@ -30,12 +31,12 @@ public abstract class UITab {
 
 	public abstract void initialize(Graphics g);
 
-	public String update(Graphics g) {
-		String cmd = "";
+	public BuildingType update(Graphics g) {
+		BuildingType cmd = null;
 		if (active) {
 			for (GameButton b:buttons) {
 				cmd = b.update();
-				if (cmd != "") {
+				if (cmd != null) {
 					break;
 				}
 			}
@@ -45,7 +46,7 @@ public abstract class UITab {
 		if (Mouse.getX() > tabPosition.x && Mouse.getX() < tabPosition.x + name.length() * Text.fontSize/2f 
 				&& Driver.screenHeight - Mouse.getY() > tabPosition.y && Driver.screenHeight - Mouse.getY() < tabPosition.y + 15
 				&& InputHandler.leftClicked()) {
-			cmd = name;
+			ui.switchTabs(name);
 		}
 		return cmd;
 	}

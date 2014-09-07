@@ -24,7 +24,7 @@ public class DummyBuilding extends Building {
 		super(textureId, position, size, dummyCity);
 	}
 	
-	public void setBuilding(BuildingTypes building) {
+	public void setBuilding(BuildingType building) {
 		switch(building) {
 		case  Farm:
 			dummy = new Farm(999999999, v, dummyCity);

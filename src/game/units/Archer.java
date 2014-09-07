@@ -3,7 +3,6 @@ package game.units;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.City;
-import game.buildings.CityManager;
 import game.entities.Unit;
 
 public class Archer extends Unit {

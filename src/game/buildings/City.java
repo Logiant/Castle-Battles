@@ -270,53 +270,53 @@ public abstract class City {
 
 	}
 
-	public void buildCommand (String command) {
+	public void buildCommand (BuildingType command) {
 		switch (command) {
-		case "FARM":
+		case Farm:
 			placingBuildingId = farmId;
 			placingBuilding = true;
 			break;
-		case "MINE":
+		case Mine:
 			placingBuildingId = mineId;
 			placingBuilding = true;
 			break;
-		case "WOOD":
+		case Mill:
 			placingBuildingId = millId;
 			placingBuilding = true;
 			break;
-		case "HORSE":
+		case Stable:
 			placingBuildingId = stableId;
 			placingBuilding = true;
 			break;
-		case "STONE":
+		case Quarry:
 			placingBuildingId = quarryId;
 			placingBuilding = true;
 			break;
-		case "MAGIC":
+		case MagicPump:
 			placingBuildingId = magicId;
 			placingBuilding = true;
 			break;
-		case "BARRACKS":
+		case Barracks:
 			placingBuildingId = barracksId;
 			placingBuilding = true;
 			break;
-		case "RANGE":
+		case Range:
 			placingBuildingId = rangeId;
 			placingBuilding = true;
 			break;
-		case "STABLE":
+		case Cavalry:
 			placingBuildingId = cavalryId;
 			placingBuilding = true;
 			break;
-		case "ARCANUM":
+		case Arcanum:
 			placingBuildingId = arcanumId;
 			placingBuilding = true;
 			break;
-		case "WALL":
+		case Wall:
 			placingBuildingId = wallId;
 			placingBuilding = true;
 			break;
-		case "PITFALL":
+		case Pitfall:
 			placingBuildingId = pitfallId;
 			placingBuilding = true;
 			break;

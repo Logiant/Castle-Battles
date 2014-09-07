@@ -6,7 +6,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.BuildingTooltip;
-import game.buildings.Building;
+import game.buildings.BuildingType;
 import game.buildings.City;
 import game.buildings.DummyBuilding;
 import graphics.Graphics;
@@ -62,14 +62,14 @@ public class UI {
 
 	}
 	
-	public void mouseOver(String cmd) {
-		dummy.setBuilding(Building.fromString(cmd));
+	public void mouseOver(BuildingType cmd) {
+		dummy.setBuilding(cmd);
 		showTip = true;
-	}
+ 	}
 
 	public void update(Graphics g, boolean active) {
 		showTip = false;
-		String cmd = "";
+		BuildingType cmd = null;
 		g.draw(uiTextureId, new Rect(0, Driver.screenHeight - height, Driver.screenWidth, height));
 		for (int  i = 0; i < tabs.length; i++)  {
 			int textId = 1;
@@ -81,8 +81,7 @@ public class UI {
 		for (UITab t: tabs) {
 			cmd = t.update(g);
 			if (active) {
-				if (!cmd.equals("")) {
-					switchTabs(cmd);
+				if (cmd != null) {
 					city.buildCommand(cmd);
 				}
 			}

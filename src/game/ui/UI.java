@@ -24,7 +24,7 @@ public class UI {
 	BuildingTooltip tooltip;
 	DummyBuilding dummy;
 	private int uiTextureId;
-	public static int height = 90;
+	public static int height = 110;
 	
 	private int activeTab = 0;
 	

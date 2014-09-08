@@ -23,10 +23,10 @@ public class MilitaryTab extends UITab {
 		idNumbers[2] = g.loadImage("Icons/CavalryButton");
 		idNumbers[3] = g.loadImage("Icons/ArcanumButton");
 
-		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Barracks, ui);
-		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Range, ui);
-		buttons[2] = new GameButton(idNumbers[2], new Vector2f(180, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Stable, ui);
-		buttons[3] = new GameButton(idNumbers[3], new Vector2f(260, Driver.screenHeight - UI.height + 20), new Vector2f(60, 60), BuildingType.Arcanum, ui);
+		buttons[0] = new GameButton(idNumbers[0], new Vector2f(20, Driver.screenHeight - UI.height + 35), new Vector2f(60, 60), BuildingType.Barracks, ui);
+		buttons[1] = new GameButton(idNumbers[1], new Vector2f(100, Driver.screenHeight - UI.height + 35), new Vector2f(60, 60), BuildingType.Range, ui);
+		buttons[2] = new GameButton(idNumbers[2], new Vector2f(180, Driver.screenHeight - UI.height + 35), new Vector2f(60, 60), BuildingType.Stable, ui);
+		buttons[3] = new GameButton(idNumbers[3], new Vector2f(260, Driver.screenHeight - UI.height + 35), new Vector2f(60, 60), BuildingType.Arcanum, ui);
 	}
 
 	@Override

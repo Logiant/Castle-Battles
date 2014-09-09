@@ -12,7 +12,7 @@ public class AudioHandler {
 	private Audio mainMusic;
 	
 	public void loadMainMusic() throws IOException {
-		mainMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("resources/Audio/Intro Song.ogg"));
+		mainMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("resources/Audio/DarkWinds_0.ogg"));
 	}
 	
 	public void playMain() {

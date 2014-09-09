@@ -1,5 +1,8 @@
-package game.buildings;
+package game.entities;
 
+import game.buildings.Building;
+import game.buildings.BuildingType;
+import game.buildings.ResourceHandler;
 import game.buildings.defense.Pitfall;
 import game.buildings.defense.Wall;
 import game.buildings.military.Arcanum;
@@ -13,11 +16,6 @@ import game.buildings.resource.Mill;
 import game.buildings.resource.Mine;
 import game.buildings.resource.Quarry;
 import game.buildings.resource.Stable;
-import game.entities.Combat;
-import game.entities.DefenseBuilding;
-import game.entities.MilitaryBuilding;
-import game.entities.ResourceBuilding;
-import game.entities.Unit;
 import game.ui.UI;
 import game.units.Archer;
 import game.units.Horse;
@@ -42,11 +40,6 @@ import widgets.Text;
 
 public abstract class City {
 
-	enum BUILDING {
-		FARM, MINE, MILL, STABLE, QUARRY, MAGIC, BARRACKS, CAVALRY, RANGE, ARCANUM, WALL, PITFALL;
-	}
-
-
 	enum UNIT {
 		INFANTRY,  HORSE, ARCHER, MAGE;
 	}
@@ -59,7 +52,7 @@ public abstract class City {
 	private Vector2f warnPos = new Vector2f(20, Display.getHeight()/2 - 200);
 
 	//Enum Values
-	public static final BUILDING[] BUILDINGS = BUILDING.values();
+	public static final BuildingType[] BUILDINGS = BuildingType.values();
 	public static final UNIT[] UNITS = UNIT.values();
 	public static final int RESOURCE_OFFSET = 0;
 	public static final int RESOURCE_SIZE = 6;
@@ -78,6 +71,7 @@ public abstract class City {
 	protected int magic;
 
 
+	protected List<Projectile> projectileHandler;
 	protected List<ResourceBuilding> resourceBuildings;
 	protected List<MilitaryBuilding> militaryBuildings;
 	protected List<Unit> soldiers;
@@ -119,6 +113,7 @@ public abstract class City {
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
 		soldiers = new ArrayList<Unit>();
 		defenseBuildings = new ArrayList<DefenseBuilding>();
+		projectileHandler = new ArrayList<Projectile>();
 		placingPosition = new Vector2f();;
 		enemyTarget = new Vector2f();
 		lumber = 50;
@@ -127,6 +122,10 @@ public abstract class City {
 		horse = 50;
 		stone = 50;
 		metal = 50;
+	}
+	
+	public void addProjectile(Projectile p) {
+		projectileHandler.add(p);
 	}
 
 	public void deleteBuilding(Vector2f position) {
@@ -265,9 +264,21 @@ public abstract class City {
 			else
 				defenseBuildings.remove(i);
 		}
+		
+		updateProjectiles();
 
 		return !HQ.isAlive();
 
+	}
+	
+	public void updateProjectiles() {
+		for (int i = projectileHandler.size() - 1; i >=0; i--) {
+			Projectile p = projectileHandler.get(i);
+			if (p.update()) { //if P has reached its target
+				p.doDamage();
+				projectileHandler.remove(i);
+			}
+		}
 	}
 
 	public void buildCommand (BuildingType command) {
@@ -341,6 +352,11 @@ public abstract class City {
 			}
 		}
 		HQ.update();
+	}
+	
+	public void drawProjectiles(Graphics g) {
+		for (Projectile p:projectileHandler)
+			p.draw(g);
 	}
 
 	public void drawBuildings(Graphics g) {
@@ -496,43 +512,43 @@ public abstract class City {
 		return building;
 	}
 
-	protected Building getBuildingFromEnum(BUILDING make, Vector2f position) {
+	protected Building getBuildingFromEnum(BuildingType make, Vector2f position) {
 		Building b = null;
 		switch (make) {
-		case BARRACKS:
+		case Barracks:
 			b = new Barracks(barracksId, position, this);
 			break;
-		case CAVALRY:
+		case Cavalry:
 			b = new Cavalry(cavalryId, position, this);
 			break;
-		case RANGE:
+		case Range:
 			b = new Range(rangeId, position, this);
 			break;
-		case ARCANUM:
+		case Arcanum:
 			b = new Arcanum(arcanumId, position, this);
 			break;
-		case FARM:
+		case Farm:
 			b = new Farm(farmId, position, this);
 			break;
-		case MAGIC:
+		case MagicPump:
 			b = new MagicPump(magicId, position, this);
 			break;
-		case MILL:
+		case Mill:
 			b = new Mill(millId, position, this);
 			break;
-		case MINE:
+		case Mine:
 			b = new Mine(mineId, position, this);
 			break;
-		case PITFALL:
+		case Pitfall:
 			b = new Pitfall(pitfallId, position, this);
 			break;
-		case QUARRY:
+		case Quarry:
 			b = new Quarry(quarryId, position, this);
 			break;
-		case STABLE:
+		case Stable:
 			b = new Stable(stableId, position, this);
 			break;
-		case WALL:
+		case Wall:
 			b = new Wall(wallId, position, this);
 			break;
 		}		

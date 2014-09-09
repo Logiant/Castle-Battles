@@ -1,4 +1,6 @@
-package game.buildings;
+package game.city;
+
+import game.entities.City;
 
 import org.newdawn.slick.geom.Vector2f;
 

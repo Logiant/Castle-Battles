@@ -2,8 +2,8 @@ package game.buildings.defense;
 
 import org.newdawn.slick.geom.Vector2f;
 
-import game.buildings.City;
 import game.buildings.ResourceHandler;
+import game.entities.City;
 import game.entities.DefenseBuilding;
 import game.world.Map;
 

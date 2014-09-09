@@ -1,4 +1,4 @@
-package game.buildings;
+package game.city;
 
 import java.util.Random;
 
@@ -6,9 +6,10 @@ import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.Building;
+import game.buildings.BuildingType;
+import game.entities.City;
 import game.entities.MilitaryBuilding;
-import game.entities.Unit;
-import game.units.Infantry;
 import game.world.Map;
 
 /**
@@ -54,6 +55,8 @@ public class EnemyCityManager extends City{
 			else
 				defenseBuildings.remove(i);
 		}
+		
+		updateProjectiles();
 
 		return !HQ.isAlive();
 
@@ -70,19 +73,17 @@ public class EnemyCityManager extends City{
 		
 		
 		//chose a building to make
+		
+		//make it
 		if (!full) {
 			build();
 		}
-		//make it
-		Unit newUnit = new Infantry(infantryId, HQ.position, new Vector2f(32, 32), this);
-		newUnit.setTarget(enemyTarget);
-		soldiers.add(newUnit);
 	}
 
 	protected void build() {
 		int size = MILITARY_SIZE;
 		int offset = MILITARY_OFFSET;
-		BUILDING m = BUILDINGS[rGen.nextInt(size) + offset];
+		BuildingType m = BUILDINGS[rGen.nextInt(size) + offset];
 		Vector2f position = world.getEnemySpace();
 		if (position != null) {
 			Building added = getBuildingFromEnum(m, position);

@@ -10,10 +10,10 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.geom.Vector2f;
 
 import widgets.GameOptionsMenu;
-import game.buildings.City;
-import game.buildings.CityManager;
-import game.buildings.EnemyCityManager;
-import game.buildings.NeutralCityManager;
+import game.city.CityManager;
+import game.city.EnemyCityManager;
+import game.city.NeutralCityManager;
+import game.entities.City;
 import game.ui.UI;
 import game.world.Map;
 import game.world.SimpleBackground;
@@ -134,6 +134,8 @@ public class Game {
 		city.drawBuildings(g);
 		enemyCity.drawUnits(g);
 		city.drawUnits(g);
+		city.drawProjectiles(g);
+		enemyCity.drawProjectiles(g);
 	}
 	
 	private void drawUI(Graphics g) {

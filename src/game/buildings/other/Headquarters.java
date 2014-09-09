@@ -7,8 +7,8 @@ import main.Time;
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.Building;
-import game.buildings.City;
 import game.buildings.ResourceHandler;
+import game.entities.City;
 import game.entities.Combat;
 import game.world.Map;
 

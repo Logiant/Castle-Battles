@@ -3,7 +3,6 @@ package game.entities;
 import java.util.List;
 
 import game.buildings.Building;
-import game.buildings.City;
 
 import org.newdawn.slick.geom.Vector2f;
 

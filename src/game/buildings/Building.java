@@ -1,5 +1,6 @@
 package game.buildings;
 
+import game.entities.City;
 import game.entities.Combat;
 import graphics.Graphics;
 import graphics.Rect;
@@ -119,6 +120,11 @@ public abstract class Building implements Combat {
 		public abstract void update();
 		
 		public abstract ResourceHandler getCost();
+		
+		@Override
+		public int getHealth() {
+			return health;
+		}
 		
 		@Override
 		public void damage(int amount) {

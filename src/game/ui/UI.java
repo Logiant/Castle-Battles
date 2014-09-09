@@ -7,8 +7,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 import widgets.BuildingTooltip;
 import game.buildings.BuildingType;
-import game.buildings.City;
 import game.buildings.DummyBuilding;
+import game.entities.City;
 import graphics.Graphics;
 import graphics.Rect;
 
@@ -72,9 +72,9 @@ public class UI {
 		BuildingType cmd = null;
 		g.draw(uiTextureId, new Rect(0, Driver.screenHeight - height, Driver.screenWidth, height));
 		for (int  i = 0; i < tabs.length; i++)  {
-			int textId = 1;
+			int textId = 0;
 			if (activeTab == i)
-				textId = 2;
+				textId = 3;
 			g.draw(textId, new Rect(10 + 120*i, Driver.screenHeight - height, 110, 20));
 		}
 

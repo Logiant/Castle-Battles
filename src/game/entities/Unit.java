@@ -3,7 +3,6 @@ package game.entities;
 
 import java.util.List;
 
-import game.buildings.City;
 import graphics.Graphics;
 import graphics.Rect;
 import main.Time;
@@ -29,6 +28,8 @@ public abstract class Unit implements Combat {
 	protected float range;
 	protected int damage;
 	protected int health;
+	protected float attackSpeed; //attacks per second
+	protected float coolDown;
 
 	protected boolean moving;
 	protected float aggroRange;
@@ -40,10 +41,11 @@ public abstract class Unit implements Combat {
 		this.size = new Vector2f(size);
 		this.city = city;
 		speed = 32; // px/s
-		damage = 1;
+		damage = 5;
 		range = 5;
 		health = 5;
 		aggroRange = 128; // about 2 tiles
+		attackSpeed = .5f;
 		targetPos = new Vector2f();
 	}
 
@@ -57,6 +59,7 @@ public abstract class Unit implements Combat {
 
 	public void update() {
 		float dt = (float) (Time.dt / 1000.0);
+		coolDown -= dt;
 		Vector2f distance = new Vector2f(targetPos.x - position.x, targetPos.y - position.y);
 		if (targetEnemy != null) { //move forward for the emeperor if theres a target enemy
 			distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
@@ -100,8 +103,14 @@ public abstract class Unit implements Combat {
 	}
 
 	@Override
+	public int getHealth() {
+		return health;
+	}
+	
+	@Override
 	public void attack() {
-		if (targetEnemy != null) {
+		if (coolDown <= 0 && targetEnemy != null) {
+			coolDown = attackSpeed;
 			Vector2f distance = new Vector2f(targetEnemy.getPosition().x - position.x, targetEnemy.getPosition().y - position.y);
 			if (distance.lengthSquared() <= range*range) {
 				targetEnemy.damage(damage);
@@ -126,7 +135,7 @@ public abstract class Unit implements Combat {
 
 	@Override
 	public void damage(int dmg) {
-		health -= damage;
+		health -= dmg;
 	}
 
 	@Override

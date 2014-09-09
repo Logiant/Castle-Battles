@@ -3,6 +3,8 @@ package game.buildings;
 import game.buildings.defense.*;
 import game.buildings.military.*;
 import game.buildings.resource.*;
+import game.city.NeutralCityManager;
+import game.entities.City;
 import game.entities.Combat;
 
 import java.util.List;

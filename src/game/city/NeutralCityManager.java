@@ -1,9 +1,10 @@
-package game.buildings;
+package game.city;
 
 import java.util.ArrayList;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.entities.City;
 import game.entities.DefenseBuilding;
 import graphics.Graphics;
 

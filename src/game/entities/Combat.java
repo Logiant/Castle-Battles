@@ -20,4 +20,6 @@ public interface Combat {
 	int getDamage();
 	
 	boolean isAlive();
+	
+	int getHealth();
 }

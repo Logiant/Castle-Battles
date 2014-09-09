@@ -23,6 +23,7 @@ public class Graphics {
 	public void initialize() {
 		textures = new ArrayList<Texture>();
 		paths = new ArrayList<String>();
+		loadImage("DevTexture");
 	}
 
 	public int loadImage(String path) {

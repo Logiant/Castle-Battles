@@ -96,6 +96,9 @@ public class DummyBuilding extends Building {
 			return dummy.getTooltip();
 		return "Null";
 	}
-
-
+	
+	@Override
+	public BuildingType getType() {
+		return null;
+	}
 }

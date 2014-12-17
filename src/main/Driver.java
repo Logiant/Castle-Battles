@@ -56,8 +56,10 @@ public class Driver {
 	 * initializes the game state controller
 	 */
 	public void logicInitialization() {
-		Text.initialize();
+		//initialize game logic
 		game = new Controller();
+		//initialize static helper class
+		Text.initialize();
 	}
 
 	/**

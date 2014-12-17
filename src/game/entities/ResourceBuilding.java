@@ -3,6 +3,7 @@ package game.entities;
 import java.util.List;
 
 import game.buildings.Building;
+import game.buildings.ResourceHandler;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -14,7 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public abstract class ResourceBuilding extends Building {
 
-	protected int resourceAmount;
+	protected ResourceHandler production;
 
 	public ResourceBuilding(int textureId, Vector2f position, Vector2f size, City city) {
 		super(textureId, position, size, city);

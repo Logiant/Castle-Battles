@@ -2,6 +2,7 @@ package game.buildings.military;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.BuildingType;
 import game.buildings.ResourceHandler;
 import game.entities.City;
 import game.entities.MilitaryBuilding;
@@ -40,5 +41,10 @@ public class Barracks extends MilitaryBuilding {
 	@Override
 	public String getDescription() {
 		return "Spawns Infantry";
+	}
+	
+	@Override
+	public BuildingType getType() {
+		return BuildingType.Barracks;
 	}
 }

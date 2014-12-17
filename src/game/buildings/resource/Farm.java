@@ -4,6 +4,7 @@ import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.BuildingType;
 import game.buildings.ResourceHandler;
 import game.entities.City;
 import game.entities.ResourceBuilding;
@@ -22,14 +23,15 @@ public class Farm extends ResourceBuilding{
 	
 	public Farm(int textureId, Vector2f position, City city) {
 		super(textureId, position, size, city);
-		resourceAmount = 5;
+		production = new ResourceHandler();
+		production.food = 5;
 		time = cooldownTime;
 	}
 	
 	public void update() {
 		time -= Time.dt;
 		if (time <= 0) {
-			city.addResource("FOOD", resourceAmount);
+			city.addResource(production);
 			time = cooldownTime;
 		}
 	}
@@ -49,6 +51,11 @@ public class Farm extends ResourceBuilding{
 	
 	@Override
 	public String getDescription() {
-		return "+" + resourceAmount + " Food";
+		return "+" + production.food + " Food";
+	}
+	
+	@Override
+	public BuildingType getType() {
+		return BuildingType.Farm;
 	}
 }

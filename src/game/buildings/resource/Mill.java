@@ -4,6 +4,7 @@ import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.BuildingType;
 import game.buildings.ResourceHandler;
 import game.entities.City;
 import game.entities.ResourceBuilding;
@@ -22,14 +23,15 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	public Mill(int textureId, Vector2f position, City city) {
 		super(textureId, position, size, city);
-		resourceAmount = 5;
+		production = new ResourceHandler();
+		production.lumber = 5;
 		time = cooldownTime;
 	}
 	
 	public void update() {
 		time -= Time.dt;
 		if (time <= 0) {
-			city.addResource("LUMBER", resourceAmount);
+			city.addResource(production);
 			time = cooldownTime;
 		}
 	}
@@ -50,6 +52,11 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 	
 	@Override
 	public String getDescription() {
-		return "+" + resourceAmount + " Wood";
+		return "+" + production.lumber + " Wood";
+	}
+	
+	@Override
+	public BuildingType getType() {
+		return BuildingType.Mill;
 	}
 }

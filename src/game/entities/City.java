@@ -63,13 +63,7 @@ public abstract class City {
 
 
 	//do we want to put these in an int[] to save space?
-	protected int lumber;
-	protected int stone;
-	protected int food;
-	protected int metal;
-	protected int horse;
-	protected int magic;
-
+	protected ResourceHandler resources;
 
 	protected List<Projectile> projectileHandler;
 	protected List<ResourceBuilding> resourceBuildings;
@@ -116,12 +110,13 @@ public abstract class City {
 		projectileHandler = new ArrayList<Projectile>();
 		placingPosition = new Vector2f();;
 		enemyTarget = new Vector2f();
-		lumber = 50;
-		food = 50;
-		magic = 50;
-		horse = 50;
-		stone = 50;
-		metal = 50;
+		resources = new ResourceHandler();
+		resources.lumber = 50;
+		resources.food = 50;
+		resources.magic = 50;
+		resources.horse = 50;
+		resources.stone = 50;
+		resources.metal = 50;
 	}
 	
 	public void addProjectile(Projectile p) {
@@ -411,40 +406,41 @@ public abstract class City {
 
 	protected boolean canAfford(ResourceHandler cost) {
 		boolean afford = false;
-		if (cost.food <= food && cost.lumber <= lumber && cost.metal <= metal && cost.stone <= stone && cost.horse <= horse && cost.magic <= magic) {
+		if (cost.food <= resources.food && cost.lumber <= resources.lumber && cost.metal <= resources.metal
+				&& cost.stone <= resources.stone && cost.horse <= resources.horse && cost.magic <= resources.magic) {
 			afford = true;
-			food -= cost.food;
-			lumber -= cost.lumber;
-			metal -= cost.metal;
-			stone -= cost.stone;
-			horse -= cost.horse;
-			magic -= cost.magic;
+			resources.food -= cost.food;
+			resources.lumber -= cost.lumber;
+			resources.metal -= cost.metal;
+			resources.stone -= cost.stone;
+			resources.horse -= cost.horse;
+			resources.magic -= cost.magic;
 		}
 		return afford;
 	}
 
 	protected String getMissingResources(ResourceHandler cost) {
 		String need = "";
-		if (cost.food >= food){
+		if (cost.food >= resources.food){
 			need += " food, ";
 		}
-		if(cost.lumber >= lumber) {
+		if(cost.lumber >= resources.lumber) {
 			need += " lumber, ";
 
 		}
-		if(cost.metal >= metal) {
+		if(cost.metal >= resources.metal) {
 			need += " metal, ";
 
 		}
-		if(cost.stone >= stone){
+		if(cost.stone >= resources.stone){
 			need += " stone, ";
 
 		}
-		if(cost.horse >= horse) {
+		if(cost.horse >= resources.horse) {
 			need += " horses, ";
 
 		}
-		if(cost.magic >= magic) {
+		if(cost.magic >= resources.magic) {
 			need += " magic, ";
 		}
 		if (!need.isEmpty()) {
@@ -468,36 +464,8 @@ public abstract class City {
 	}
 
 
-	public void addResource(String type, int qty) {
-		switch (type) {
-		case "FOOD":
-			food += qty;
-			break;
-		case "LUMBER":
-			lumber += qty;
-			break;
-		case "METAL":
-			metal += qty;
-			break;
-		case "STONE":
-			stone += qty;
-			break;
-		case "HORSE":
-			horse += qty;
-			break;
-		case "MAGIC":
-			magic += qty;
-			break;
-		case "ALL":
-			food += qty;
-			lumber += qty;
-			metal += qty;
-			stone += qty;
-			horse += qty;
-			magic += qty;
-			break;
-		}
-
+	public void addResource(ResourceHandler delivered) {
+		resources.add(delivered);
 	}
 
 	protected Building getBuilding(int id) {

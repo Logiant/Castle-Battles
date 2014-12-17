@@ -121,6 +121,8 @@ public abstract class Building implements Combat {
 		
 		public abstract ResourceHandler getCost();
 		
+		public abstract BuildingType getType();
+		
 		@Override
 		public int getHealth() {
 			return health;

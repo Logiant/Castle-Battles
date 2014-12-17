@@ -1,15 +1,15 @@
 package game.city;
 
-import java.util.Random;
-
 import main.Time;
 
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.Building;
 import game.buildings.BuildingType;
+import game.buildings.CostCheck;
 import game.entities.City;
 import game.entities.MilitaryBuilding;
+import game.entities.ResourceBuilding;
 import game.world.Map;
 
 /**
@@ -19,9 +19,8 @@ import game.world.Map;
  */
 public class EnemyCityManager extends City{
 
-	private float maxCD = 10000;
+	private float maxCD = 1000;
 	private float cooldown = 0;
-	private Random rGen = new Random();
 	private boolean full = false;
 
 	@Override
@@ -71,29 +70,38 @@ public class EnemyCityManager extends City{
 		 * 
 		 */
 		
-		
-		//chose a building to make
-		
+		BuildingType toBuild = null;
+		if (militaryBuildings.size() > resourceBuildings.size() * 2) {
+			toBuild = CostCheck.resource(resources);
+			if (toBuild == null)
+				toBuild = CostCheck.military(resources);
+		} else {
+			toBuild = CostCheck.military(resources);
+			if (toBuild == null)
+				toBuild = CostCheck.resource(resources);
+		}
 		//make it
-		if (!full) {
-			build();
+		if (!full && toBuild != null) {
+			build(toBuild);
 		}
 	}
 
-	protected void build() {
-		int size = MILITARY_SIZE;
-		int offset = MILITARY_OFFSET;
-		BuildingType m = BUILDINGS[rGen.nextInt(size) + offset];
+	protected void build(BuildingType m) {
 		Vector2f position = world.getEnemySpace();
 		if (position != null) {
 			Building added = getBuildingFromEnum(m, position);
-			militaryBuildings.add((MilitaryBuilding)added);
+			if (added instanceof MilitaryBuilding)
+				militaryBuildings.add((MilitaryBuilding)added);
+			else if (added instanceof ResourceBuilding)
+				resourceBuildings.add((ResourceBuilding)added);
+			else
+				System.out.println("Defense? We shouldn't be here");
+			
 			world.placeBuilding(position.x, position.y, 2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
+			resources.remove(added.getCost());
 		} else {
 			full = true;
 		}
-		//resource: farm, mine, mill, stable, quarry, magic
-		//military: barracks, cavalry, range, arcanum
 	}
 
 	@Override

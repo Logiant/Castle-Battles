@@ -2,6 +2,7 @@ package game.buildings.military;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import game.buildings.BuildingType;
 import game.buildings.ResourceHandler;
 import game.entities.City;
 import game.entities.MilitaryBuilding;
@@ -42,4 +43,8 @@ public static final Vector2f size = new Vector2f(2*Map.TILE_SIZE, 2*Map.TILE_SIZ
 		return "Spawns Wizards";
 	}
 	
+	@Override
+	public BuildingType getType() {
+		return BuildingType.Arcanum;
+	}
 }

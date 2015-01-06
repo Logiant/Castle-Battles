@@ -54,7 +54,6 @@ public abstract class Projectile {
 	}
 
 	public void doDamage() {
-		System.out.println("Damaging " + target + " for " + damage);
 		if (target != null) {
 				target.damage(damage);
 		}

@@ -1,5 +1,7 @@
 package game.buildings;
 
+import java.util.Random;
+
 import org.newdawn.slick.geom.Vector2f;
 
 import game.buildings.military.*;
@@ -16,6 +18,22 @@ public class CostCheck {
 												new Quarry(0, new Vector2f(), null), new Stable(0, new Vector2f(), null), new MagicPump(0, new Vector2f(), null)};
 	public static DefenseBuilding[] defense = {new Pitfall(0, new Vector2f(), null), new Wall(0, new Vector2f(), null)};
 	
+	private static void shuffle(Building[] ar) {
+		Random rnd = new Random();
+	    for (int i = ar.length - 1; i > 0; i--) {
+	      int index = rnd.nextInt(i + 1);
+	      // Simple swap
+	      Building b = ar[index];
+	      ar[index] = ar[i];
+	      ar[i] = b;	
+	    }
+	}
+	
+	public static void shuffle() {
+		shuffle(military);
+		shuffle(resource);
+		shuffle(defense);
+	}
 	
 	public static BuildingType military(ResourceHandler resources) {
 		BuildingType toMake = null;
@@ -24,7 +42,6 @@ public class CostCheck {
 				toMake = military[i].getType();
 				return toMake;
 			}
-			
 		}
 		return toMake;
 	}
@@ -34,10 +51,8 @@ public class CostCheck {
 		for (int i = 0; i < resource.length; i++) {
 			if (resources.canAfford(resource[i].getCost())) {
 				toMake = resource[i].getType();
-				System.out.println(toMake + " is affordable");
 				return toMake;
 			}
-			
 		}
 		return toMake;
 	}
@@ -49,7 +64,6 @@ public class CostCheck {
 				toMake = defense[i].getType();
 				return toMake;
 			}
-			
 		}
 		return toMake;
 	}

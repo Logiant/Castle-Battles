@@ -400,7 +400,6 @@ public abstract class City {
 			messageTime = messageTotal;
 			message = "Requires Additional ";
 			message += getMissingResources(cost);
-			System.out.println("Too poor, " + building.getCost());
 		}
 	}
 

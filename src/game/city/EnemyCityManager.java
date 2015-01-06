@@ -19,15 +19,17 @@ import game.world.Map;
  */
 public class EnemyCityManager extends City{
 
-	private float maxCD = 1000;
-	private float cooldown = 0;
-	private boolean full = false;
+	private float maxCD = 2500;
+	private float cooldown;
+	private boolean full;
+	private boolean militarized;
 
 	@Override
 	public void setup() {
 		super.setup();
 		placeHQ(world.enemyHeadquartersPos());
 		buildWalls(world.getEnemyWalls());
+		CostCheck.shuffle();
 	}
 
 	@Override
@@ -40,7 +42,7 @@ public class EnemyCityManager extends City{
 			cooldown = maxCD;
 			doSomething();
 		}
-		
+
 		for (int i = soldiers.size()-1; i >=0;  i--) {
 			if (soldiers.get(i).isAlive())
 				soldiers.get(i).update();
@@ -54,7 +56,7 @@ public class EnemyCityManager extends City{
 			else
 				defenseBuildings.remove(i);
 		}
-		
+
 		updateProjectiles();
 
 		return !HQ.isAlive();
@@ -69,20 +71,28 @@ public class EnemyCityManager extends City{
 		 * build the most important structure
 		 * 
 		 */
-		
-		BuildingType toBuild = null;
-		if (militaryBuildings.size() > resourceBuildings.size() * 2) {
-			toBuild = CostCheck.resource(resources);
-			if (toBuild == null)
-				toBuild = CostCheck.military(resources);
-		} else {
-			toBuild = CostCheck.military(resources);
-			if (toBuild == null)
-				toBuild = CostCheck.resource(resources);
+		if (full && resourceBuildings.size() > 0) { //if we can, destroy a resource building
+			System.out.println("removed " + resourceBuildings.get(0) + " , militarized.");
+			this.deleteBuilding(resourceBuildings.get(0).getPosition());
+			militarized = true;
+			full = false;
 		}
-		//make it
-		if (!full && toBuild != null) {
-			build(toBuild);
+		if (!full) {
+			BuildingType toBuild = null;
+			if (militaryBuildings.size() > resourceBuildings.size() * 2 && !militarized) {
+				toBuild = CostCheck.resource(resources);
+				if (toBuild == null)
+					toBuild = CostCheck.military(resources);
+			} else {
+				toBuild = CostCheck.military(resources);
+				if (toBuild == null)
+					toBuild = CostCheck.resource(resources);
+			}
+			//make it
+			if (toBuild != null) {
+				build(toBuild);
+				full = full || militarized; //we are full if we filled up or if we militarized
+			}
 		}
 	}
 
@@ -96,14 +106,14 @@ public class EnemyCityManager extends City{
 				resourceBuildings.add((ResourceBuilding)added);
 			else
 				System.out.println("Defense? We shouldn't be here");
-			
+
 			world.placeBuilding(position.x, position.y, 2*Map.TILE_SIZE, 2*Map.TILE_SIZE);
 			resources.remove(added.getCost());
 		} else {
 			full = true;
 		}
 	}
-
+	
 	@Override
 	public void drawText() {
 		//do nothing

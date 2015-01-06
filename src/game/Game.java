@@ -113,7 +113,6 @@ public class Game {
 		drawUI(g);
 		
 		if (win || lose) {
-			System.out.println("Win? " + win);
 			controller.gameOver(win);
 		}
 		

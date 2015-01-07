@@ -64,6 +64,8 @@ public class DummyBuilding extends Building {
 		case Wall:
 			dummy = new Wall(999999999, v, dummyCity);
 			break;
+		case Delete:
+			dummy = null;
 		}
 	}
 

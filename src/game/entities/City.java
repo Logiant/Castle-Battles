@@ -2,6 +2,7 @@ package game.entities;
 
 import game.buildings.Building;
 import game.buildings.BuildingType;
+import game.buildings.Delete;
 import game.buildings.ResourceHandler;
 import game.buildings.defense.Pitfall;
 import game.buildings.defense.Wall;
@@ -99,6 +100,7 @@ public abstract class City {
 	public static int pitfallId;
 	//other buildings
 	public static int headquartersId;
+	public static int deleteId;
 
 	public static Map world;
 
@@ -202,6 +204,7 @@ public abstract class City {
 		pitfallId = g.loadImage("Buildings/Pitfall");
 		//other buildings
 		headquartersId = g.loadImage("Buildings/Headquarters");
+		deleteId = g.loadImage("Icons/Delete");
 
 		world = map;
 	}
@@ -238,12 +241,14 @@ public abstract class City {
 		if (InputHandler.rightClicked())
 			placingBuilding = false;
 
-
-		if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y) 
-				&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
-			buildBuilding();
+		if (placingBuildingId != deleteId) {
+			if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y) 
+					&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
+					buildBuilding();
+			}
+		} else if (InputHandler.leftClicked()) {
+				deleteBuilding(new Vector2f(placingPosition.x, placingPosition.y));
 		}
-
 		collectResources();
 
 		for (int i = soldiers.size()-1; i >=0;  i--) {
@@ -326,6 +331,9 @@ public abstract class City {
 			placingBuildingId = pitfallId;
 			placingBuilding = true;
 			break;
+		case Delete:
+			placingBuildingId = deleteId;
+			placingBuilding = true;
 		}
 	}
 
@@ -475,6 +483,8 @@ public abstract class City {
 			building = getMilitaryBuilding(id);
 		} else if (id == wallId || id == pitfallId) {
 			building = getDefenseBuilding(id);
+		} else if (id == deleteId) {
+			building = new Delete(id, placingPosition, new Vector2f(32,32), this);
 		}
 		return building;
 	}

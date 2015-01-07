@@ -116,7 +116,6 @@ public class Game {
 			controller.gameOver(win);
 		}
 		
-		//TODO finish this
 		return nextState;
 	}
 	

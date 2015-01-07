@@ -28,6 +28,10 @@ public class DummyBuilding extends Building {
 	
 	public void setBuilding(BuildingType building) {
 		switch(building) {
+		default:
+		case Delete:
+			dummy = null;
+			break;
 		case  Farm:
 			dummy = new Farm(999999999, v, dummyCity);
 			break;
@@ -64,8 +68,6 @@ public class DummyBuilding extends Building {
 		case Wall:
 			dummy = new Wall(999999999, v, dummyCity);
 			break;
-		case Delete:
-			dummy = null;
 		}
 	}
 
@@ -96,7 +98,7 @@ public class DummyBuilding extends Building {
 	public String getTooltip() {
 		if (dummy != null)
 			return dummy.getTooltip();
-		return "Null";
+		return "Use to destroy buildings";
 	}
 	
 	@Override

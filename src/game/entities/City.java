@@ -2,7 +2,6 @@ package game.entities;
 
 import game.buildings.Building;
 import game.buildings.BuildingType;
-import game.buildings.Delete;
 import game.buildings.ResourceHandler;
 import game.buildings.defense.Pitfall;
 import game.buildings.defense.Wall;
@@ -101,6 +100,8 @@ public abstract class City {
 	//other buildings
 	public static int headquartersId;
 	public static int deleteId;
+	
+	boolean deleting;
 
 	public static Map world;
 
@@ -238,16 +239,18 @@ public abstract class City {
 	public boolean update(Vector2f translation, boolean active) {
 		messageTime -= Time.dt;
 		messageTime = (float)Math.max(messageTime, 0);
-		if (InputHandler.rightClicked())
+		if (InputHandler.rightClicked()) {
 			placingBuilding = false;
+			deleting = false;
+		}
 
 		if (placingBuildingId != deleteId) {
 			if (placingBuilding && world.isBuildable(placingPosition.x, placingPosition.y, getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y) 
 					&& active && InputHandler.leftClicked() && !UI.containsMouse()) { //click to place a building
 					buildBuilding();
 			}
-		} else if (InputHandler.leftClicked()) {
-				deleteBuilding(new Vector2f(placingPosition.x, placingPosition.y));
+		} else if (InputHandler.leftClicked() && !UI.containsMouse()) {
+				deleteBuilding(new Vector2f(Mouse.getX() + translation.x, Display.getHeight() - Mouse.getY() + translation.y));
 		}
 		collectResources();
 
@@ -282,7 +285,14 @@ public abstract class City {
 	}
 
 	public void buildCommand (BuildingType command) {
+
 		switch (command) {
+		case Delete:
+		default:
+			deleting = !deleting;
+			placingBuilding = deleting;
+			placingBuildingId = deleteId;
+			break;
 		case Farm:
 			placingBuildingId = farmId;
 			placingBuilding = true;
@@ -331,9 +341,6 @@ public abstract class City {
 			placingBuildingId = pitfallId;
 			placingBuilding = true;
 			break;
-		case Delete:
-			placingBuildingId = deleteId;
-			placingBuilding = true;
 		}
 	}
 
@@ -398,9 +405,9 @@ public abstract class City {
 		if (canAfford(cost)) {
 			if (building instanceof ResourceBuilding)
 				resourceBuildings.add((ResourceBuilding)building);
-			if (building instanceof MilitaryBuilding)
+			else if (building instanceof MilitaryBuilding)
 				militaryBuildings.add((MilitaryBuilding)building);
-			if (building instanceof DefenseBuilding)
+			else if (building instanceof DefenseBuilding)
 				defenseBuildings.add((DefenseBuilding)building);
 
 			world.placeBuilding(placingPosition.x, placingPosition.y, building.getSize().x, building.getSize().y);
@@ -460,14 +467,18 @@ public abstract class City {
 		//draw the building being placed if there is one
 		if (placingBuilding) {
 			//snaps the current position to the nearest tile
-			if (active) {
-				placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
+			if (!deleting) {
+				if (active) {
+					placingPosition = new Vector2f((float)Math.floor((Mouse.getX()+translate.x) / Map.TILE_SIZE)*Map.TILE_SIZE, 
 						(float)Math.ceil(((Driver.screenHeight - Mouse.getY() - getBuilding(placingBuildingId).getSize().y + translate.y)/Map.TILE_SIZE))*Map.TILE_SIZE);
+				}
+				//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
+				g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y)));
+				//we want some sort of notification that a spot can't be built on - maybe tinting the building red?
+			} else if (active) {
+				g.draw(deleteId, new Rect(new Vector2f(Mouse.getX() + translate.x - 32, Driver.screenHeight - Mouse.getY() + translate.y - 32), new Vector2f(64, 64)));
 			}
-			//draws the selected building (set to farm for now) at the current world location snapped to the tile the cursor is over
-			g.draw(placingBuildingId, new Rect(placingPosition, new Vector2f(getBuilding(placingBuildingId).getSize().x, getBuilding(placingBuildingId).getSize().y)));
-			//we want some sort of notification that a spot can't be built on - maybe tinting the building red?
-		}
+		} 
 	}
 
 
@@ -483,8 +494,6 @@ public abstract class City {
 			building = getMilitaryBuilding(id);
 		} else if (id == wallId || id == pitfallId) {
 			building = getDefenseBuilding(id);
-		} else if (id == deleteId) {
-			building = new Delete(id, placingPosition, new Vector2f(32,32), this);
 		}
 		return building;
 	}
@@ -492,6 +501,8 @@ public abstract class City {
 	protected Building getBuildingFromEnum(BuildingType make, Vector2f position) {
 		Building b = null;
 		switch (make) {
+		default:
+			break;
 		case Barracks:
 			b = new Barracks(barracksId, position, this);
 			break;

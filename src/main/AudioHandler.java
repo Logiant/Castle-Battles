@@ -16,7 +16,7 @@ public class AudioHandler {
 	}
 	
 	public void playMain() {
-		mainMusic.playAsMusic(1, 1, true);
+//		mainMusic.playAsMusic(1, 1, true);
 	}
 	
 	public void stopAll() {
